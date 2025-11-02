@@ -332,16 +332,14 @@ MonoBehaviour:
       m_Action: Aim
       m_Flags: 0
     m_Flags: 0
-  shootMode: 2
+  shootMode: 0
   shootForce: 10
   arrowLength: 3
   maxChargeTime: 2
   maxChargeMultiplier: 1
   timingBarWidth: 2
   selectorSpeed: 1
-  selectorZoneWidth: 0.1
   perfectPowerMultiplier: 1
-  timingBarOffsetY: 0.5
   selectorColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
 --- !u!120 &162692358
 LineRenderer:
