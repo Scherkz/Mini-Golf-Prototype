@@ -17,10 +17,19 @@ public class BuildGrid : MonoBehaviour
     [SerializeField] private GameObject buildingPrefab;
 
     private GridData[] grid;
+    private SpriteRenderer gridVisualisation;
 
     private void Awake()
     {
         grid = new GridData[cellCount.x * cellCount.y];
+
+        gridVisualisation = transform.Find("GridVisualisation").GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        gridVisualisation.size = cellCount;
+        gridVisualisation.transform.localScale = new Vector3(cellSize, -cellSize, 1);
     }
 
     public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData)

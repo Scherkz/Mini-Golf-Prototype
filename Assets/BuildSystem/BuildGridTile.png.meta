@@ -1,0 +1,962 @@
+fileFormatVersion: 2
+guid: e4e7a2bbd04a2de4b95b540057213a88
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 526045405392306291
+    second: BuildGridTile_0
+  - first:
+      213: 2038907551457416336
+    second: BuildGridTile_1
+  - first:
+      213: -6036732825817843290
+    second: BuildGridTile_2
+  - first:
+      213: 4351887375307124431
+    second: BuildGridTile_3
+  - first:
+      213: 4639396655678297828
+    second: BuildGridTile_4
+  - first:
+      213: -2672164116348826904
+    second: BuildGridTile_5
+  - first:
+      213: -4513816304582478170
+    second: BuildGridTile_6
+  - first:
+      213: -4034692823679966529
+    second: BuildGridTile_7
+  - first:
+      213: 4967457590530878812
+    second: BuildGridTile_8
+  - first:
+      213: -1043148258950856467
+    second: BuildGridTile_9
+  - first:
+      213: 7558088806654339932
+    second: BuildGridTile_10
+  - first:
+      213: -7227194129628208190
+    second: BuildGridTile_11
+  - first:
+      213: 7455472469026729118
+    second: BuildGridTile_12
+  - first:
+      213: 2749957180463037128
+    second: BuildGridTile_13
+  - first:
+      213: -174068368001596999
+    second: BuildGridTile_14
+  - first:
+      213: 6167832674363970125
+    second: BuildGridTile_15
+  - first:
+      213: 400709857258891849
+    second: BuildGridTile_16
+  - first:
+      213: 2693616017295850627
+    second: BuildGridTile_17
+  - first:
+      213: 5059479077924116939
+    second: BuildGridTile_18
+  - first:
+      213: 4425959303486318591
+    second: BuildGridTile_19
+  - first:
+      213: -1644558645011359045
+    second: BuildGridTile_20
+  - first:
+      213: -407780813555336234
+    second: BuildGridTile_21
+  - first:
+      213: -6217392034433430537
+    second: BuildGridTile_22
+  - first:
+      213: -8353362745777427476
+    second: BuildGridTile_23
+  - first:
+      213: -847895751339391173
+    second: BuildGridTile_24
+  - first:
+      213: 8151255516589889313
+    second: BuildGridTile_25
+  - first:
+      213: -4358383878864341857
+    second: BuildGridTile_26
+  - first:
+      213: -161956259520966433
+    second: BuildGridTile_27
+  - first:
+      213: 8993481336426085939
+    second: BuildGridTile_28
+  - first:
+      213: 1756944286987143931
+    second: BuildGridTile_29
+  - first:
+      213: -238810892597745329
+    second: BuildGridTile_30
+  - first:
+      213: -5725804756883818781
+    second: BuildGridTile_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 1
+  spritePivot: {x: 0, y: 1}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BuildGridTile_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 235
+        width: 5
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37082245283ec4700800000000000000
+      internalID: 526045405392306291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 251
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0941b7e8d97ab4c10800000000000000
+      internalID: 2038907551457416336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_2
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 251
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9ff299a77393ca0800000000000000
+      internalID: -6036732825817843290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_3
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 251
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fce20b3b282056c30800000000000000
+      internalID: 4351887375307124431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_4
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 251
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e617d18da2726040800000000000000
+      internalID: 4639396655678297828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_5
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 251
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea8b77d4e09aead0800000000000000
+      internalID: -2672164116348826904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_6
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 251
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6bef77cf3bb51c0800000000000000
+      internalID: -4513816304582478170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_7
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 251
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb2ecbae044e108c0800000000000000
+      internalID: -4034692823679966529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_8
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 251
+        width: 22
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5d29602c54ffe440800000000000000
+      internalID: 4967457590530878812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 203
+        width: 5
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de0ca217f2ef581f0800000000000000
+      internalID: -1043148258950856467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_10
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 219
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5bec75a9b9b3e860800000000000000
+      internalID: 7558088806654339932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 171
+        width: 5
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c3e8bcfa39d3bb90800000000000000
+      internalID: -7227194129628208190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_12
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 187
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9cea05b5b8277760800000000000000
+      internalID: 7455472469026729118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 139
+        width: 5
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cab8095c7fc92620800000000000000
+      internalID: 2749957180463037128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_14
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 155
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b102a6ddb5959df0800000000000000
+      internalID: -174068368001596999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 107
+        width: 5
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d421385832b889550800000000000000
+      internalID: 6167832674363970125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_16
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 123
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94ae9ebfd7b9f8500800000000000000
+      internalID: 400709857258891849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 75
+        width: 5
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38cb8301f75a16520800000000000000
+      internalID: 2693616017295850627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_18
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 91
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc910344a61e63640800000000000000
+      internalID: 5059479077924116939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 43
+        width: 5
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff723aa698a2c6d30800000000000000
+      internalID: 4425959303486318591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_20
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 59
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbadcc720aa5d29e0800000000000000
+      internalID: -1644558645011359045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 5
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6db70d5b285475af0800000000000000
+      internalID: -407780813555336234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_22
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 27
+        width: 5
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fb8046c2e267b9a0800000000000000
+      internalID: -6217392034433430537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 22
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb64f937d4e21c80800000000000000
+      internalID: -8353362745777427476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_24
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 0
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b374ad67e4bab34f0800000000000000
+      internalID: -847895751339391173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_25
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 0
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12798c384b31f1170800000000000000
+      internalID: 8151255516589889313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_26
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 0
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f94708134f8e383c0800000000000000
+      internalID: -4358383878864341857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_27
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 0
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd01a1ad3ad90cdf0800000000000000
+      internalID: -161956259520966433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_28
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 0
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33e38cf30a34fcc70800000000000000
+      internalID: 8993481336426085939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_29
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 0
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfa4504358be16810800000000000000
+      internalID: 1756944286987143931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_30
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 0
+        width: 27
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f49a73a22c29facf0800000000000000
+      internalID: -238810892597745329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildGridTile_31
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 0
+        width: 5
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e6b2b409ead980b0800000000000000
+      internalID: -5725804756883818781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BuildGridTile_0: 526045405392306291
+      BuildGridTile_1: 2038907551457416336
+      BuildGridTile_10: 7558088806654339932
+      BuildGridTile_11: -7227194129628208190
+      BuildGridTile_12: 7455472469026729118
+      BuildGridTile_13: 2749957180463037128
+      BuildGridTile_14: -174068368001596999
+      BuildGridTile_15: 6167832674363970125
+      BuildGridTile_16: 400709857258891849
+      BuildGridTile_17: 2693616017295850627
+      BuildGridTile_18: 5059479077924116939
+      BuildGridTile_19: 4425959303486318591
+      BuildGridTile_2: -6036732825817843290
+      BuildGridTile_20: -1644558645011359045
+      BuildGridTile_21: -407780813555336234
+      BuildGridTile_22: -6217392034433430537
+      BuildGridTile_23: -8353362745777427476
+      BuildGridTile_24: -847895751339391173
+      BuildGridTile_25: 8151255516589889313
+      BuildGridTile_26: -4358383878864341857
+      BuildGridTile_27: -161956259520966433
+      BuildGridTile_28: 8993481336426085939
+      BuildGridTile_29: 1756944286987143931
+      BuildGridTile_3: 4351887375307124431
+      BuildGridTile_30: -238810892597745329
+      BuildGridTile_31: -5725804756883818781
+      BuildGridTile_4: 4639396655678297828
+      BuildGridTile_5: -2672164116348826904
+      BuildGridTile_6: -4513816304582478170
+      BuildGridTile_7: -4034692823679966529
+      BuildGridTile_8: 4967457590530878812
+      BuildGridTile_9: -1043148258950856467
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
