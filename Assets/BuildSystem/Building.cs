@@ -9,8 +9,6 @@ public class Building : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("AWAKE");
-
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (data != null)
@@ -21,8 +19,6 @@ public class Building : MonoBehaviour
 
     public void Init(BuildingData building)
     {
-        Debug.Log("INIT");
-
         data = building;
 
         name = data.name;

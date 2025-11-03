@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,8 +41,15 @@ public class BuildManager : MonoBehaviour
         var mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -mainCamera.transform.position.z));
 
         var cellPos = grid.IsPositionInsideGrid(mouseWorldPos) ? grid.GetCellPosition(mouseWorldPos) : mouseWorldPos;
+        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData);
 
         building.transform.localPosition = cellPos;
-        building.SetTint(grid.CanPlaceBuilding(cellPos, currentBuildingData) ? validColor : invalidColor);
+        building.SetTint(canBuild ? validColor : invalidColor);
+
+        // TODO: Replace with InputAction
+        if (canBuild && Mouse.current.leftButton.IsPressed() && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            grid.AddBuilding(cellPos, currentBuildingData);
+        }
     }
 }

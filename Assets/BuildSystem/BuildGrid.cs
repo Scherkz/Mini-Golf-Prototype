@@ -35,6 +35,38 @@ public class BuildGrid : MonoBehaviour
         gridVisualisation.transform.localScale = new Vector3(cellSize, -cellSize, 1);
     }
 
+    public bool AddBuilding(Vector3 position, BuildingData buildingData)
+    {
+        if (!CanPlaceBuilding(position, buildingData))
+            return false;
+
+        // instanciate building at position
+        var instance = Instantiate(buildingPrefab);
+
+        instance.transform.SetParent(transform);
+        instance.transform.localPosition = GetCellPosition(position);
+        instance.transform.localScale = new Vector3(cellSize, cellSize, 1);
+
+        var building = instance.GetComponent<Building>();
+        building.Init(buildingData);
+
+        var GridData = new GridData
+        {
+            buildingData = buildingData,
+            instance = instance,
+        };
+
+        // store building reference in grid
+        var localPosition = transform.InverseTransformPoint(position);
+        var cellIndex = GetCellIndex(localPosition);
+        foreach (var cellOffset in IterateBuildingCells(buildingData))
+        {
+            grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = GridData;
+        }
+
+        return true;
+    }
+
     public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData)
     {
         var localPosition = transform.InverseTransformPoint(position);
@@ -53,36 +85,6 @@ public class BuildGrid : MonoBehaviour
 
             if (grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)].IsOccupied)
                 return false;
-        }
-
-        return true;
-    }
-
-    public bool AddBuilding(Vector3 position, BuildingData buildingData)
-    {
-        if (!CanPlaceBuilding(position, buildingData))
-            return false;
-
-        // instanciate building at position
-        var instance = Instantiate(buildingPrefab);
-
-        instance.transform.SetParent(transform);
-        instance.transform.localPosition = GetCellPosition(position);
-
-        var building = instance.GetComponent<Building>();
-        building.Init(buildingData);
-
-        var GridData = new GridData
-        {
-            buildingData = buildingData,
-            instance = instance,
-        };
-
-        // store building reference in grid
-        var cellIndex = GetCellIndex(position);
-        foreach (var cellOffset in IterateBuildingCells(buildingData))
-        {
-            grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = GridData;
         }
 
         return true;
