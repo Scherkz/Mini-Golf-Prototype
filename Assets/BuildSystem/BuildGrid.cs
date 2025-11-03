@@ -40,11 +40,13 @@ public class BuildGrid : MonoBehaviour
         if (!CanPlaceBuilding(position, buildingData))
             return false;
 
+        var localPosition = transform.InverseTransformPoint(position);
+
         // instanciate building at position
         var instance = Instantiate(buildingPrefab);
 
         instance.transform.SetParent(transform);
-        instance.transform.localPosition = GetCellPosition(position);
+        instance.transform.localPosition = InternalGetCellPosition(localPosition);
         instance.transform.localScale = new Vector3(cellSize, cellSize, 1);
 
         var building = instance.GetComponent<Building>();
@@ -57,7 +59,6 @@ public class BuildGrid : MonoBehaviour
         };
 
         // store building reference in grid
-        var localPosition = transform.InverseTransformPoint(position);
         var cellIndex = GetCellIndex(localPosition);
         foreach (var cellOffset in IterateBuildingCells(buildingData))
         {
@@ -70,7 +71,7 @@ public class BuildGrid : MonoBehaviour
     public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData)
     {
         var localPosition = transform.InverseTransformPoint(position);
-        if (!_IsPositionInsideGrid(localPosition))
+        if (!InternalIsPositionInsideGrid(localPosition))
             return false;
 
         var cellCoords = GetCellCoords(localPosition);
@@ -93,15 +94,20 @@ public class BuildGrid : MonoBehaviour
     public bool IsPositionInsideGrid(Vector3 position)
     {
         var localPosition = transform.InverseTransformPoint(position);
-        return _IsPositionInsideGrid(localPosition);
+        return InternalIsPositionInsideGrid(localPosition);
     }
 
     public Vector3 GetCellPosition(Vector3 position)
     {
         var localPosition = transform.InverseTransformPoint(position);
-        var cellCoords = GetCellCoords(localPosition);
-        var localCellPosition = new Vector3(offset.x + cellCoords.x * cellSize, offset.y + cellCoords.y * cellSize, localPosition.z);
+        var localCellPosition = InternalGetCellPosition(localPosition);
         return transform.TransformPoint(localCellPosition);
+    }
+
+    private Vector3 InternalGetCellPosition(Vector3 localPosition)
+    {
+        var cellCoords = GetCellCoords(localPosition);
+        return new Vector3(offset.x + cellCoords.x * cellSize, offset.y + cellCoords.y * cellSize, localPosition.z);
     }
 
     private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData)
@@ -126,7 +132,7 @@ public class BuildGrid : MonoBehaviour
         return x + y * cellCount.x;
     }
 
-    private bool _IsPositionInsideGrid(Vector3 localPosition)
+    private bool InternalIsPositionInsideGrid(Vector3 localPosition)
     {
         if (localPosition.x < offset.x)
             return false;
