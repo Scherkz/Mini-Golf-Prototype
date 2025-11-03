@@ -43,7 +43,7 @@ public class BuildManager : MonoBehaviour
         var cellPos = grid.IsPositionInsideGrid(mouseWorldPos) ? grid.GetCellPosition(mouseWorldPos) : mouseWorldPos;
         var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData);
 
-        building.transform.localPosition = cellPos;
+        building.transform.position = cellPos;
         building.SetTint(canBuild ? validColor : invalidColor);
 
         // TODO: Replace with InputAction
