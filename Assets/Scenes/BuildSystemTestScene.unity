@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24918f74349da0444ba094148f0671b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingGhost
+  data: {fileID: 0}
 --- !u!1 &721488567
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +211,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildGrid
   cellSize: 0.5
   cellCount: {x: 20, y: 15}
-  buildingPrefab: {fileID: 3463104052295514653, guid: 2a60327e3263f4048a3fd3f4c2b13c65, type: 3}
 --- !u!1 &1123175065
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   validColor: {r: 1, g: 1, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   mainCamera: {fileID: 1263402550}
-  currentBuildingData: {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
+  currentBuildingData: {fileID: 11400000, guid: 04fa0426341b1a74290371ba78fc53fb, type: 2}
 --- !u!4 &1123175067
 Transform:
   m_ObjectHideFlags: 0
