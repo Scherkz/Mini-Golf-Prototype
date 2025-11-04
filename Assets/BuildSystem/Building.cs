@@ -1,16 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class Building : MonoBehaviour
 {
     public BuildingData data;
 
+    private GameObject prefabInstance;
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
         if (data != null)
         {
             Init(data);
@@ -19,10 +17,19 @@ public class Building : MonoBehaviour
 
     public void Init(BuildingData building)
     {
+        if (prefabInstance != null)
+        {
+            Destroy(prefabInstance);
+            prefabInstance = null;
+            spriteRenderer = null;
+        }
+
         data = building;
 
-        name = data.name;
-        spriteRenderer.sprite = data.sprite;
+        prefabInstance = Instantiate(data.prefab);
+        prefabInstance.transform.SetParent(transform, false);
+        prefabInstance.name = data.name;
+        spriteRenderer = prefabInstance.GetComponent<SpriteRenderer>();
     }
 
     public void SetTint(Color tint)
