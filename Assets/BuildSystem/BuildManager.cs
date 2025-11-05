@@ -15,13 +15,11 @@ public class BuildManager : MonoBehaviour
 
     [SerializeField ]public bool enableMouseControls = true;
 
-
     [Header("Input Actions")]
     public InputAction cursorPositionAction;
     public InputAction placeAction;
 
     private Vector2 virtualCursorPosition;
-
 
     private void Awake()
     {
@@ -89,7 +87,6 @@ public class BuildManager : MonoBehaviour
 
     private void UpdateCursorPosition()
     {
-
         if (enableMouseControls)
         {
             Vector2 mousePos = Mouse.current.position.ReadValue();
