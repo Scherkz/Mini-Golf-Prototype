@@ -13,12 +13,15 @@ public class BuildManager : MonoBehaviour
     private Building building;
     [SerializeField] private BuildingData currentBuildingData;
 
+    [SerializeField ]public bool enableMouseControls = true;
+
 
     [Header("Input Actions")]
     public InputAction cursorPositionAction;
     public InputAction placeAction;
 
     private Vector2 virtualCursorPosition;
+
 
     private void Awake()
     {
@@ -68,23 +71,41 @@ public class BuildManager : MonoBehaviour
         building.transform.position = cellPos;
         building.SetTint(canBuild ? validColor : invalidColor);
 
-        if (canBuild && placeAction.WasPressedThisFrame())
+
+        if (enableMouseControls)
         {
-            grid.AddBuilding(cellPos, currentBuildingData);
+            if (canBuild && Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                grid.AddBuilding(cellPos, currentBuildingData);
+            }
+        } else
+        {
+            if (canBuild && placeAction.WasPressedThisFrame())
+            {
+                grid.AddBuilding(cellPos, currentBuildingData);
+            }
         }
     }
 
     private void UpdateCursorPosition()
     {
-        Vector2 moveInput = cursorPositionAction.ReadValue<Vector2>();
 
-
-        if (moveInput != Vector2.zero) 
+        if (enableMouseControls)
         {
-            virtualCursorPosition += moveInput * Time.deltaTime;
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+            virtualCursorPosition = mousePos;
+        }
+        else
+        {
+            Vector2 moveInput = cursorPositionAction.ReadValue<Vector2>();
+            if (moveInput != Vector2.zero)
+            {
+                virtualCursorPosition += moveInput * Time.deltaTime;
 
-            virtualCursorPosition.x = Mathf.Clamp(virtualCursorPosition.x, 0, Screen.width);
-            virtualCursorPosition.y = Mathf.Clamp(virtualCursorPosition.y, 0, Screen.height);
+                virtualCursorPosition.x = Mathf.Clamp(virtualCursorPosition.x, 0, Screen.width);
+                virtualCursorPosition.y = Mathf.Clamp(virtualCursorPosition.y, 0, Screen.height);
+            }
         }
     }
 }
