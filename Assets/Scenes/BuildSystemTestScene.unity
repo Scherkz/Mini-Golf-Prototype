@@ -278,6 +278,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 051fa1a38fd44a946ad3cb5fab4d5a6a, type: 3}
+--- !u!1 &589796424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 589796426}
+  - component: {fileID: 589796425}
+  m_Layer: 0
+  m_Name: TestingPrefabCycler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &589796425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589796424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f1e7964c1b2134ea7fb76a3323f730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestingPrefabCycler
+  buildManager: {fileID: 1123175066}
+  buildings:
+  - {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
+  - {fileID: 11400000, guid: 04fa0426341b1a74290371ba78fc53fb, type: 2}
+  - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
+--- !u!4 &589796426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589796424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &721488567
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +715,7 @@ SceneRoots:
   - {fileID: 1263402551}
   - {fileID: 721488568}
   - {fileID: 1123175067}
+  - {fileID: 589796426}
   - {fileID: 1013739682921581056}
   - {fileID: 438968820}
   - {fileID: 382051458}
