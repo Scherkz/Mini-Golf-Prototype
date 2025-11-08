@@ -1,9 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerInfo[] players;
+    public Player[] players;
+
+    [SerializeField] private Transform spawnPointsParents;
 
     enum Phase
     {
@@ -15,26 +16,23 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Instance.OnPlayerPlacedBuilding += OnPlayerPlacesBuilding;
-        EventBus.Instance.OnPlayerFinishedRound += OnPlayerFinishedRound;
+        EventBus.Instance.OnStartGame -= StartRound;
     }
 
     private void OnDisable()
     {
-        EventBus.Instance.OnPlayerPlacedBuilding += OnPlayerPlacesBuilding;
-        EventBus.Instance.OnPlayerFinishedRound += OnPlayerFinishedRound;
+        EventBus.Instance.OnStartGame += StartRound;
     }
 
-    private void Start()
-    {
-        // TODO: remove onyl for testing
-        var players = new PlayerInfo[2];
-        StartRound(players);
-    }
-
-    public void StartRound(PlayerInfo[] players)
+    public void StartRound(Player[] players)
     {
         this.players = players;
+
+        foreach (var player in players)
+        {
+            player.OnPlacedBuilding += OnPlayerPlacesBuilding;
+            player.OnFinishedRound += OnPlayerFinishedRound;
+        }
 
         StartBuildingPhase();
     }
@@ -47,7 +45,7 @@ public class GameManager : MonoBehaviour
         // TODO: activate build system
     }
 
-    private void OnPlayerPlacesBuilding(PlayerInfo _playerInfo)
+    private void OnPlayerPlacesBuilding()
     {
         if (currentPhase != Phase.Building)
             return;
@@ -71,7 +69,7 @@ public class GameManager : MonoBehaviour
         // TODO: activate player controls
     }
 
-    private void OnPlayerFinishedRound(PlayerInfo _playerInfo)
+    private void OnPlayerFinishedRound()
     {
         if (currentPhase != Phase.Playing)
             return;

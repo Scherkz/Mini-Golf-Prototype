@@ -21,7 +21,7 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform spawnPointsParents;
 
-    private readonly List<JoinedPlayer> players = new();
+    private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
 
     private void Awake()
@@ -42,13 +42,13 @@ public class PlayerInputManager : MonoBehaviour
         foreach (var gamepad in Gamepad.all)
         {
             // gamepad already connected to player
-            if (players.Any((player) => player.gamepad == gamepad))
+            if (joinedPlayers.Any((player) => player.gamepad == gamepad))
             {
                 // TODO: Maybe add better method of starting the round
                 if (gamepad.buttonEast.wasPressedThisFrame)
                 {
-                    var playerControllers = players.Select(player => player.playerInput.GetComponent<PlayerController>());
-                    EventBus.Instance.OnStartGame?.Invoke(playerControllers.ToArray());
+                    var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
+                    EventBus.Instance.OnStartGame?.Invoke(players.ToArray());
                 }
 
                 continue;
@@ -80,7 +80,7 @@ public class PlayerInputManager : MonoBehaviour
         playerInput.transform.position = spawnpoint.position;
         playerInput.GetComponent<Renderer>().material.color = GetPlayerColor();
 
-        players.Add(new JoinedPlayer()
+        joinedPlayers.Add(new JoinedPlayer()
         {
             spawnpoint = spawnpoint,
             gamepad = gamepad,
@@ -93,8 +93,8 @@ public class PlayerInputManager : MonoBehaviour
         Debug.Log("Lost Player: " + playerInput.devices[0].name);
 
 
-        var player = players.Find((player) => player.playerInput = playerInput);
-        players.Remove(player);
+        var player = joinedPlayers.Find((player) => player.playerInput = playerInput);
+        joinedPlayers.Remove(player);
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
     }
@@ -116,6 +116,6 @@ public class PlayerInputManager : MonoBehaviour
     private Color GetPlayerColor()
     {
         float maxPlayerCount = spawnPointsParents.childCount;
-        return Color.HSVToRGB(players.Count / maxPlayerCount, 1f, 1f);
+        return Color.HSVToRGB(joinedPlayers.Count / maxPlayerCount, 1f, 1f);
     }
 }

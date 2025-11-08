@@ -19,8 +19,5 @@ public class EventBus : MonoBehaviour
         }
     }
 
-    public Action<PlayerController[]> OnStartGame;
-
-    public Action<PlayerInfo> OnPlayerPlacedBuilding;
-    public Action<PlayerInfo> OnPlayerFinishedRound;
+    public Action<Player[]> OnStartGame;
 }
