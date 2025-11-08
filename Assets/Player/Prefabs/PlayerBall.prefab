@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 120014390223562397}
   - component: {fileID: 2896593416940911140}
   - component: {fileID: 8315183499297057433}
+  - component: {fileID: 700298547964193965}
   m_Layer: 0
   m_Name: PlayerBall
   m_TagString: Untagged
@@ -171,7 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   shootForce: 10
   arrowLength: 3
-  label: {fileID: 0}
+  maxChargeTime: 2
+  maxChargeMultiplier: 2
 --- !u!50 &120014390223562397
 Rigidbody2D:
   serializedVersion: 5
@@ -355,3 +357,15 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &700298547964193965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7358398160097471715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 010938b5568570745b60632b278971da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VictoryChecker

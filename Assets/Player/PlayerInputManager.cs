@@ -8,6 +8,7 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
 
     private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
+    private int playerCount = 0;
 
     void Start()
     {
@@ -19,6 +20,8 @@ public class PlayerInputManager : MonoBehaviour
     }
     private void SpawnPlayer(Gamepad gamepad, Vector3 spawnPosition)
     {
+        playerCount++;
+
         var player = PlayerInput.Instantiate(
             playerPrefab,
             controlScheme: "Gamepad",
@@ -26,6 +29,7 @@ public class PlayerInputManager : MonoBehaviour
         );
 
         player.transform.position = spawnPosition;
+        player.name = $"PlayerBall {playerCount}";
         player.GetComponent<Renderer>().material.color = GetRandomColor();
         joinedGamepads.Add(gamepad);
     }
