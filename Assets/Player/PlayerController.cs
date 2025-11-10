@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool isCharging = false;
     private float chargeTimer = 0f;
 
-    void Awake()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
 
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (aimInput.sqrMagnitude > 0.01f)
             ShowAimArrow(aimInput);
