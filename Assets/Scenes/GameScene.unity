@@ -348,11 +348,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 371365829638372029, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: cellCount.x
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 371365829638372029, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: cellCount.y
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3397623193385846382, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: m_Name
@@ -360,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6397918722096016401, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6397918722096016401, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: m_LocalPosition.y

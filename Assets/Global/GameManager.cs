@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     public void StartRound(Player[] players)
     {
-        Debug.Log("STARTING GAME WITH " + players.Length + " PLAYERS!");
+        Debug.Log($"Starting game with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
         this.players = players;
 
         foreach (var player in players)
