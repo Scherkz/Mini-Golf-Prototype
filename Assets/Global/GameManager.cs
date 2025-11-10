@@ -2,30 +2,32 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Player[] players;
-
-    [SerializeField] private Transform spawnPointsParents;
-
-    enum Phase
+    private enum GamePhase
     {
         Building,
         Playing,
     }
 
-    private Phase currentPhase;
+    public Player[] players;
+
+    [SerializeField] private BuildGrid buildGrid;
+    [SerializeField] private BuildingData[] buildings;
+
+    private GamePhase currentPhase;
 
     private void OnEnable()
-    {
-        EventBus.Instance.OnStartGame -= StartRound;
-    }
-
-    private void OnDisable()
     {
         EventBus.Instance.OnStartGame += StartRound;
     }
 
+    private void OnDisable()
+    {
+        EventBus.Instance.OnStartGame -= StartRound;
+    }
+
     public void StartRound(Player[] players)
     {
+        Debug.Log("STARTING GAME WITH " + players.Length + " PLAYERS!");
         this.players = players;
 
         foreach (var player in players)
@@ -39,15 +41,17 @@ public class GameManager : MonoBehaviour
 
     private void StartBuildingPhase()
     {
-        currentPhase = Phase.Building;
-        
-        // TODO: spawn build players
-        // TODO: activate build system
+        currentPhase = GamePhase.Building;
+
+        foreach (var player in players)
+        {
+            player.StartBuildingPhase(buildGrid, buildings[Random.Range(0, buildings.Length)]);
+        }
     }
 
     private void OnPlayerPlacesBuilding()
     {
-        if (currentPhase != Phase.Building)
+        if (currentPhase != GamePhase.Building)
             return;
 
         foreach (var player in players)
@@ -57,21 +61,22 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finsihed placing their building
-        // TODO: delay by one frame
-        StartPlayingPhase();
+        this.CallNextFrame(StartPlayingPhase);
     }
 
     private void StartPlayingPhase()
     {
-        currentPhase = Phase.Building;
+        currentPhase = GamePhase.Playing;
 
-        // TODO: spawn players
-        // TODO: activate player controls
+        foreach (var player in players)
+        {
+            player.StartPlayingPhase();
+        }
     }
 
     private void OnPlayerFinishedRound()
     {
-        if (currentPhase != Phase.Playing)
+        if (currentPhase != GamePhase.Playing)
             return;
 
         foreach (var player in players)
@@ -81,8 +86,7 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finsihed the round
-        // TODO: delay by one frame
         // TODO: check if max rounds are played
-        StartBuildingPhase();
+        this.CallNextFrame(StartBuildingPhase);
     }
 }

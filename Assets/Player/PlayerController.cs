@@ -5,13 +5,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Settings")]
     public float shootForce = 10f;
     public float arrowLength = 3f;
 
-    [Header("Charged Mode Settings")]
     public float maxChargeTime = 2f;
     public float maxChargeMultiplier = 2f;
+
+    [Header("Input Actions")]
+    [SerializeField] private InputAction aimAction;
+    [SerializeField] private InputAction shootAction;
 
     private Rigidbody2D body;
     private LineRenderer aimLine;
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
 
+        GetComponent<Renderer>().material.color = Random.ColorHSV();
+
         // Aim line
         aimLine = GetComponent<LineRenderer>();
         aimLine.positionCount = 2;
@@ -36,23 +40,23 @@ public class PlayerController : MonoBehaviour
         aimLine.endColor = Color.red;
     }
 
-    public void Aim(InputAction.CallbackContext context)
+    private void OnEnable()
     {
-        if (!isCharging)
-        {
-            aimInput = -1 * context.ReadValue<Vector2>();
-        } 
+        aimAction.Enable();
+        shootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        aimAction.Disable();
+        shootAction.Disable();
     }
 
     public void Shoot(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            isCharging = true;
-            chargeTimer = 0f;
-
-            lockedAim = aimInput;
-            if (lockedAim.sqrMagnitude < 0.01f) return;
+            
         }
 
         if (context.canceled && isCharging)
@@ -70,6 +74,33 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Handle aim input
+        if (!isCharging)
+        {
+            aimInput = -1 * aimAction.ReadValue<Vector2>();
+        }
+
+        // Handle charging input
+        if (shootAction.WasPressedThisFrame())
+        {
+            isCharging = true;
+            chargeTimer = 0f;
+
+            lockedAim = aimInput;
+        }
+
+        if (shootAction.WasReleasedThisFrame() && isCharging)
+        {
+            float chargePercent = chargeTimer / maxChargeTime;
+            float chargeMultiplier = maxChargeMultiplier * chargePercent;
+            body.AddForce(chargeMultiplier * shootForce * lockedAim.normalized, ForceMode2D.Impulse);
+
+            isCharging = false;
+            chargeTimer = 0f;
+            aimLine.startColor = Color.yellow;
+        }
+
+        // Handle visuals
         if (aimInput.sqrMagnitude > 0.01f)
             ShowAimArrow(aimInput);
         else

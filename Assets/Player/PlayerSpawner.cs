@@ -78,7 +78,6 @@ public class PlayerSpawner : MonoBehaviour
         spawnpoint.occupied = true;
 
         playerInput.transform.position = spawnpoint.position;
-        playerInput.GetComponent<Renderer>().material.color = GetPlayerColor();
 
         joinedPlayers.Add(new JoinedPlayer()
         {
@@ -91,7 +90,6 @@ public class PlayerSpawner : MonoBehaviour
     private void RemovePlayer(PlayerInput playerInput)
     {
         Debug.Log("Lost Player: " + playerInput.devices[0].name);
-
 
         var player = joinedPlayers.Find((player) => player.playerInput = playerInput);
         joinedPlayers.Remove(player);
@@ -111,11 +109,5 @@ public class PlayerSpawner : MonoBehaviour
         }
 
         return spawnPoints[0];
-    }
-
-    private Color GetPlayerColor()
-    {
-        float maxPlayerCount = spawnPointsParents.childCount;
-        return Color.HSVToRGB(joinedPlayers.Count / maxPlayerCount, 1f, 1f);
     }
 }

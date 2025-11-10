@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b6dac0faa05de4393bd074aea93876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  playerPrefab: {fileID: 7358398160097471715, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+  playerPrefab: {fileID: 3288741480610849305, guid: bcaa9720fe9cabe44ae5c8a230c0a1e0, type: 3}
   spawnPointsParents: {fileID: 218878140}
 --- !u!114 &845753676
 MonoBehaviour:
