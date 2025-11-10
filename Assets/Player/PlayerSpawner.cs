@@ -24,6 +24,8 @@ public class PlayerSpawner : MonoBehaviour
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
 
+    private int playerLastID = 0;
+
     private void Awake()
     {
         spawnPoints = new SpawnPoint[spawnPointsParents.childCount];
@@ -63,7 +65,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void SpawnPlayer(Gamepad gamepad)
     {
-        Debug.Log("Player joined: " + gamepad.device.name);
+        Debug.Log($"Player {playerLastID} joining: {gamepad.device.name}");
 
         var playerInput = PlayerInput.Instantiate(
             playerPrefab,
@@ -78,6 +80,7 @@ public class PlayerSpawner : MonoBehaviour
         spawnpoint.occupied = true;
 
         playerInput.transform.position = spawnpoint.position;
+        playerInput.gameObject.name = $"Player {playerLastID++} [{gamepad.device.displayName}]";
 
         joinedPlayers.Add(new JoinedPlayer()
         {
