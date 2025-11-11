@@ -64,8 +64,12 @@ public class Player : MonoBehaviour
         playerController.transform.position = spawnPosition;
     }
 
+    // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
+        if (hasFinishedRound)
+            return; // we are currently in build mode -> ignore event
+
         hasFinishedRound = true;
         playerController.enabled = false;
 
