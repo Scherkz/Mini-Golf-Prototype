@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
         Playing,
     }
 
+    [SerializeField] private int maxRoundsPerGame = 6;
+
     [SerializeField] private BuildGrid buildGrid;
     [SerializeField] private BuildingData[] buildings;
 
@@ -15,6 +18,13 @@ public class GameManager : MonoBehaviour
 
     private Player[] players;
     private GamePhase currentPhase;
+
+    private int roundCount;
+
+    private void Awake()
+    {
+        roundCount = 0;
+    }
 
     private void Start()
     {
@@ -48,6 +58,9 @@ public class GameManager : MonoBehaviour
     private void StartBuildingPhase()
     {
         currentPhase = GamePhase.Building;
+
+        // building phase begins a new round
+        roundCount++;
 
         buildGrid.ShowGrid(true);
 
@@ -97,7 +110,20 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finsihed the round
-        // TODO: check if max rounds are played
-        this.CallNextFrame(StartBuildingPhase);
+        if (roundCount >= maxRoundsPerGame)
+        {
+            this.CallNextFrame(OnGameOver);
+        }
+        else
+        {
+            this.CallNextFrame(StartBuildingPhase);
+        } 
+    }
+
+    private void OnGameOver()
+    {
+        // TODO: show results
+        // Reload current level
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
