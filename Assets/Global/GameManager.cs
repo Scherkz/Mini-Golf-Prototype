@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 
         // building phase begins a new round
         roundCount++;
+        EventBus.Instance?.OnRoundStart?.Invoke(maxRoundsPerGame, roundCount);
 
         buildGrid.ShowGrid(true);
 
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
         else
         {
             this.CallNextFrame(StartBuildingPhase);
-        } 
+        }
     }
 
     private void OnGameOver()

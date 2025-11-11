@@ -19,5 +19,27 @@ public class EventBus : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>Player[]</term>
+    ///         <description>Contains all the joined players.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
     public Action<Player[]> OnStartGame;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>int</term>
+    ///         <description>Contains the total amount of rounds to plays.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term>int</term>
+    ///         <description>Contains the current amount of played rounds.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<int, int> OnRoundStart;
 }
