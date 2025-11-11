@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     public float maxChargeTime = 2f;
     public float maxChargeMultiplier = 2f;
+
+    public Action OnSwing;
 
     private Rigidbody2D body;
     private LineRenderer aimLine;
@@ -24,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
 
-        GetComponent<Renderer>().material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
+        GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
 
         // Aim line
         aimLine = GetComponent<LineRenderer>();
@@ -66,6 +69,8 @@ public class PlayerController : MonoBehaviour
             aimInput = Vector2.zero;
             aimLine.enabled = false;
             aimLine.startColor = Color.yellow;
+
+            OnSwing?.Invoke();
         }
     }
 

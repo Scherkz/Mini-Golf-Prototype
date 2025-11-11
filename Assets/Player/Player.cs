@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
+    public int numberOfSwings;
+
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
 
@@ -31,11 +33,20 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         buildController.OnBuildingPlaced += OnBuildingPlaced;
+        playerController.OnSwing += OnPlayerSwings;
     }
 
     private void OnDisable()
     {
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
+        playerController.OnSwing -= OnPlayerSwings;
+    }
+
+    public void StartNewRound()
+    {
+        hasPlacedBuilding = false;
+        hasFinishedRound = true; // this means we are currently in building phase
+        numberOfSwings = 0;
     }
 
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
@@ -82,5 +93,10 @@ public class Player : MonoBehaviour
         buildController.enabled = false;
 
         OnPlacedBuilding?.Invoke();
+    }
+
+    private void OnPlayerSwings()
+    {
+        numberOfSwings++;
     }
 }

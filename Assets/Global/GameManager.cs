@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
         {
             player.OnPlacedBuilding += OnPlayerPlacesBuilding;
             player.OnFinishedRound += OnPlayerFinishedRound;
+
+            player.StartNewRound();
         }
 
         StartBuildingPhase();
@@ -122,6 +124,13 @@ public class GameManager : MonoBehaviour
 
     private void OnGameOver()
     {
+        // clean up event subscriptions
+        foreach (var player in players)
+        {
+            player.OnPlacedBuilding -= OnPlayerPlacesBuilding;
+            player.OnFinishedRound -= OnPlayerFinishedRound;
+        }
+
         // TODO: show results
         // Reload current level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
