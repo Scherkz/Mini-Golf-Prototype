@@ -312,6 +312,31 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
   - {fileID: 11400000, guid: 04fa0426341b1a74290371ba78fc53fb, type: 2}
   - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
+  switchAction:
+    m_Name: Switch
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b22b9e1d-d9f4-4475-8974-53f3f3d85350
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: cade7ae7-e074-42b7-9c80-d2e5b7f1cd49
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Switch
+      m_Flags: 0
+    - m_Name: 
+      m_Id: fffbd038-eb9a-47fe-9450-fecb6c6ef547
+      m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Switch
+      m_Flags: 0
+    m_Flags: 0
 --- !u!4 &589796426
 Transform:
   m_ObjectHideFlags: 0
@@ -382,46 +407,14 @@ MonoBehaviour:
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: d9d2d2c3-af85-41c8-90ee-befcb8b7fc2a
-      m_Path: 2DVector
+    - m_Name: 
+      m_Id: c6e84608-a028-4e93-8366-109dbb751432
+      m_Path: <Gamepad>/leftStick
       m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Cursor Position
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 64bd2340-4d92-47f0-bac7-7ab8afbfc663
-      m_Path: <Gamepad>/leftStick/up
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 8be00fb8-ab75-490d-af66-13b6034616ec
-      m_Path: <Gamepad>/leftStick/down
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
-    - m_Name: left
-      m_Id: e751061a-5ded-45b2-b12c-9dc4f27e4d39
-      m_Path: <Gamepad>/leftStick/left
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
-    - m_Name: right
-      m_Id: 887a2e53-226e-4a3c-9932-42bc48c9e080
-      m_Path: <Gamepad>/leftStick/right
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
+      m_Flags: 0
     m_Flags: 0
   placeAction:
     m_Name: Place
@@ -432,7 +425,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: dc20c357-b9cc-4f1f-bd3e-1eed816181bb
+      m_Id: 8265a075-2b9e-4147-90f4-cbea5506d3b8
       m_Path: <Gamepad>/buttonSouth
       m_Interactions: 
       m_Processors: 
