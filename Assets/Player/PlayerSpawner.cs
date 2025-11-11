@@ -86,7 +86,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void RemovePlayer(PlayerInput playerInput)
     {
-        var joinedPlayer = joinedPlayers.Find((player) => player.playerInput = playerInput);
+        var joinedPlayer = joinedPlayers.Find((player) => player.playerInput == playerInput);
         joinedPlayer.spawnpoint.occupied = false;
         joinedPlayers.Remove(joinedPlayer);
 
