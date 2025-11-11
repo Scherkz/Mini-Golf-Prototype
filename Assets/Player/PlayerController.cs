@@ -5,11 +5,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Settings")]
     public float shootForce = 10f;
     public float arrowLength = 3f;
 
-    [Header("Charged Mode Settings")]
     public float maxChargeTime = 2f;
     public float maxChargeMultiplier = 2f;
 
@@ -26,6 +24,8 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
 
+        GetComponent<Renderer>().material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
+
         // Aim line
         aimLine = GetComponent<LineRenderer>();
         aimLine.positionCount = 2;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         if (!isCharging)
         {
             aimInput = -1 * context.ReadValue<Vector2>();
-        } 
+        }
     }
 
     public void Shoot(InputAction.CallbackContext context)
@@ -59,17 +59,19 @@ public class PlayerController : MonoBehaviour
         {
             float chargePercent = chargeTimer / maxChargeTime;
             float chargeMultiplier = maxChargeMultiplier * chargePercent;
-            body.AddForce(lockedAim.normalized * shootForce * chargeMultiplier, ForceMode2D.Impulse);
+            body.AddForce(chargeMultiplier * shootForce * lockedAim.normalized, ForceMode2D.Impulse);
 
             isCharging = false;
             chargeTimer = 0f;
+            aimInput = Vector2.zero;
+            aimLine.enabled = false;
             aimLine.startColor = Color.yellow;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Handle visuals
         if (aimInput.sqrMagnitude > 0.01f)
             ShowAimArrow(aimInput);
         else

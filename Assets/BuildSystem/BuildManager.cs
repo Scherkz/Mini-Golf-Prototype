@@ -13,7 +13,8 @@ public class BuildManager : MonoBehaviour
     private BuildingGhost building;
     [SerializeField] private BuildingData currentBuildingData;
 
-    [SerializeField ]public bool enableMouseControls = true;
+    [SerializeField] private bool enableMouseControls = true;
+    [SerializeField] private float cursorSpeed = 400f;
 
     [Header("Input Actions")]
     public InputAction cursorPositionAction;
@@ -86,7 +87,7 @@ public class BuildManager : MonoBehaviour
         }
         else
         {
-            Vector2 moveInput = cursorPositionAction.ReadValue<Vector2>();
+            Vector2 moveInput = cursorPositionAction.ReadValue<Vector2>() * cursorSpeed;
             if (moveInput != Vector2.zero)
             {
                 virtualCursorPosition += moveInput * Time.deltaTime;
