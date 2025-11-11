@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
 
-        GetComponent<Renderer>().material.color = Random.ColorHSV();
+        GetComponent<Renderer>().material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
 
         // Aim line
         aimLine = GetComponent<LineRenderer>();
