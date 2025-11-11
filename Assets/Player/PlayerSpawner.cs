@@ -114,5 +114,15 @@ public class PlayerSpawner : MonoBehaviour
         // Start game if any player enter the finish area
         var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
         EventBus.Instance?.OnStartGame?.Invoke(players.ToArray());
+
+        // Disable self because player spawning during game is not intended
+        this.enabled = false;
+
+        // Unhook connected events
+        foreach (var joinedPlayer in joinedPlayers)
+        {
+            var player = joinedPlayer.playerInput.GetComponent<Player>();
+            player.OnFinishedRound -= OnAnyPlayerEnterFinishArea;
+        }
     }
 }
