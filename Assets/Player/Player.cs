@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     {
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
 
+        playerController.TogglePartyHat(false);
         playerController.gameObject.SetActive(false);
 
         hasPlacedBuilding = false;
@@ -89,6 +90,8 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
+
+        playerController.TogglePartyHat(true);
         playerController.enabled = false;
 
         OnFinishedRound?.Invoke();
