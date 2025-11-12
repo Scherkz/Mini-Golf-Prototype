@@ -15,13 +15,11 @@ public class BuildGrid : MonoBehaviour
     public Vector2Int cellCount;
 
     private GridData[] grid;
-    private Vector3 offset;
     private SpriteRenderer gridVisualisation;
 
     private void Awake()
     {
         grid = new GridData[cellCount.x * cellCount.y];
-        offset = new Vector3(-cellCount.x * cellSize * 0.5f, -cellCount.y * cellSize * 0.5f, 0);
 
         gridVisualisation = transform.Find("GridVisualisation").GetComponent<SpriteRenderer>();
     }
@@ -29,7 +27,6 @@ public class BuildGrid : MonoBehaviour
     private void Start()
     {
         gridVisualisation.size = cellCount;
-        gridVisualisation.transform.localPosition = offset;
         gridVisualisation.transform.localScale = new Vector3(cellSize, -cellSize, 1);
     }
 
@@ -107,7 +104,7 @@ public class BuildGrid : MonoBehaviour
     private Vector3 InternalGetCellPosition(Vector3 localPosition)
     {
         var cellCoords = GetCellCoords(localPosition);
-        return new Vector3(offset.x + cellCoords.x * cellSize, offset.y + cellCoords.y * cellSize, localPosition.z);
+        return new Vector3(cellCoords.x * cellSize, cellCoords.y * cellSize, localPosition.z);
     }
 
     private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData)
@@ -134,13 +131,13 @@ public class BuildGrid : MonoBehaviour
 
     private bool InternalIsPositionInsideGrid(Vector3 localPosition)
     {
-        if (localPosition.x < offset.x)
+        if (localPosition.x < 0)
             return false;
 
-        if (localPosition.y < offset.y)
+        if (localPosition.y < 0)
             return false;
 
-        var farCorner = offset + new Vector3(cellCount.x * cellSize, cellCount.y * cellSize, 0);
+        var farCorner = new Vector3(cellCount.x * cellSize, cellCount.y * cellSize, 0);
         if (localPosition.x >= farCorner.x)
             return false;
 
@@ -152,8 +149,8 @@ public class BuildGrid : MonoBehaviour
 
     private Vector2Int GetCellCoords(Vector3 localPosition)
     {
-        int x = (int) Mathf.Floor((localPosition.x - offset.x) / cellSize);
-        int y = (int) Mathf.Floor((localPosition.y - offset.y) / cellSize);
+        int x = (int) Mathf.Floor(localPosition.x / cellSize);
+        int y = (int) Mathf.Floor(localPosition.y / cellSize);
         return new Vector2Int(x, y);
     }
 }

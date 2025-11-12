@@ -595,13 +595,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildGrid
       objectReference: {fileID: 0}
+    - target: {fileID: 4969192953820430680, guid: f4020c342d479f749a0e657b892f4314, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969192953820430680, guid: f4020c342d479f749a0e657b892f4314, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6397918722096016401, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6397918722096016401, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 6397918722096016401, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: m_LocalPosition.z
@@ -634,6 +642,14 @@ PrefabInstance:
     - target: {fileID: 6397918722096016401, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007981528685904043, guid: f4020c342d479f749a0e657b892f4314, type: 3}
+      propertyPath: m_Size.x
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8007981528685904043, guid: f4020c342d479f749a0e657b892f4314, type: 3}
+      propertyPath: m_Size.y
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
