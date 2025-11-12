@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public Action OnFinishedRound;
     public Action<int> OnSwingsChanges;
 
+    [SerializeField] private GameObject confettiVFX;
+
     [SerializeField] private string buildingActionMapName = "Building";
     [SerializeField] private string playingActionMapName = "Playing";
 
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
     {
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
 
+        playerController.TogglePartyHat(false);
         playerController.gameObject.SetActive(false);
 
         hasPlacedBuilding = false;
@@ -89,7 +92,12 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
+
+        playerController.TogglePartyHat(true);
         playerController.enabled = false;
+
+        var confetti = Instantiate(confettiVFX);
+        confetti.transform.position = playerController.transform.position;
 
         OnFinishedRound?.Invoke();
     }

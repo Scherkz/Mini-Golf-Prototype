@@ -279,6 +279,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   hasPlacedBuilding: 0
   hasFinishedRound: 0
+  numberOfSwings: 0
+  confettiVFX: {fileID: 3854913348936531249, guid: 9a87ab47f99d252488aa0f42364610a3, type: 3}
+  buildingActionMapName: Building
+  playingActionMapName: Playing
 --- !u!1001 &2232769831847898041
 PrefabInstance:
   m_ObjectHideFlags: 0

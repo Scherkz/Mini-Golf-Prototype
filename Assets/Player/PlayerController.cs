@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public Action OnSwing;
 
     private Rigidbody2D body;
+    private GameObject partyHat;
 
     private Vector2 aimInput;
     private Vector2 lockedAim;
@@ -29,8 +30,19 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        partyHat = transform.Find("PartyHat").gameObject;
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
+    }
+
+    private void Start()
+    {
+        partyHat.SetActive(false);
+    }
+
+    public void TogglePartyHat(bool enable)
+    {
+        partyHat.SetActive(enable);
     }
 
     public void Aim(InputAction.CallbackContext context)
