@@ -6,16 +6,16 @@ public class BlackholeBuilding : Building
     public float attractionForce;
     public float flingForce;
 
-    private Transform rotationAnchor;
+    private Transform visualsAnchor;
 
     private void Awake()
     {
-        rotationAnchor = transform.Find("Anchor");
+        visualsAnchor = transform.Find("Anchor");
     }
 
     private void FixedUpdate()
     {
-        rotationAnchor.Rotate(new Vector3(0, 0, rotationSpeed * Time.fixedDeltaTime));
+        visualsAnchor.Rotate(new Vector3(0, 0, rotationSpeed * Time.fixedDeltaTime));
     }
 
     private void OnTriggerStay2D(Collider2D collision)

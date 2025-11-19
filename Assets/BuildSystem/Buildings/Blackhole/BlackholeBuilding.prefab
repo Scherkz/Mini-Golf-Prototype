@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackholeBuilding
   spriteRenderer: {fileID: 8736455043573817049}
+  rotationAnchor: {fileID: 0}
   rotationSpeed: 20
   attractionForce: 22
   flingForce: 42
