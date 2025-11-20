@@ -3,11 +3,10 @@ using UnityEngine;
 public class BuildingGhost : MonoBehaviour
 {
     public BuildingData data;
+    public Building currentBuilding;
 
     [SerializeField] private string sortingLayerName;
     [SerializeField] private int sortingLayerOrder;
-
-    private Building currentBuilding;
 
     private void Awake()
     {

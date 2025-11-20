@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingGhost
   data: {fileID: 0}
+  currentBuilding: {fileID: 0}
   sortingLayerName: Player
   sortingLayerOrder: 100
 --- !u!1 &1100288478554559361
@@ -262,6 +263,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9070e9e6-6785-49a2-b18e-c609bf2e33e2
     m_ActionName: 'Building/Place[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620588198494942541}
+        m_TargetAssemblyTypeName: PlayerBuildController, Assembly-CSharp
+        m_MethodName: RotateCW
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d18f9729-d976-4767-816e-4d5d944652ed
+    m_ActionName: 'Building/RotateClockWise[/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620588198494942541}
+        m_TargetAssemblyTypeName: PlayerBuildController, Assembly-CSharp
+        m_MethodName: RotateCCW
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a406ac04-6ac7-4856-b3c7-4a9a7a90076d
+    m_ActionName: 'Building/RotateCounterClockWise[/XInputControllerWindows/leftShoulder]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Playing

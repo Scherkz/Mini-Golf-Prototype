@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Windmill : Building
 {
-    public float rotationSpeed = 5;
+    public float rotationSpeed = -15;
 
     private void FixedUpdate()
     {
@@ -10,7 +10,7 @@ public class Windmill : Building
         rotationAnchor.Rotate(new Vector3(0, 0, rotationSpeed * Time.fixedDeltaTime));
     }
 
-    public override Rotation GetNextRotation(Rotation rotation, bool _clockWise)
+    public override Rotation GetNextRotation(bool _clockWise)
     {
         return rotation switch
         {
@@ -20,19 +20,16 @@ public class Windmill : Building
         };
     }
 
-    public override void Rotate(BuildingData _buildingData, Rotation rotation)
+    protected override void RotateSelf(BuildingData _buildingData, Rotation rotation)
     {
-        if (rotationAnchor == null)
-            return;
-
         switch (rotation)
         {
             default:
             case Rotation.Degree0:
-                rotationSpeed = Mathf.Abs(rotationSpeed);
+                rotationSpeed = -Mathf.Abs(rotationSpeed); // default rotation is to the right
                 break;
             case Rotation.Degree180:
-                rotationSpeed = -Mathf.Abs(rotationSpeed);
+                rotationSpeed = Mathf.Abs(rotationSpeed);
                 break;
         }
     }

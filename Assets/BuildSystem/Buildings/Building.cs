@@ -11,6 +11,7 @@ public class Building : MonoBehaviour
     }
 
     public SpriteRenderer spriteRenderer;
+    public Rotation rotation;
 
     // leave this null if the building is not rotatable
     [SerializeField] protected Transform rotationAnchor;
@@ -29,7 +30,7 @@ public class Building : MonoBehaviour
         spriteRenderer.sortingOrder = sortingOrder;
     }
 
-    public virtual Rotation GetNextRotation(Rotation rotation, bool clockWise)
+    public virtual Rotation GetNextRotation(bool clockWise)
     {
         if (rotationAnchor == null)
             return Rotation.Degree0;
@@ -44,29 +45,37 @@ public class Building : MonoBehaviour
         };
     }
 
-    public virtual void Rotate(BuildingData buildingData, Rotation rotation)
+    public void SetRotation(BuildingData buildingData, Rotation rotation)
     {
         if (rotationAnchor == null)
             return;
 
-        switch (rotation)
+        this.rotation = rotation;
+
+        RotateSelf(buildingData, rotation);
+    }
+
+    protected virtual void RotateSelf(BuildingData buildingData, Rotation rotation)
+    {
+
+        switch (this.rotation)
         {
             default:
             case Rotation.Degree0:
                 rotationAnchor.eulerAngles = Vector3.zero;
-                rotationAnchor.position = Vector3.zero;
+                rotationAnchor.localPosition = Vector3.zero;
                 break;
             case Rotation.Degree90:
                 rotationAnchor.eulerAngles = new Vector3(0, 0, -90);
-                rotationAnchor.position = new Vector3(0, buildingData.cellCount.x, 0);
+                rotationAnchor.localPosition = new Vector3(0, buildingData.cellCount.x, 0);
                 break;
             case Rotation.Degree180:
                 rotationAnchor.eulerAngles = new Vector3(0, 0, -180);
-                rotationAnchor.position = new Vector3(buildingData.cellCount.x, buildingData.cellCount.y, 0);
+                rotationAnchor.localPosition = new Vector3(buildingData.cellCount.x, buildingData.cellCount.y, 0);
                 break;
             case Rotation.Degree270:
                 rotationAnchor.eulerAngles = new Vector3(0, 0, -270);
-                rotationAnchor.position = new Vector3(buildingData.cellCount.y, 0, 0);
+                rotationAnchor.localPosition = new Vector3(buildingData.cellCount.y, 0, 0);
                 break;
         }
     }

@@ -53,6 +53,24 @@ public class PlayerBuildController : MonoBehaviour
         }
     }
 
+    public void RotateCW(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            var building = buildingGhost.currentBuilding;
+            building.SetRotation(buildingGhost.data, building.GetNextRotation(true));
+        }
+    }
+
+    public void RotateCCW(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            var building = buildingGhost.currentBuilding;
+            building.SetRotation(buildingGhost.data, building.GetNextRotation(false));
+        }
+    }
+
     public void Init(BuildGrid buildGrid, BuildingData buildingData)
     {
         grid = buildGrid;
