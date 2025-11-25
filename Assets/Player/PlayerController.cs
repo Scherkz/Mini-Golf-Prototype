@@ -6,17 +6,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerController : MonoBehaviour
 {
-    public float shootForce = 10f;
-    public float arrowLength = 3f;
-
-    public float maxChargeTime = 1;
-    public float maxChargeMultiplier = 2f;
-
-    [Header("AimArrow")] public Transform aimArrow;
-    public float aimArrowMaxLengthMultiplier = 1.5f;
-
     public Action OnSwing;
+    
+    [SerializeField] private float shootForce = 10f;
+    [SerializeField] private float arrowLength = 3f;
 
+    [SerializeField] private float maxChargeTime = 1;
+    [SerializeField] private float maxChargeMultiplier = 2f;
+    
+    [Header("AimArrow")] 
+    [SerializeField] private Transform aimArrow;
+    [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
+    
     private Rigidbody2D body;
     private GameObject partyHat;
 
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool isCharging = false;
     private float chargeTimer = 0f;
 
-    void Awake()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         partyHat = transform.Find("PartyHat").gameObject;
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
             aimArrow.gameObject.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         // Handle visuals
         if (aimInput.sqrMagnitude > 0.01f)
@@ -108,12 +109,12 @@ public class PlayerController : MonoBehaviour
     {
         aimArrow.gameObject.SetActive(true);
 
-        Vector2 dir = input.normalized;
-        float chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
-        float lengthMultiplier = Mathf.Lerp(1f, aimArrowMaxLengthMultiplier, chargePercent);
-        float scaledLength = arrowLength * lengthMultiplier;
+        var dir = input.normalized;
+        var chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
+        var lengthMultiplier = Mathf.Lerp(1f, aimArrowMaxLengthMultiplier, chargePercent);
+        var scaledLength = arrowLength * lengthMultiplier;
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         aimArrow.rotation = Quaternion.Euler(0, 0, angle);
 
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
