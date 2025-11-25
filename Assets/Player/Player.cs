@@ -89,6 +89,8 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
+        
+        playerController.CancelShotAndHideArrow();
 
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
