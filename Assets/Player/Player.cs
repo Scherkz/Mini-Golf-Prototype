@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
     public Action<int> OnSwingsChanges;
+    public Action<string> OnSpecialShotAssigned;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -92,6 +93,8 @@ public class Player : MonoBehaviour
         var specialShotTypes = Enum.GetValues(typeof(SpecialShotType));
         int randomIndex = UnityEngine.Random.Range(0, specialShotTypes.Length);
         assignedSpecialShot = (SpecialShotType) randomIndex;
+
+        OnSpecialShotAssigned?.Invoke(assignedSpecialShot.ToString());
     }
 
     public bool HasAvailableSpecialShot()
@@ -101,6 +104,8 @@ public class Player : MonoBehaviour
     public void UsedSpecialShot()
     {
         specialShotAvailable = false;
+        // display nothing in the UI
+        OnSpecialShotAssigned?.Invoke("");
     }
 
     public SpecialShotType GetAssignedSpecialShot()
