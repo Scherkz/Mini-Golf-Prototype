@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerBuildController buildController;
     private PlayerController playerController;
+    
+    private Color color;
 
     private void Awake()
     {
@@ -61,7 +63,9 @@ public class Player : MonoBehaviour
 
         buildController.enabled = true;
         buildController.gameObject.SetActive(true);
-        buildController.Init(buildGrid, buildingData);
+        // TODO revert after testing
+        //buildController.InitBuildingPhase(buildGrid);
+        buildController.InitSelectionPhase(Vector3.zero);
     }
 
     public void StartPlayingPhase(Vector3 spawnPosition)
@@ -79,12 +83,14 @@ public class Player : MonoBehaviour
 
     public Color GetColor()
     {
-        return playerController.GetComponent<Renderer>().material.color;
+        return color;
     }
 
     public void SetColor(Color color)
     {
-        playerController.GetComponent<Renderer>().material.color = color;
+        this.color = color;
+        playerController.SetColor(color);
+        buildController.SetColor(color);
     }
 
     // is called via Unity's messaging system
