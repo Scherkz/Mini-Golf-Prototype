@@ -80,6 +80,8 @@ public class Player : MonoBehaviour
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
     {
         hasPlacedBuilding = false;
+        
+        buildController.gameObject.SetActive(true);
 
         buildController.InitBuildingPhase(buildGrid);
     }
@@ -131,6 +133,8 @@ public class Player : MonoBehaviour
     private void OnBuildingSelected()
     {
         hasSelectedBuilding = true;
+        
+        buildController.gameObject.SetActive(false);
         
         OnSelectedBuilding?.Invoke();
     }

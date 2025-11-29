@@ -63,5 +63,10 @@ public class BuildingSpawner : MonoBehaviour
                 Instantiate(buildingGhostPrefab, anchor);
             }
         }
+        
+        for (int i = 0; i < anchor.childCount; i++)
+        {
+            anchor.GetChild(i).gameObject.SetActive(true);
+        }
     }
 }

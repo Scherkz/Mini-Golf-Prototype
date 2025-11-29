@@ -39,8 +39,9 @@ public class BuildingGhost : MonoBehaviour
     }
     
     // is called via Unity's messaging system
-    private void OnBuildingSelected(PlayerBuildController buildController)
+    private void OnBuildingSelectedMessage(PlayerBuildController buildController)
     {
         buildController.SetBuildingData(data);
+        gameObject.SetActive(false);
     }
 }

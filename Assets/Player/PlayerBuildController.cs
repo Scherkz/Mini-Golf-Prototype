@@ -61,7 +61,7 @@ public class PlayerBuildController : MonoBehaviour
                 var hits = Physics2D.OverlapCircleAll(cursor.transform.position, cursorRadius);
                 foreach (var collider in hits)
                 {
-                    collider.gameObject.SendMessageUpwards("OnBuildingSelected", this, SendMessageOptions.DontRequireReceiver);
+                    collider.gameObject.SendMessageUpwards("OnBuildingSelectedMessage", this, SendMessageOptions.DontRequireReceiver);
                 }
             }
             else
