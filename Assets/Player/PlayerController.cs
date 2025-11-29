@@ -90,6 +90,11 @@ public class PlayerController : MonoBehaviour
             aimArrow.gameObject.SetActive(false);
     }
 
+    public void SetColor(Color color)
+    {
+        GetComponent<Renderer>().material.color = color; 
+    }
+
     private void Update()
     {
         // Handle visuals
