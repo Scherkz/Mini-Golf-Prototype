@@ -6,7 +6,6 @@ public class TestingBuildingSpawner : MonoBehaviour
     public BuildingData[] buildings;
     public int buildingCount = 5;
 
-
     private void Start()
     {
         this.CallNextFrame(CallBuildingSpawner);
