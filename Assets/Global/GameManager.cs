@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     private GamePhase currentPhase;
 
     private int roundCount;
+
+    private int maxScore = 25;
 
     private void Awake()
     {
@@ -155,6 +158,15 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finished the round
+        int leastSwings = players.Min(player => player.numberOfSwings);
+
+        foreach (var player in players)
+        {
+            var scoreAwardedThisRound = Mathf.Max(0, maxScore - (player.numberOfSwings * 5));
+            player.score += scoreAwardedThisRound;
+            player.scorePerRound.Add(scoreAwardedThisRound);
+        }
+
         if (roundCount >= maxRoundsPerGame)
         {
             this.CallNextFrame(OnGameOver);
