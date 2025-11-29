@@ -88,10 +88,10 @@ public class PlayerBuildController : MonoBehaviour
         }
     }
 
-    public void InitSelectionPhase(Vector3 position)
+    public void InitSelectionPhase(Vector2 screenPosition)
     {
         grid = null;
-        buildingGhost.transform.position = position;
+        screenPos = screenPosition;
     }
 
     public void InitBuildingPhase(BuildGrid buildGrid)

@@ -4,17 +4,21 @@ public class GameManager : MonoBehaviour
 {
     private enum GamePhase
     {
+        Selection,
         Building,
         Playing,
     }
 
     [SerializeField] private int maxRoundsPerGame = 6;
 
+    [SerializeField] private BuildingSpawner buildingSpawner;
     [SerializeField] private BuildGrid buildGrid;
     [SerializeField] private BuildingData[] buildings;
 
     [SerializeField] private Transform spawnPointsParent;
-
+    
+    [SerializeField] private float screenBorderDistance;
+    
     private Player[] players;
     private GamePhase currentPhase;
 
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         buildGrid.ShowGrid(false);
+        buildingSpawner.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -53,16 +58,36 @@ public class GameManager : MonoBehaviour
             player.StartNewRound();
         }
 
-        StartBuildingPhase();
+        StartBuildingSelectionPhase();
+    }
+
+    private void StartBuildingSelectionPhase()
+    {
+        currentPhase = GamePhase.Selection;
+
+        // selection phase begins a new round
+        roundCount++;
+        EventBus.Instance?.OnRoundStart?.Invoke(maxRoundsPerGame, roundCount);
+
+        buildingSpawner.gameObject.SetActive(true);
+        buildingSpawner.SpawnBuildings(buildings, players.Length + 1);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            var positions = new Vector3[]
+            {
+                new Vector3(screenBorderDistance, screenBorderDistance, 0),
+                new Vector3(screenBorderDistance, Screen.height - screenBorderDistance, 0),
+                new Vector3(Screen.width - screenBorderDistance, Screen.height - screenBorderDistance, 0),
+                new Vector3(Screen.width - screenBorderDistance, 0, 0)
+            };
+            players[i].StartSelectionPhase(positions[i]);
+        }
     }
 
     private void StartBuildingPhase()
     {
         currentPhase = GamePhase.Building;
-
-        // building phase begins a new round
-        roundCount++;
-        EventBus.Instance?.OnRoundStart?.Invoke(maxRoundsPerGame, roundCount);
 
         buildGrid.ShowGrid(true);
 
@@ -140,6 +165,7 @@ public class GameManager : MonoBehaviour
                 winner = players[i];
             }
         }
+
         EventBus.Instance?.OnWinnerDicided?.Invoke(winner);
     }
 }

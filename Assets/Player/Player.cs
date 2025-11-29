@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
+    public bool hasSelectedBuilding;
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
@@ -32,6 +33,12 @@ public class Player : MonoBehaviour
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
     }
 
+    private void Start()
+    {
+        buildController.gameObject.SetActive(false);
+        playerController.gameObject.SetActive(false);
+    }
+
     private void OnEnable()
     {
         buildController.OnBuildingPlaced += OnBuildingPlaced;
@@ -52,20 +59,26 @@ public class Player : MonoBehaviour
         OnSwingsChanges?.Invoke(numberOfSwings);
     }
 
-    public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
+    public void StartSelectionPhase(Vector2 screenPosition)
     {
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
-
+        
         playerController.TogglePartyHat(false);
         playerController.gameObject.SetActive(false);
 
-        hasPlacedBuilding = false;
-
+        hasSelectedBuilding = false;
+        
         buildController.enabled = true;
         buildController.gameObject.SetActive(true);
-        // TODO revert after testing
-        //buildController.InitBuildingPhase(buildGrid);
-        buildController.InitSelectionPhase(Vector3.zero);
+        
+        buildController.InitSelectionPhase(screenPosition);
+    }
+
+    public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
+    {
+        hasPlacedBuilding = false;
+
+        buildController.InitBuildingPhase(buildGrid);
     }
 
     public void StartPlayingPhase(Vector3 spawnPosition)
