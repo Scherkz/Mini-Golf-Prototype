@@ -162,9 +162,11 @@ public class GameManager : MonoBehaviour
 
         foreach (var player in players)
         {
-            var scoreAwardedThisRound = Mathf.Max(0, maxScore - (player.numberOfSwings * 5));
+            var additionalSwings = player.numberOfSwings - leastSwings;
+            var scoreAwardedThisRound = Mathf.Max(0, maxScore - (additionalSwings * 5));
             player.score += scoreAwardedThisRound;
             player.scorePerRound.Add(scoreAwardedThisRound);
+            player.OnScoreChanges?.Invoke(player.score);
         }
 
         if (roundCount >= maxRoundsPerGame)

@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
     public Action<int> OnSwingsChanges;
+    public Action<int> OnScoreChanges;
 
     public int score;
     public List<int> scorePerRound = new List<int>();

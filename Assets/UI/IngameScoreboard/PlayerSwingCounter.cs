@@ -20,6 +20,6 @@ public class PlayerSwingCounter : MonoBehaviour
 
     public void SetSwingsCounter(int count)
     {
-        swingText.text = $"Swings: {count}";
+        swingText.text = $"Score: {count}";
     }
 }
