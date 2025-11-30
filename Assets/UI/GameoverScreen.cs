@@ -114,7 +114,6 @@ public class GameoverScreen : MonoBehaviour
                     circleImage.color = players[r - 1].GetColor();
                     RectTransform crt = circleBall.GetComponent<RectTransform>();
                     crt.sizeDelta = new Vector2(cellWidth, cellHeight);
-                    //crt.localScale = new Vector2 (0.5f, 0.5f);
 
                 }
                 else if (isLastColumn && !isFirstRow)
