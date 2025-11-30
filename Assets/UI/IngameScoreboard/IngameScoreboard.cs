@@ -29,6 +29,7 @@ public class IngameScoreboard : MonoBehaviour
             playerSwingCounter.SetSwingsCounter(player.numberOfSwings);
 
             player.OnSwingsChanges += playerSwingCounter.SetSwingsCounter;
+            player.OnSpecialShotAssigned += playerSwingCounter.SetSpecialShotType;
 
             offset += prefabHeight;
         }

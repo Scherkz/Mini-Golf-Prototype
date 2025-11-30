@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
     public Action<int> OnSwingsChanges;
+    public Action<string> OnSpecialShotAssigned;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -26,6 +27,9 @@ public class Player : MonoBehaviour
     private PlayerController playerController;
     
     private Color color;
+
+    private SpecialShotType assignedSpecialShot;
+    private bool specialShotAvailable= true;
 
     private void Awake()
     {
@@ -97,6 +101,38 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+
+        specialShotAvailable = true;
+        Debug.Log($"Special shot set availabe {gameObject.name}");
+        AssignSpecialShotToPlayer();
+        playerController.ResetCollisionHappenedDuringSpecialShot();
+        playerController.SetFirstShotNotTaken();
+        playerController.ResetSpecialShotEnabled();
+    }
+
+    private void AssignSpecialShotToPlayer()
+    {
+        var specialShotTypes = Enum.GetValues(typeof(SpecialShotType));
+        int randomIndex = UnityEngine.Random.Range(0, specialShotTypes.Length);
+        assignedSpecialShot = (SpecialShotType) randomIndex;
+
+        OnSpecialShotAssigned?.Invoke(assignedSpecialShot.ToString());
+    }
+
+    public bool HasAvailableSpecialShot()
+    {
+        return specialShotAvailable;
+    }
+    public void UsedSpecialShot()
+    {
+        specialShotAvailable = false;
+        // display nothing in the UI
+        OnSpecialShotAssigned?.Invoke("");
+    }
+
+    public SpecialShotType GetAssignedSpecialShot()
+    {
+        return assignedSpecialShot;
     }
 
     public Color GetColor()
