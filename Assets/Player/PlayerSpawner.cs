@@ -19,17 +19,20 @@ public class PlayerSpawner : MonoBehaviour
         public PlayerInput playerInput;
         public int ID;
     }
-    
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform spawnPointsParents;
-    [SerializeField] private Color[] spawnPointColors =
+    [SerializeField]
+    private Color[] spawnPointColors =
     {
-        Color.blue,   
-        Color.violet,    
-        Color.orange,  
-        Color.green   
+        Color.blue,
+        Color.violet,
+        Color.orange,
+        Color.green
     };
-    
+
+    public bool allowJoining = true; // only true in lobby
+
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
 
@@ -87,11 +90,13 @@ public class PlayerSpawner : MonoBehaviour
         player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
         player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
         player.SetColor(joinedPlayer.spawnpoint.color);
-        
+
         joinedPlayers.Add(joinedPlayer);
         joinedPlayer.spawnpoint.occupied = true;
 
         Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
+
+        EventBus.Instance?.OnPlayerJoined?.Invoke(player);
     }
 
     private void RemovePlayer(PlayerInput playerInput)
@@ -101,6 +106,9 @@ public class PlayerSpawner : MonoBehaviour
         joinedPlayers.Remove(joinedPlayer);
 
         Debug.Log($"Lost Player {joinedPlayer.ID}: {joinedPlayer.gamepad.name}");
+
+        var player = playerInput.GetComponent<Player>();
+        EventBus.Instance?.OnPlayerLeft?.Invoke(player);
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
     }
@@ -134,5 +142,16 @@ public class PlayerSpawner : MonoBehaviour
             var player = joinedPlayer.playerInput.GetComponent<Player>();
             player.OnFinishedRound -= OnAnyPlayerEnterFinishArea;
         }
+    }
+
+    public Player GetPlayerByGamepad(Gamepad gamepad)
+    {
+        var player = joinedPlayers.Find(player => player.gamepad == gamepad);
+        return player != null ? player.playerInput.GetComponent<Player>() : null;
+    }
+
+    public IReadOnlyList<Player> GetAllPlayers()
+    {
+        return joinedPlayers.Select(player => player.playerInput.GetComponent<Player>()).ToList().AsReadOnly();
     }
 }

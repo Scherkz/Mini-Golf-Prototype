@@ -106,6 +106,14 @@ public class Player : MonoBehaviour
         OnFinishedRound?.Invoke();
     }
 
+    // is called via Unity's messaging system through MapNode.cs
+    private void OnMapNodeVoted(string mapName)
+    {
+        // Invoke map vote through event bus
+        EventBus.Instance?.OnMapVoted?.Invoke(mapName, this);
+
+    }
+
     private void OnBuildingPlaced()
     {
         hasPlacedBuilding = true;

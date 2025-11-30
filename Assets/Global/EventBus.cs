@@ -52,4 +52,14 @@ public class EventBus : MonoBehaviour
     /// </list>
     /// </summary>
     public Action<Player> OnWinnerDicided;
+
+    // Lobby events
+    public Action<Player> OnPlayerJoined;
+    public Action<Player> OnPlayerLeft;     
+    // Action<mapSceneName, votingPlayer>
+    public Action<string, Player> OnMapVoted;
+    public Action<Player> OnPlayerReady;
+    // <winningMapSceneName>
+    public Action<string> OnMapSelected;
+
 }
