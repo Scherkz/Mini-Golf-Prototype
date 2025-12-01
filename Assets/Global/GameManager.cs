@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
         Playing,
     }
 
-    [SerializeField] private int maxRoundsPerGame = 2;
+    [SerializeField] private int maxRoundsPerGame = 6;
 
     [SerializeField] private BuildingSpawner buildingSpawner;
     [SerializeField] private BuildGrid buildGrid;
@@ -19,12 +19,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPointsParent;
     
     [SerializeField] private float screenBorderDistance;
-    
+
+    [SerializeField] private int pointsForWinningRound = 25;
+    [SerializeField] private int pointsDeductedPerAdditionalShot = 5;
+
     private Player[] players;
     private GamePhase currentPhase;
 
     private int roundCount;
-    private int maxScore = 25;
 
     private void Awake()
     {
@@ -162,10 +164,8 @@ public class GameManager : MonoBehaviour
         foreach (var player in players)
         {
             var additionalSwings = player.numberOfSwingsThisRound - leastSwings;
-            var scoreAwardedThisRound = Mathf.Max(0, maxScore - (additionalSwings * 5));
-            player.score += scoreAwardedThisRound;
-            player.scorePerRound.Add(scoreAwardedThisRound);
-            player.OnScoreChanges?.Invoke(player.score);
+            var scoreAwardedThisRound = Mathf.Max(0, pointsForWinningRound - (additionalSwings * pointsDeductedPerAdditionalShot));
+            player.AddScore(scoreAwardedThisRound);
         }
 
         if (roundCount >= maxRoundsPerGame)
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         var winner = players[0];
         for (int i = 1; i < players.Length; i++)
         {
-            if (players[i].numberOfSwingsThisRound < winner.numberOfSwingsThisRound)
+            if (players[i].score < winner.score)
             {
                 winner = players[i];
             }

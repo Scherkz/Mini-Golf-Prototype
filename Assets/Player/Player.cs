@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +15,6 @@ public class Player : MonoBehaviour
     public Action OnSelectedBuilding;
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
-    public Action<int> OnSwingsChanges;
     public Action<int> OnScoreChanges;
 
     public int score;
@@ -65,7 +63,6 @@ public class Player : MonoBehaviour
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
         numberOfSwingsThisRound = 0;
-        OnSwingsChanges?.Invoke(numberOfSwingsThisRound);
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)
@@ -119,6 +116,13 @@ public class Player : MonoBehaviour
         buildController.SetColor(color);
     }
 
+    public void AddScore(int scoreAwardedThisRound)
+    {
+        score += scoreAwardedThisRound;
+        scorePerRound.Add(scoreAwardedThisRound);
+        OnScoreChanges?.Invoke(score);
+    }
+
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
@@ -158,6 +162,5 @@ public class Player : MonoBehaviour
     private void OnPlayerSwings()
     {
         numberOfSwingsThisRound++;
-        OnSwingsChanges?.Invoke(numberOfSwingsThisRound);
     }
 }
