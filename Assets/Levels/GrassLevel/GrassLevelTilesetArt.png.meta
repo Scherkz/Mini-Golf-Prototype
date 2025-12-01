@@ -776,6 +776,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: GrassLevelTilesetArt_RockDetail1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b88269f6e4265146aac8899974de6b4
+      internalID: 1536758544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrassLevelTilesetArt_RockDetail2
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 881ced161d43a084f8df448c0bfb3ff1
+      internalID: 376152914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -812,6 +856,8 @@ TextureImporter:
       GrassLevelTilesetArt_GrassSlopeBottom2Right: 584400950
       GrassLevelTilesetArt_GrassSlopeTopLeft: 1169667765
       GrassLevelTilesetArt_GrassSlopeTopRight: 394834813
+      GrassLevelTilesetArt_RockDetail1: 1536758544
+      GrassLevelTilesetArt_RockDetail2: 376152914
       GrassLevelTilesetArt_RockEndLeft: 825844103
       GrassLevelTilesetArt_RockEndRight: -236204216
       GrassLevelTilesetArt_RockMid: -1352530289
