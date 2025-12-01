@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,12 +10,18 @@ public class Player : MonoBehaviour
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
-    public int numberOfSwings;
+    public int numberOfSwingsThisRound;
 
     public Action OnSelectedBuilding;
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
-    public Action<int> OnSwingsChanges;
+    public Action<int> OnScoreChanges;
+
+    public int score;
+    public List<int> scorePerRound = new List<int>();
+    public float timeTookThisRound;
+    private float startTime;
+    private float endTime;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -58,8 +65,7 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
-        numberOfSwings = 0;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound = 0;
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)
@@ -97,6 +103,10 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+
+        StartTimer();
+
+        numberOfSwingsThisRound = 0;
     }
 
     public Color GetColor()
@@ -111,6 +121,13 @@ public class Player : MonoBehaviour
         buildController.SetColor(color);
     }
 
+    public void AddScore(int scoreAwardedThisRound)
+    {
+        score += scoreAwardedThisRound;
+        scorePerRound.Add(scoreAwardedThisRound);
+        OnScoreChanges?.Invoke(score);
+    }
+
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
@@ -118,7 +135,8 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
-        
+        StopTimer();
+
         playerController.CancelShotAndHideArrow();
 
         playerController.TogglePartyHat(true);
@@ -149,7 +167,15 @@ public class Player : MonoBehaviour
 
     private void OnPlayerSwings()
     {
-        numberOfSwings++;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound++;
+    }
+    private void StartTimer()
+    {
+        startTime = Time.time;
+    }
+    private void StopTimer()
+    {
+        endTime = Time.time;
+        timeTookThisRound = endTime - startTime;
     }
 }
