@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
 
     public int score;
     public List<int> scorePerRound = new List<int>();
+    public float timeTookThisRound;
+    private float startTime;
+    private float endTime;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -101,6 +104,8 @@ public class Player : MonoBehaviour
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
 
+        StartTimer();
+
         numberOfSwingsThisRound = 0;
     }
 
@@ -130,7 +135,8 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
-        
+        StopTimer();
+
         playerController.CancelShotAndHideArrow();
 
         playerController.TogglePartyHat(true);
@@ -162,5 +168,14 @@ public class Player : MonoBehaviour
     private void OnPlayerSwings()
     {
         numberOfSwingsThisRound++;
+    }
+    private void StartTimer()
+    {
+        startTime = Time.time;
+    }
+    private void StopTimer()
+    {
+        endTime = Time.time;
+        timeTookThisRound = endTime - startTime;
     }
 }
