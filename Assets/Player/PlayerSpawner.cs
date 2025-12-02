@@ -83,6 +83,10 @@ public class PlayerSpawner : MonoBehaviour
         };
 
         var player = playerInput.GetComponent<Player>();
+
+        var playerObjectName = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
+        player.gameObject.name = playerObjectName;
+
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
         player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
         player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";

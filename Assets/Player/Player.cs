@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
     public Action<int> OnScoreChanges;
+    public Action<string> OnSpecialShotAssigned;
 
     public int score;
     public List<int> scorePerRound = new List<int>();
@@ -31,6 +32,9 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerBuildController buildController;
     private PlayerController playerController;
+
+    private GameObject currentSpecialShotInstance;
+
     
     private Color color;
 
@@ -107,6 +111,38 @@ public class Player : MonoBehaviour
         StartTimer();
 
         numberOfSwingsThisRound = 0;
+
+        playerController.SetSpecialShotAvailability(true);
+        Debug.Log($"Special shot set availabe {gameObject.name}");
+        playerController.ResetSpecialShotEnabled();
+    }
+
+    // Generic way to assign a special shot to the player
+    public void AssignSpecialShotToPlayer(SpecialShotData specialShot)
+    {
+        if(currentSpecialShotInstance != null)
+        {
+            Destroy(currentSpecialShotInstance);
+        }
+
+        OnSpecialShotAssigned?.Invoke(specialShot.name);
+
+        currentSpecialShotInstance = Instantiate(specialShot.prefab, playerController.transform);
+        var specialShotComponent = currentSpecialShotInstance.GetComponent<SpecialShot>();
+        Rigidbody2D body = playerController.GetComponent<Rigidbody2D>();
+
+        if(specialShotComponent != null)
+        {
+            specialShotComponent.Init(playerController, this, body);
+        }
+
+    }
+
+    public void UsedSpecialShot()
+    {
+        playerController.SetSpecialShotAvailability(false);
+        // display nothing in the UI
+        OnSpecialShotAssigned?.Invoke("");
     }
 
     public Color GetColor()
