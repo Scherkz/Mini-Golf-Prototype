@@ -84,9 +84,7 @@ public class PlayerSpawner : MonoBehaviour
 
         var player = playerInput.GetComponent<Player>();
 
-        var playerController = player.transform.Find("PlayerBall").GetComponent<PlayerController>();
         var playerObjectName = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
-        playerController.SetPlayerName(playerObjectName);
         player.gameObject.name = playerObjectName;
 
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;

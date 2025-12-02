@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
 
     private bool firstShotTakenAfterRoundStart = false;
 
-    private string playerName = "undefined";
-
     public Action GetAssignedSpecialShot;
     public Action HasAvailableSpecialShot;
     public Action<Collision2D> BallCollisionEvent;
@@ -67,7 +65,7 @@ public class PlayerController : MonoBehaviour
             if (!specialShotAvailable) return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
-            Debug.Log($"{playerName} Special Shot enabled toggled to: " + isSpecialShotEnabled);
+            Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
         }
     }
 
@@ -143,7 +141,8 @@ public class PlayerController : MonoBehaviour
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
     }
 
-    // Ball collision events are used in the PushAway special shot
+    // Ball collision events are used for example in the PushAway special shot
+    // and in future special shots or powerups
     private void OnCollisionEnter2D(Collision2D collision)
     {
         BallCollisionEvent?.Invoke(collision);
@@ -165,10 +164,5 @@ public class PlayerController : MonoBehaviour
     public bool IsFirstShotTakenAfterRoundStart()
     {
         return firstShotTakenAfterRoundStart;
-    }
-
-    public void SetPlayerName(string name)
-    {
-        playerName = name;
     }
 }
