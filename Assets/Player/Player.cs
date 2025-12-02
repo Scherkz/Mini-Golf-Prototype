@@ -107,10 +107,10 @@ public class Player : MonoBehaviour
     }
 
     // is called via Unity's messaging system through MapNode.cs
-    private void OnMapNodeVoted(string mapName)
+    private void OnMapNodeVoted(MapNode map)
     {
         // Invoke map vote through event bus
-        EventBus.Instance?.OnMapVoted?.Invoke(mapName, this);
+        EventBus.Instance?.OnMapVoted?.Invoke(map, this);
 
     }
 

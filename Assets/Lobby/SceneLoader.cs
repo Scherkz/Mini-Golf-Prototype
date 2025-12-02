@@ -17,12 +17,12 @@ public class SceneLoader : MonoBehaviour
         EventBus.Instance.OnMapSelected -= LoadEnvironment;
     }
 
-    private void LoadEnvironment(string mapSceneName)
+    private void LoadEnvironment(MapNode mapSceneName)
     {
         StartCoroutine(SwapEnvironment(mapSceneName));
     }
 
-    private IEnumerator SwapEnvironment(string mapScene)
+    private IEnumerator SwapEnvironment(MapNode mapScene)
     {
         if (!string.IsNullOrEmpty(loadedEnvironment))
         {
@@ -31,9 +31,9 @@ public class SceneLoader : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         // load chosen map: change LoadSceneMode to additive once scenes are separated into ManagerScene and LevelScenes
-        var async = SceneManager.LoadSceneAsync(mapScene, LoadSceneMode.Single);
+        var async = SceneManager.LoadSceneAsync(mapScene.mapName, LoadSceneMode.Single);
         while (!async.isDone) yield return null;
-        loadedEnvironment = mapScene;
+        loadedEnvironment = mapScene.mapName;
         yield return null;
 
         var players = FindObjectsByType<Player>(FindObjectsSortMode.None);

@@ -16,7 +16,7 @@ public class LobbyManager : MonoBehaviour
         public Player player;
         public int playerID;
         public bool ready;
-        public string mapVote;
+        public MapNode mapVote;
     }
 
     private void OnEnable()
@@ -65,6 +65,7 @@ public class LobbyManager : MonoBehaviour
     {
         var lobbyPlayer = players.Find(s => s.player == player);
         if (lobbyPlayer == null) return;
+        if (lobbyPlayer.mapVote == null) return;
 
         lobbyPlayer.ready = !lobbyPlayer.ready;
 
@@ -98,6 +99,7 @@ public class LobbyManager : MonoBehaviour
         var lobbyPlayer = new LobbyPlayer()
         {
             player = player,
+            playerID = players.Count(),
             ready = false,
             mapVote = null
         };
@@ -107,15 +109,15 @@ public class LobbyManager : MonoBehaviour
         Debug.Log($"Player {lobbyPlayer.playerID} registered.");
     }
 
-    private void OnMapVoted(string mapName, Player player)
+    private void OnMapVoted(MapNode map, Player player)
     {
         var lobbyPlayer = players.Find(lobbyPlayer => lobbyPlayer.player == player);
         
         if (lobbyPlayer == null) return;
 
-        lobbyPlayer.mapVote = mapName;
+        lobbyPlayer.mapVote = map;
 
-        Debug.Log($"Player map vote: {lobbyPlayer.mapVote}");
+        Debug.Log($"Player {lobbyPlayer.playerID} map vote: {lobbyPlayer.mapVote.mapName}");
 
         TryStartingLevel();
     }
@@ -124,26 +126,26 @@ public class LobbyManager : MonoBehaviour
     {
         if (!players.Any()) return;
 
-        if (players.Any(s => string.IsNullOrEmpty(s.mapVote) || !s.ready))
+        if (players.Any(s => s.mapVote == null || !s.ready))
             return;
 
-        string winning = PickWinningMap(players.Select(s => s.mapVote).ToList());
+        MapNode winning = PickWinningMap(players.Select(s => s.mapVote).ToList());
         playerSpawner.allowJoining = false;
 
-        Debug.Log($"LobbyManager selected map: {winning}");
+        Debug.Log($"LobbyManager selected map: {winning.mapName}");
         EventBus.Instance?.OnMapSelected?.Invoke(winning);
     }
 
-    private string PickWinningMap(List<string> votes)
+    private MapNode PickWinningMap(List<MapNode> maps)
     {
-        var groups = votes.GroupBy(v => v).Select(g => new { MapName = g.Key, Count = g.Count() }).ToList();
+        var groups = maps.GroupBy(v => v).Select(g => new { Map = g.Key, Count = g.Count() }).ToList();
         int max = groups.Max(g => g.Count);
         var top = groups.Where(g => g.Count == max).ToList();
 
-        if (top.Count == 1) return top[0].MapName;
+        if (top.Count == 1) return top[0].Map;
 
         int r = UnityEngine.Random.Range(0, top.Count);
-        return top[r].MapName;
+        return top[r].Map;
     }
 
     public LobbyPlayer GetLobbyPlayer(Player player)

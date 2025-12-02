@@ -4,10 +4,17 @@ using UnityEngine;
 public class MapNode : MonoBehaviour
 {
     // must match the scene name of the level
-    [SerializeField] private string mapName;
+    [SerializeField] public string mapName;
+    [SerializeField] public Sprite mapIcon;
+
+    private void Start()
+    {
+        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = mapIcon;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.SendMessageUpwards("OnMapNodeVoted", mapName, SendMessageOptions.DontRequireReceiver);
+        collision.gameObject.SendMessageUpwards("OnMapNodeVoted", this, SendMessageOptions.DontRequireReceiver);
     }
 }

@@ -31,12 +31,12 @@ public class LevelLoadingScreen : MonoBehaviour
         EventBus.Instance.OnMapSelected -= ShowLoadingScreen;
     }
 
-    private void ShowLoadingScreen(string mapName)
+    private void ShowLoadingScreen(MapNode map)
     {
         ToggleCildren(true);
 
-        selectionText.text = $"{mapName} has been selected!";
-        mapIcon.color = Color.red;
+        selectionText.text = $"{map.mapName} has been selected!";
+        mapIcon.sprite = map.mapIcon;
     }
 
     private void ToggleCildren(bool enable)

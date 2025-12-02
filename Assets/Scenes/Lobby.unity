@@ -2511,7 +2511,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.6792453, g: 0.1505874, b: 0.1505874, a: 1}
+  m_Color: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2580,6 +2580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LobbyMapNode
   mapName: GrassLevel
+  mapIcon: {fileID: 761648648, guid: 62904cb9e3fabfc4b81178de57b2342b, type: 3}
 --- !u!1 &813846917
 GameObject:
   m_ObjectHideFlags: 0

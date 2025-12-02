@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static LobbyManager;
 
 public class PlayerBoardEntry : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class PlayerBoardEntry : MonoBehaviour
     private TMP_Text nameText;
     private TMP_Text mapVoteText;
     private TMP_Text readyText;
-    private bool ready = false;
 
     private void Awake()
     {
@@ -24,10 +24,10 @@ public class PlayerBoardEntry : MonoBehaviour
             colorCircle.color = color;
     }
 
-    public void SetPlayerName(string name)
+    public void SetPlayerName(int playerID)
     {
         if (nameText != null)
-            nameText.text = $"{name}";
+            nameText.text = $"Player {playerID}:";
     }
 
     public void SetMapVote(string vote)
@@ -39,10 +39,9 @@ public class PlayerBoardEntry : MonoBehaviour
             : $"{vote}";
     }
 
-    public void ToggleReady()
+    public void SetReady(bool ready)
     {
         if (readyText == null) return;
-        ready = !ready;
         readyText.text = ready ? "(Ready)" : "(Not Ready)";
         readyText.color = ready ? Color.green : Color.red;
     }
