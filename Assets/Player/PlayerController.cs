@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        aimInput = context.ReadValue<Vector2>();
+        aimInput =  -1 * context.ReadValue<Vector2>();
     }
 
     public void Shoot(InputAction.CallbackContext context)
