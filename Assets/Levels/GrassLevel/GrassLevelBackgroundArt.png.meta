@@ -184,6 +184,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: GrassLevelBackgroundArt_ForestDetail
+      rect:
+        serializedVersion: 2
+        x: 1795
+        y: 2097
+        width: 765
+        height: 298
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c02a929397c412d43a9628387c58caf2
+      internalID: -1536111011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrassLevelBackgroundArt_Castle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1279
+        width: 512
+        height: 627
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab132e1a0671a8845821d2111e3317bd
+      internalID: -589407038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -198,8 +242,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      GrassLevelBackgroundArt_Castle: -589407038
       GrassLevelBackgroundArt_Cloud1: -8298609269508960031
       GrassLevelBackgroundArt_Cloud2: 2780094415611488728
+      GrassLevelBackgroundArt_ForestDetail: -1536111011
       GrassLevelBackgroundArt_Hill: -1259434621797131357
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
