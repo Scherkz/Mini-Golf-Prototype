@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
         {
             var spawnPosition = spawnPointsParent.GetChild(i).position;
             players[i].StartPlayingPhase(spawnPosition);
-            players[i].AssignSpecialShotToPlayer(specialShotForThisRound);
+            players[i].AssignSpecialShot(specialShotForThisRound);
         }
     }
 

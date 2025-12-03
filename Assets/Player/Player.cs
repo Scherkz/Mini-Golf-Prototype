@@ -118,7 +118,7 @@ public class Player : MonoBehaviour
     }
 
     // Generic way to assign a special shot to the player
-    public void AssignSpecialShotToPlayer(SpecialShotData specialShot)
+    public void AssignSpecialShot(SpecialShotData specialShot)
     {
         if(currentSpecialShotInstance != null)
         {

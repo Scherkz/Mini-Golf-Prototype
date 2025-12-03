@@ -5,9 +5,12 @@ public class PushAwayShot : SpecialShot
 {
     private bool collisionHappenedDuringPushAwayShot = false;
 
-    PlayerController playerController;
-    Player player;
-    Rigidbody2D body;
+    private PlayerController playerController;
+    private Player player;
+    private Rigidbody2D body;
+
+    [SerializeField] float maximalImpactRange = 10f;
+    [SerializeField] float maximalImpactForce = 35f;
 
     public override void Init(PlayerController playerController, Player player, Rigidbody2D body)
     {
@@ -54,8 +57,6 @@ public class PushAwayShot : SpecialShot
         // Impact from current player position
         Vector2 impactPosition = transform.position;
         // Get all rigidbodies in a radius
-        float maximalImpactRange = 10f;
-        float maximalImpactForce = 35f;
         Collider2D[] overlappingColliders = Physics2D.OverlapCircleAll(impactPosition, maximalImpactRange);
         foreach (Collider2D overlappingCollider in overlappingColliders)
         {
@@ -72,7 +73,7 @@ public class PushAwayShot : SpecialShot
 
                 Vector2 pushDirection = (otherBallBody.position - impactPosition).normalized;
                 float distance = Vector2.Distance(otherBallBody.position, impactPosition);
-                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, (float)Math.Pow((distance / maximalImpactRange), 2));
+                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, Mathf.Pow((distance / maximalImpactRange), 2));
                 otherBallBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
             }
         }
