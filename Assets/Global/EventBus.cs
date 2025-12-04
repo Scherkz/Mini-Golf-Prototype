@@ -32,6 +32,16 @@ public class EventBus : MonoBehaviour
     /// <summary>
     /// <list type="number">
     ///     <item>
+    ///         <term>Level</term>
+    ///         <description>Contains the currently loaded level.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<Level> OnLevelLoaded;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
     ///         <term>int</term>
     ///         <description>Contains the total amount of rounds to plays.</description>
     ///     </item>
