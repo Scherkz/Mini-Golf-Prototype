@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,18 +31,6 @@ public class GameManager : MonoBehaviour
     {
         roundCount = 0;
     }
-
-    // TODO: TESTING
-    private void Start()
-    {
-        this.CallNextFrame(LoadTESTLEVEL);
-    }
-
-    private void LoadTESTLEVEL()
-    {
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
-    }
-    // TESTING
 
     private void OnEnable()
     {
