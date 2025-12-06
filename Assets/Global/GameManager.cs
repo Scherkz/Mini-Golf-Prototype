@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class GameManager : MonoBehaviour
         Building,
         Playing,
     }
+
+    const int BASE_LEVEL_SCENE_INDEX = 0;
 
     [SerializeField] private int maxRoundsPerGame = 6;
 
@@ -34,12 +38,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        EventBus.Instance.OnSwitchToScene += OnSwitchToScene;
         EventBus.Instance.OnStartGame += StartRound;
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
     }
 
     private void OnDisable()
     {
+        EventBus.Instance.OnSwitchToScene -= OnSwitchToScene;
         EventBus.Instance.OnStartGame -= StartRound;
         EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
     }
@@ -215,5 +221,29 @@ public class GameManager : MonoBehaviour
             }
         }
         EventBus.Instance?.OnWinnerDicided?.Invoke(winner, players, maxRoundsPerGame);
+    }
+
+    private async void OnSwitchToScene(int buildIndex)
+    {
+        var unloadOperations = new List<AsyncOperation>();
+
+        // unload all the scenes besides the base scene
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+
+            if (scene.buildIndex == BASE_LEVEL_SCENE_INDEX) continue;
+
+            unloadOperations.Add(SceneManager.UnloadSceneAsync(scene));
+        }
+
+        // wait until all scenes are unloaded
+        foreach (var unloadOperation in unloadOperations)
+        {
+            await unloadOperation;
+        }
+
+        await Awaitable.NextFrameAsync();
+        await SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
     }
 }
