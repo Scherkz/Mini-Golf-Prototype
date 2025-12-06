@@ -65,6 +65,7 @@ public class GameoverScreen : MonoBehaviour
     private void OnRematch()
     {
         // Reload scene to restart game
+        // TODO: replace with lobby scene when implemented
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

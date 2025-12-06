@@ -22,7 +22,7 @@ public class EditorSetupPlayMode : MonoBehaviour
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
     }
 
-    static void SetDefaultPlayModeScene()
+    private static void SetDefaultPlayModeScene()
     {
         EditorApplication.update -= SetDefaultPlayModeScene;
 
