@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int pointsDeductedPerAdditionalShot = 5;
     [SerializeField] private int bonusPointsForFastestPlayer = 10;
 
-    private Player[] players;
+    private Player[] players = { };
     private GamePhase currentPhase;
 
     private Level currentLevel;
@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
 
         currentLevel.BuildGrid.ShowGrid(false);
         currentLevel.BuildingSpawner.gameObject.SetActive(false);
+
+        foreach (var player in players)
+        {
+            player.ResetSelf();
+        }
 
         playerSpawner.active = true;
     }
@@ -150,18 +155,13 @@ public class GameManager : MonoBehaviour
         this.CallNextFrame(StartPlayingPhase);
     }
 
-    private SpecialShotData GetRandomSpecialShot()
-    {
-        return specialShots[Random.Range(0, specialShots.Length)];
-    }
-
     private void StartPlayingPhase()
     {
         currentPhase = GamePhase.Playing;
 
         currentLevel.BuildGrid.ShowGrid(false);
 
-        var specialShotForRound = GetRandomSpecialShot();
+        var specialShotForRound = specialShots[Random.Range(0, specialShots.Length)];
 
         for (int i = 0; i < players.Length; i++)
         {
