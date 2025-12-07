@@ -14,7 +14,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private record JoinedPlayer
     {
-        public SpawnPoint spawnpoint;
+        public int spawnPointIndex;
         public Gamepad gamepad;
         public PlayerInput playerInput;
         public int ID;
@@ -70,20 +70,21 @@ public class PlayerSpawner : MonoBehaviour
 
         var joinedPlayer = new JoinedPlayer()
         {
-            spawnpoint = GetNextFreeSpawnpoint(),
+            spawnPointIndex = GetNextFreeSpawnpoint(),
             gamepad = gamepad,
             playerInput = playerInput,
             ID = playerLastID++
         };
+        var spawnPoint = spawnPoints[joinedPlayer.spawnPointIndex];
 
         var player = playerInput.GetComponent<Player>();
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
-        player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
+        player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position);
         player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
-        player.SetColor(joinedPlayer.spawnpoint.color);
+        player.SetColor(spawnPoint.color);
 
         joinedPlayers.Add(joinedPlayer);
-        joinedPlayer.spawnpoint.occupied = true;
+        spawnPoint.occupied = true;
 
         Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
     }
@@ -91,26 +92,27 @@ public class PlayerSpawner : MonoBehaviour
     private void RemovePlayer(PlayerInput playerInput)
     {
         var joinedPlayer = joinedPlayers.Find((player) => player.playerInput == playerInput);
-        joinedPlayer.spawnpoint.occupied = false;
+
         joinedPlayers.Remove(joinedPlayer);
+        spawnPoints[joinedPlayer.spawnPointIndex].occupied = false;
 
         Debug.Log($"Lost Player {joinedPlayer.ID}: {joinedPlayer.gamepad.name}");
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
     }
 
-    private SpawnPoint GetNextFreeSpawnpoint()
+    private int GetNextFreeSpawnpoint()
     {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             var spawnpoint = spawnPoints[i];
             if (!spawnpoint.occupied)
             {
-                return spawnpoint;
+                return i;
             }
         }
 
-        return spawnPoints[0];
+        return 0;
     }
 
     private void OnLevelLoaded(Level level)
@@ -128,14 +130,12 @@ public class PlayerSpawner : MonoBehaviour
 
         foreach (var joinedPlayer in joinedPlayers)
         {
-            var spawnpoint = GetNextFreeSpawnpoint();
-            joinedPlayer.spawnpoint = spawnpoint;
-            joinedPlayer.spawnpoint.occupied = true;
+            var spawnPoint = spawnPoints[joinedPlayer.spawnPointIndex];
+            spawnPoint.occupied = false;
 
             var player = joinedPlayer.playerInput.GetComponent<Player>();
             player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
-            player.SetColor(joinedPlayer.spawnpoint.color);
-            player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
+            player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position);
         }
     }
 
