@@ -170,19 +170,30 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finished the round
-        int leastSwings = players.Min(player => player.numberOfSwingsThisRound);
+        players = players.OrderBy(player => player.numberOfSwingsThisRound).ToArray();
+        int currentPlace = 1;
+        int i = 0;
 
-        var fastestPlayer = players.OrderBy(player => player.timeTookThisRound).First();
-
-        foreach (var player in players)
+        while (i < players.Length)
         {
-            var additionalSwings = player.numberOfSwingsThisRound - leastSwings;
-            var scoreAwardedThisRound = Mathf.Max(0, pointsForWinningRound - (additionalSwings * pointsDeductedPerAdditionalShot));
-            if (player == fastestPlayer)
+            int tieGroupStartIndex = i;
+            int tieGroupSwingValue = players[i].numberOfSwingsThisRound;
+
+            while (i < players.Length && players[i].numberOfSwingsThisRound == tieGroupSwingValue)
             {
-                scoreAwardedThisRound += bonusPointsForFastestPlayer;
+                i++;
             }
-            player.AddScore(scoreAwardedThisRound);
+
+            int tieGroupSize = i - tieGroupStartIndex;
+            int pointsForPlace = pointsForWinningRound - ((currentPlace - 1) * pointsDeductedPerAdditionalShot);
+            if (pointsForPlace < 0) pointsForPlace = 0;
+
+            for (int j = tieGroupStartIndex; j < tieGroupStartIndex + tieGroupSize; j++)
+            {
+                players[j].AddScore(pointsForPlace);
+            }
+
+            currentPlace += tieGroupSize;
         }
 
         if (roundCount >= maxRoundsPerGame)
