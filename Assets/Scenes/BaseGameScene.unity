@@ -457,6 +457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34c3eac6bcca5947b04b688c4b53a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  playerSpawner: {fileID: 1773535521}
+  screenBorderDistance: 64
   maxRoundsPerGame: 6
   buildings:
   - {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
@@ -466,7 +468,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 378d3e43f834d2f41ba2ff8714666e39, type: 2}
   specialShots:
   - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
-  screenBorderDistance: 64
   pointsForWinningRound: 25
   pointsDeductedPerAdditionalShot: 5
   bonusPointsForFastestPlayer: 10
@@ -1305,6 +1306,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+--- !u!114 &1773535521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+  m_PrefabInstance: {fileID: 1773535520}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b6dac0faa05de4393bd074aea93876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

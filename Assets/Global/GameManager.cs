@@ -14,12 +14,15 @@ public class GameManager : MonoBehaviour
 
     const int BASE_LEVEL_SCENE_INDEX = 0;
 
+    [SerializeField] private PlayerSpawner playerSpawner;
+
+    [SerializeField] private float screenBorderDistance;
+
+    [Header("Game Settings")]
     [SerializeField] private int maxRoundsPerGame = 6;
 
     [SerializeField] private BuildingData[] buildings;
     [SerializeField] private SpecialShotData[] specialShots;
-
-    [SerializeField] private float screenBorderDistance;
 
     [SerializeField] private int pointsForWinningRound = 25;
     [SerializeField] private int pointsDeductedPerAdditionalShot = 5;
@@ -71,8 +74,12 @@ public class GameManager : MonoBehaviour
     {
         currentLevel = level;
 
+        roundCount = 0;
+
         currentLevel.BuildGrid.ShowGrid(false);
         currentLevel.BuildingSpawner.gameObject.SetActive(false);
+
+        playerSpawner.active = true;
     }
 
     private void StartBuildingSelectionPhase()

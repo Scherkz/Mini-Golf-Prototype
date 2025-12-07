@@ -110,13 +110,13 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+        playerController.ResetSelf();
 
         StartTimer();
 
         numberOfSwingsThisRound = 0;
 
         playerController.SetSpecialShotAvailability(true);
-        Debug.Log($"Special shot set availabe {gameObject.name}");
         playerController.ResetSpecialShotEnabled();
     }
 

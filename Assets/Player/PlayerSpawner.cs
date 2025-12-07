@@ -20,6 +20,8 @@ public class PlayerSpawner : MonoBehaviour
         public int ID;
     }
 
+    public bool active = false;
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Color[] spawnPointColors;
 
@@ -40,6 +42,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Update()
     {
+        if (!active) return;
         if (spawnPoints == null) return;
 
         foreach (var gamepad in Gamepad.all)
@@ -122,6 +125,18 @@ public class PlayerSpawner : MonoBehaviour
                 occupied = false
             };
         }
+
+        foreach (var joinedPlayer in joinedPlayers)
+        {
+            var spawnpoint = GetNextFreeSpawnpoint();
+            joinedPlayer.spawnpoint = spawnpoint;
+            joinedPlayer.spawnpoint.occupied = true;
+
+            var player = joinedPlayer.playerInput.GetComponent<Player>();
+            player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
+            player.SetColor(joinedPlayer.spawnpoint.color);
+            player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
+        }
     }
 
     private void OnAnyPlayerEnterFinishArea()
@@ -131,7 +146,7 @@ public class PlayerSpawner : MonoBehaviour
         EventBus.Instance?.OnStartGame?.Invoke(players.ToArray());
 
         // Disable self because player spawning during game is not intended
-        this.enabled = false;
+        active = false;
 
         // Unhook connected events
         foreach (var joinedPlayer in joinedPlayers)
