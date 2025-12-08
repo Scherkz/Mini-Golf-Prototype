@@ -2,18 +2,21 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelLoadingScreen : MonoBehaviour
 {
     private Image mapIcon;
     private TMP_Text selectionText;
+    private TMP_Text countdownText;
+
+    private Coroutine countdownCoroutine;
 
     private void Awake()
     {
         mapIcon = transform.Find("MapIcon").GetComponent<Image>();
         selectionText = transform.Find("SelectionText").GetComponent<TMP_Text>();
+        countdownText = transform.Find("CountdownText").GetComponent<TMP_Text>();
     }
 
     private void Start()
@@ -28,15 +31,33 @@ public class LevelLoadingScreen : MonoBehaviour
 
     private void OnDisable()
     {
+        if (EventBus.Instance == null) return;
         EventBus.Instance.OnMapSelected -= ShowLoadingScreen;
     }
 
-    private void ShowLoadingScreen(MapNode map)
+    private void ShowLoadingScreen(MapNode map, int countdown)
     {
         ToggleCildren(true);
 
         selectionText.text = $"{map.mapName} has been selected!";
         mapIcon.sprite = map.mapIcon;
+
+        if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
+        countdownCoroutine = StartCoroutine(CountdownCoroutine(map, countdown));
+    }
+
+    private IEnumerator CountdownCoroutine(MapNode map, int countdown)
+    {
+        while (countdown > 0)
+        {
+            countdownText.text = $"Starting game in {countdown}...";
+            yield return new WaitForSeconds(1f);
+            countdown--;
+        }
+
+        countdownText.text = $"Starting game in {countdown}...";
+
+        EventBus.Instance.OnSwitchToScene?.Invoke(map.sceneBuildIndex);
     }
 
     private void ToggleCildren(bool enable)
@@ -46,4 +67,5 @@ public class LevelLoadingScreen : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(enable);
         }
     }
+
 }

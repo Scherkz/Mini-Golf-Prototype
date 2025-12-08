@@ -21,21 +21,10 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform spawnPointsParents;
-    [SerializeField]
-    private Color[] spawnPointColors =
-    {
-        Color.blue,
-        Color.violet,
-        Color.orange,
-        Color.green
-    };
+    [SerializeField] private Color[] spawnPointColors;
 
     public bool allowJoining = true; // only true in lobby
     public bool active = false;
-
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Color[] spawnPointColors;
 
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
@@ -173,14 +162,4 @@ public class PlayerSpawner : MonoBehaviour
         }
     }
 
-    public Player GetPlayerByGamepad(Gamepad gamepad)
-    {
-        var player = joinedPlayers.Find(player => player.gamepad == gamepad);
-        return player != null ? player.playerInput.GetComponent<Player>() : null;
-    }
-
-    public IReadOnlyList<Player> GetAllPlayers()
-    {
-        return joinedPlayers.Select(player => player.playerInput.GetComponent<Player>()).ToList().AsReadOnly();
-    }
 }

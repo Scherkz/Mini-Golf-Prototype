@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
                 winner = players[i];
             }
         }
-        EventBus.Instance?.OnWinnerDicided?.Invoke(winner, players, maxRoundsPerGame);
+        EventBus.Instance?.OnWinnerDecided?.Invoke(winner, players, maxRoundsPerGame);
     }
 
     private async void OnSwitchToScene(int buildIndex)

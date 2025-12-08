@@ -79,7 +79,7 @@ public class EventBus : MonoBehaviour
     ///     </item>
     /// </list>
     /// </summary>
-    public Action<Player> OnWinnerDicided;
+    public Action<Player, Player[] ,int> OnWinnerDecided;
 
     /// <summary>
     /// <list type="number">
@@ -121,8 +121,12 @@ public class EventBus : MonoBehaviour
     ///         <term>MapNode</term>
     ///         <description>The map that was selected for playing after all players have voted. </description>
     ///     </item>
+    ///     <item>
+    ///         <term>int</term>
+    ///         <description>The countdown time before the map is started. </description>
+    ///     </item>
     /// </list>
     /// </summary>
-    public Action<MapNode> OnMapSelected;
+    public Action<MapNode, int> OnMapSelected;
 
 }

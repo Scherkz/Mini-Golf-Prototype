@@ -1,4 +1,6 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider2D))]
 public class MapNode : MonoBehaviour
@@ -6,6 +8,8 @@ public class MapNode : MonoBehaviour
     // The map name must match the scene name of the level
     [SerializeField] public string mapName;
     [SerializeField] public Sprite mapIcon;
+    [SerializeField] public int sceneBuildIndex;
+    [SerializeField] public Transform voteAnchor;
 
     private void Start()
     {

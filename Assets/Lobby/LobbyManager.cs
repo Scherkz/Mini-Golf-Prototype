@@ -1,19 +1,23 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class LobbyManager : MonoBehaviour
 {
-    [SerializeField] private PlayerSpawner playerSpawner;
+    [SerializeField] private Sprite playerCursorPrefab;
 
     private readonly List<LobbyPlayer> players = new();
+    private Dictionary<LobbyPlayer, GameObject> voteIcons = new();
+    private PlayerSpawner playerSpawner;
 
     public record LobbyPlayer
     {
         public Player player;
         public int playerID;
-        public bool ready;
         public MapNode mapVote;
     }
 
@@ -33,47 +37,15 @@ public class LobbyManager : MonoBehaviour
         EventBus.Instance.OnMapVoted -= OnMapVoted;
     }
 
-    void Start()
+    private void Start()
     {
-        if(playerSpawner == null) { playerSpawner = FindFirstObjectByType<PlayerSpawner>(); }
-
-        foreach (var player in playerSpawner.GetAllPlayers())
-        {
-            RegisterPlayer(player);
+        if(playerSpawner == null) 
+        { 
+            playerSpawner = FindFirstObjectByType<PlayerSpawner>(); 
         }
+        Debug.Log(playerSpawner);
 
         playerSpawner.allowJoining = true;
-    }
-
-    private void Update()
-    {
-        foreach (var gamepad in Gamepad.all)
-        {
-            if (gamepad.buttonNorth.wasPressedThisFrame)
-            {
-                var player = playerSpawner.GetPlayerByGamepad(gamepad);
-                if (player == null) continue;
-
-                TogglePlayerReady(player);
-            }
-        }
-    }
-
-    private void TogglePlayerReady(Player player)
-    {
-        var lobbyPlayer = players.Find(lp => lp.player == player);
-        if (lobbyPlayer == null) return;
-        if (lobbyPlayer.mapVote == null) return;
-
-        lobbyPlayer.ready = !lobbyPlayer.ready;
-
-        EventBus.Instance?.OnPlayerReady?.Invoke(player);
-
-        if (lobbyPlayer.ready)
-        {
-            TryStartingLevel();
-        }
-
     }
 
     private void OnPlayerJoined(Player player)
@@ -98,9 +70,8 @@ public class LobbyManager : MonoBehaviour
         {
             player = player,
             playerID = players.Count(),
-            ready = false,
             mapVote = null
-        };
+    };
 
         players.Add(lobbyPlayer);
 
@@ -113,37 +84,94 @@ public class LobbyManager : MonoBehaviour
         
         if (lobbyPlayer == null) return;
 
+        MapNode previousVote = lobbyPlayer.mapVote;
+
         lobbyPlayer.mapVote = map;
+
+        GameObject icon;
+
+        if (voteIcons.ContainsKey(lobbyPlayer))
+        {
+            icon = voteIcons[lobbyPlayer];
+            icon.transform.SetParent(map.voteAnchor, false);
+        }
+        else
+        {
+            icon = new GameObject($"VoteIcon_{lobbyPlayer.playerID}");
+            var spriteRenderer = icon.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = playerCursorPrefab;
+            spriteRenderer.color = lobbyPlayer.player.GetColor();
+            spriteRenderer.sortingOrder = 10;
+            icon.transform.SetParent(map.voteAnchor, false);
+            icon.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+
+            voteIcons[lobbyPlayer] = icon;
+        }
+
+        if (previousVote != null)
+            RebuildVoteIcons(previousVote);
+
+        RebuildVoteIcons(map);
 
         Debug.Log($"Player {lobbyPlayer.playerID} map vote: {lobbyPlayer.mapVote.mapName}");
 
         TryStartingLevel();
     }
 
+    private void RebuildVoteIcons(MapNode map)
+    {
+        var icons = voteIcons
+            .Where(mapVote => mapVote.Key.mapVote == map)
+            .Select(mapVote => mapVote.Value)
+            .ToList();
+
+        for (int i = 0; i < icons.Count; i++)
+        {
+            icons[i].transform.localPosition = new Vector3(i * 0.5f, 0 , 0);
+        }
+    }
+
     private void TryStartingLevel()
     {
         if (!players.Any()) return;
 
-        if (players.Any(player => player.mapVote == null || !player.ready))
+        if (players.Any(player => player.mapVote == null))
             return;
 
         MapNode winning = PickWinningMap(players.Select(player => player.mapVote).ToList());
         playerSpawner.allowJoining = false;
 
         Debug.Log($"LobbyManager selected map: {winning.mapName}");
-        EventBus.Instance?.OnMapSelected?.Invoke(winning);
+        EventBus.Instance?.OnMapSelected?.Invoke(winning, 10);
     }
 
     private MapNode PickWinningMap(List<MapNode> maps)
     {
-        var groups = maps.GroupBy(v => v).Select(g => new { Map = g.Key, Count = g.Count() }).ToList();
-        int max = groups.Max(g => g.Count);
-        var top = groups.Where(g => g.Count == max).ToList();
+        Dictionary<MapNode, int> voteCounts = new Dictionary<MapNode, int>();
+        List<MapNode> topMaps = new List<MapNode>();
+        int maxVotes = 0;
 
-        if (top.Count == 1) return top[0].Map;
+        foreach (var map in maps)
+        {
+            if (!voteCounts.ContainsKey(map))
+                voteCounts[map] = 0;
 
-        int r = UnityEngine.Random.Range(0, top.Count);
-        return top[r].Map;
+            voteCounts[map]++;
+
+            if (voteCounts[map] > maxVotes)
+            {
+                maxVotes = voteCounts[map];
+                topMaps.Clear();
+                topMaps.Add(map);
+            }
+            else if (voteCounts[map] == maxVotes && !topMaps.Contains(map))
+            {
+                topMaps.Add(map);
+            }
+        }
+
+        int randomMapIndex = Random.Range(0, topMaps.Count);
+        return topMaps[randomMapIndex];
     }
 
     public LobbyPlayer GetLobbyPlayer(Player player)
