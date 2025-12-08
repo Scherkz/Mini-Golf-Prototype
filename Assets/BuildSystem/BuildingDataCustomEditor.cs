@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(BuildingData))]
-public class BuildingBitmaskDisplay : Editor
+public class BuildingDataCustomEditor : Editor
 {
     private SerializedProperty cellCountProp;
     private SerializedProperty bitmaskProp;
