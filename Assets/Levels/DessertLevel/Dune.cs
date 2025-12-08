@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Dune : MonoBehaviour
 {
     //TODO change public to serialize field
     public float eruptionInterval = 10f;
     public float eruptionDuration = 3f;
-    public float pushForce = 1.5f;
+    public float pushForce = 128f;
     public float eruptionSpeed = 5f;
     public Transform bottomPos;
     public Transform topPos;
-
-    private bool isErupting = false;
 
     private List<Rigidbody2D> playersInGeyser = new List<Rigidbody2D>();
 
@@ -21,18 +18,6 @@ public class Dune : MonoBehaviour
     {
         StartCoroutine(EruptionLoop());
     }
-
-    private void Update()
-    {
-        if (isErupting)
-        {
-            foreach (var rb in playersInGeyser)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0.5f);
-            }
-        }
-    }
-
 
     private IEnumerator EruptionLoop()
     {
@@ -45,46 +30,29 @@ public class Dune : MonoBehaviour
 
     private IEnumerator Erupt()
     {
-        isErupting = true;
+        Vector3 startPosition = bottomPos.position;
+        Vector3 targetPosition = topPos.position;
+        float timeElapsed = 0f;
 
-        Vector3 start = bottomPos.position;
-        Vector3 end = topPos.position ;
-        float distance = Vector3.Distance(start, end);
-        float travelTime = distance / eruptionSpeed;
-        float t = 0;
-
-        while (t < travelTime)
+        while (timeElapsed < eruptionDuration)
         {
-            t += Time.deltaTime;
-            transform.position = Vector3.Lerp(start, end, t / travelTime);
+            timeElapsed += Time.deltaTime;
+            float t = timeElapsed / eruptionDuration;
 
-            foreach (var rb in playersInGeyser)
-            {
-                rb.AddForce(Vector2.up * pushForce);
-            }
+            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
 
             yield return null;
         }
+        transform.position = targetPosition;
 
         yield return new WaitForSeconds(eruptionDuration);
 
-        transform.position = start;
-        isErupting = false;
+        //TODO change to fade out
+        transform.position = startPosition;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (other.attachedRigidbody != null)
-        {
-            playersInGeyser.Add(other.attachedRigidbody);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.attachedRigidbody != null)
-        {
-            playersInGeyser.Remove(other.attachedRigidbody);
-        }
+        collision.attachedRigidbody.AddForce(transform.up * pushForce);
     }
 }
