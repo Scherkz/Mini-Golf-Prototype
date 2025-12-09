@@ -117,7 +117,6 @@ public class Player : MonoBehaviour
 
         playerController.SetSpecialShotAvailability(true);
         playerController.ResetSpecialShotEnabled();
-        playerController.setFirstShotTakenAfterRoundStart(false);
     }
 
     // Generic way to assign a special shot to the player

@@ -49,12 +49,12 @@ public class PushAwayShot : SpecialShot
     // Handle collision for push-away shots
     private void HandleCollision(Collision2D collision)
     {
-        // Dont trigger in the spawing phase
-        if (!playerController.IsFirstShotTakenAfterRoundStart()) return;
+        if (playerController.HadCollisonSinceLastShot() || collisionHappenedDuringPushAwayShot) return;
 
         if (!playerController.IsSpecialShotEnabled()) return;
 
-        if (collisionHappenedDuringPushAwayShot) return;
+        if (this.body.linearVelocity.magnitude < playerController.GetSignificantVelocity())
+            return;
 
         PushAwayImpact(collision);
         player.UsedSpecialShot();
@@ -77,13 +77,19 @@ public class PushAwayShot : SpecialShot
             Rigidbody2D otherBallBody = overlappingCollider.GetComponent<Rigidbody2D>();
             if (otherBallBody != null && otherBallBody != this.body)
             {
-                // Only the faster ball should apply a force to the other balls
+                // Only the faster ball should apply a force to the other balls if both activated push-away shots
                 // Prevents applying forces in both directions
                 if (otherBallBody.linearVelocity.magnitude > this.body.linearVelocity.magnitude) continue;
 
                 Vector2 pushDirection = (otherBallBody.position - impactPosition).normalized;
                 float distance = Vector2.Distance(otherBallBody.position, impactPosition);
-                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, Mathf.Pow((distance / maximalImpactRange), 2));
+                float maxBallSpeed = 27f;
+                float t = Mathf.Clamp01(this.body.linearVelocity.magnitude / maxBallSpeed);
+
+                float distanceFactor = 1 - Mathf.Clamp01(1/(distance / maximalImpactRange));
+                //float distanceFactorPow = Mathf.Pow(distanceFactor, 2); // Square for more falloff
+                t = t*0.7f + distanceFactor*0.3f;
+                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, t);
                 otherBallBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
             }
         }
