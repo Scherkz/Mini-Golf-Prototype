@@ -175,11 +175,6 @@ public class Player : MonoBehaviour
         OnScoreChanges?.Invoke(score);
     }
 
-    public Vector3 getSpawnPoint()
-    {
-        return spawnPoint;
-    }
-
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
@@ -198,6 +193,13 @@ public class Player : MonoBehaviour
         confetti.transform.position = playerController.transform.position;
 
         OnFinishedRound?.Invoke();
+    }
+
+    // is called via Unity's messaging system
+    private void OnEnterKillArea()
+    {
+        playerController.transform.position = spawnPoint;
+        playerController.ResetSelf();
     }
 
     private void OnBuildingSelected()
