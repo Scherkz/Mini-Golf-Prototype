@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     public Action OnSwing;
 
+    [SerializeField] private float defaultLinearDamping = 0.1f;
+
     [SerializeField] private float shootForce = 10f;
     [SerializeField] private float arrowLength = 3f;
 
@@ -170,11 +172,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        body.linearDamping = 0f;
+        body.linearDamping = defaultLinearDamping;
     }
 
     private void ApplyFrictionFromSurface(Collider2D collider)
     {
+        Debug.Log("Applying friction from surface: " + collider.name);
         if (collider != null)
         {
             PhysicsMaterial2D material = collider.sharedMaterial;
@@ -185,7 +188,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                body.linearDamping = 0f;
+                body.linearDamping = defaultLinearDamping;
             }
         }
     }
