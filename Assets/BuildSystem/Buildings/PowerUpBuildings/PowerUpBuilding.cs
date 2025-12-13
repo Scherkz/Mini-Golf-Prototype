@@ -12,7 +12,12 @@ public abstract class PowerUpBuilding : Building
     private SpriteRenderer[] renderers;
     private Collider2D[] colliders;
     
-    private PlayerController playerController;
+    //To activate in GameManager, to reset all the hidden power-ups
+    public virtual void ResetForNextRound()
+    {
+        isCollected = false;
+        SetVisible(true);
+    }
     
     protected virtual void Awake()
     {
@@ -29,9 +34,11 @@ public abstract class PowerUpBuilding : Building
     {
         if (isCollected)
             return;
+
+        PlayerController controller = playerCollider.GetComponent<PlayerController>();
+        Player pickupPlayer = playerCollider.GetComponentInParent<Player>();
         
-        if (!IsValidCollector(playerCollider, out GameObject playerPowerUp))
-            return;
+        if (pickupPlayer == null || controller == null) return;
         
         isCollected = true;
 
@@ -40,7 +47,7 @@ public abstract class PowerUpBuilding : Building
             Instantiate(collectVfxPrefab, transform.position, Quaternion.identity);
         }
 
-        OnCollected(playerPowerUp);
+        OnCollected(pickupPlayer, controller);
 
         if (hideOnPickupInsteadOfDestroy)
         {
@@ -52,28 +59,8 @@ public abstract class PowerUpBuilding : Building
         }
     }
     
-    //to see if the collector is an actual player and not something else with a collider
-    protected virtual bool IsValidCollector(Collider2D otherCollider, out GameObject playerPowerUp)
-    {
-        playerPowerUp = null;
-
-        if (otherCollider.CompareTag("Player"))
-        {
-            playerPowerUp = otherCollider.gameObject;
-            return true;
-        }
-
-        if (playerController != null)
-        {
-            playerPowerUp = playerController.gameObject;
-            return true;
-        }
-
-        return false;
-    }
-    
     //should be overwritten by each power up
-    protected abstract void OnCollected(GameObject collectingPlayer);
+    protected abstract void OnCollected(Player player, PlayerController controller);
     
     //activates or deactivates all the collider and sprites 
     private void SetVisible(bool value)
@@ -93,13 +80,5 @@ public abstract class PowerUpBuilding : Building
                 col.enabled = value;
             }
         }
-    }
-
-
-    //To activate in GameManager, to reset all the hidden power-ups
-    public virtual void ResetForNextRound()
-    {
-        isCollected = false;
-        SetVisible(true);
     }
 }
