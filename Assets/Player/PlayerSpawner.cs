@@ -87,6 +87,8 @@ public class PlayerSpawner : MonoBehaviour
         spawnPoint.occupied = true;
 
         Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
+
+        EventBus.Instance?.OnPlayerJoined?.Invoke(player);
     }
 
     private void RemovePlayer(PlayerInput playerInput)
@@ -97,6 +99,9 @@ public class PlayerSpawner : MonoBehaviour
         spawnPoints[joinedPlayer.spawnPointIndex].occupied = false;
 
         Debug.Log($"Lost Player {joinedPlayer.ID}: {joinedPlayer.gamepad.name}");
+
+        var player = playerInput.GetComponent<Player>();
+        EventBus.Instance?.OnPlayerLeft?.Invoke(player);
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
     }
@@ -155,4 +160,5 @@ public class PlayerSpawner : MonoBehaviour
             player.OnFinishedRound -= OnAnyPlayerEnterFinishArea;
         }
     }
+
 }

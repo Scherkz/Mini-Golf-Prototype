@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameoverScreen : MonoBehaviour
 {
+    private const int LOBBY_SCENE_BUILD_INDEX = 1;
+
     public GameObject cellPrefab;
     public GameObject circlePrefab;
 
@@ -45,13 +47,13 @@ public class GameoverScreen : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
-        EventBus.Instance.OnWinnerDicided += OnWinnerDicided;
+        EventBus.Instance.OnWinnerDecided += OnWinnerDecided;
     }
 
     private void OnDisable()
     {
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
-        EventBus.Instance.OnWinnerDicided -= OnWinnerDicided;
+        EventBus.Instance.OnWinnerDecided -= OnWinnerDecided;
     }
 
     private void Update()
@@ -62,7 +64,7 @@ public class GameoverScreen : MonoBehaviour
         }
     }
 
-    private void OnWinnerDicided(Player winner, Player[] players, int roundsPlayed)
+    private void OnWinnerDecided(Player winner, Player[] players, int roundsPlayed)
     {
         rematchInputAction.Enable();
         ToggleCildren(true);
@@ -74,9 +76,8 @@ public class GameoverScreen : MonoBehaviour
 
     private void OnRematch()
     {
-        // Reload scene to restart game
-        int currentLevelBuildIndex = SceneManager.GetSceneAt(SceneManager.sceneCount - 1).buildIndex;
-        EventBus.Instance?.OnSwitchToScene?.Invoke(currentLevelBuildIndex);
+        // Switch to lobby scene after game is over
+        EventBus.Instance?.OnSwitchToScene?.Invoke(LOBBY_SCENE_BUILD_INDEX);
     }
 
     private void ToggleCildren(bool enable)
