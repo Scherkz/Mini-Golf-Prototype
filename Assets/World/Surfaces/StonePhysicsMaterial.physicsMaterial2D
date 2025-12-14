@@ -9,6 +9,6 @@ PhysicsMaterial2D:
   m_Name: StonePhysicsMaterial
   serializedVersion: 2
   friction: 0.5
-  bounciness: 0
+  bounciness: 0.2
   m_FrictionCombine: 1
   m_BounceCombine: 4
