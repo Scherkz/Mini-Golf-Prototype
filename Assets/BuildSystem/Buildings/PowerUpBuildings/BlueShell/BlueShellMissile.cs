@@ -6,13 +6,15 @@ public class BlueShellMissile : MonoBehaviour
     [SerializeField] private float speed = 8f;
     [SerializeField] private float steeringAcceleration = 30f; 
     [SerializeField] private float lifeTimeSeconds = 8f;
+    [SerializeField] private float activationDelaySeconds = 1f;
     
     [SerializeField] private GameObject explosionVfxPrefab;
     [SerializeField] private float knockbackForce = 35f;
-    [SerializeField] private float explodeDistance = 0.35f;
 
     private Rigidbody2D rb;
     private Transform target;
+
+    private float spawnTime;
     
     private void Awake()
     {
@@ -21,6 +23,7 @@ public class BlueShellMissile : MonoBehaviour
     
     public void Launch(Transform targetTransform, float initialAngleDeg)
     {
+        spawnTime = Time.time;
         target = targetTransform;
         
         rb.rotation = initialAngleDeg;
@@ -41,12 +44,6 @@ public class BlueShellMissile : MonoBehaviour
             return;
         
         Vector2 toTarget = (Vector2)target.position - rb.position;
-        
-        if (toTarget.sqrMagnitude <= explodeDistance * explodeDistance)
-        {
-            Explode();
-            return;
-        }
 
         var desiredVel = toTarget.normalized * speed;
         rb.linearVelocity = Vector2.MoveTowards(
@@ -57,13 +54,15 @@ public class BlueShellMissile : MonoBehaviour
 
         if (toTarget.sqrMagnitude > 0.001f)
         {
-            var missileAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
-            rb.MoveRotation(missileAngle);
+            rb.MoveRotation(Quaternion.LookRotation(toTarget, Vector3.up));
         }
     }
 
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
+        if (Time.time < spawnTime + activationDelaySeconds)
+            return;
+        
         var randomDir = Random.insideUnitCircle.normalized;
         otherCollider.SendMessageUpwards("ApplyForceImpulseMessage", randomDir * knockbackForce, SendMessageOptions.DontRequireReceiver);
         
