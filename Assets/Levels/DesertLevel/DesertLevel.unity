@@ -3983,7 +3983,7 @@ GameObject:
   - component: {fileID: 1391022922}
   - component: {fileID: 1391022921}
   m_Layer: 0
-  m_Name: SandTileMap
+  m_Name: SandTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
