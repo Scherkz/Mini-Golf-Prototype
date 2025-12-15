@@ -21,7 +21,9 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     public bool active = false;
-
+    
+    [SerializeField] private PlayerRegistry playerRegistry;
+    
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Color[] spawnPointColors;
 
@@ -91,8 +93,9 @@ public class PlayerSpawner : MonoBehaviour
         joinedPlayers.Add(joinedPlayer);
         spawnPoint.occupied = true;
 
+        playerRegistry.players.Add(player);
+        
         Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
-
         EventBus.Instance?.OnPlayerJoined?.Invoke(player);
     }
 
@@ -106,6 +109,8 @@ public class PlayerSpawner : MonoBehaviour
         Debug.Log($"Lost Player {joinedPlayer.ID}: {joinedPlayer.gamepad.name}");
 
         var player = playerInput.GetComponent<Player>();
+        playerRegistry.players.Remove(player);
+        
         EventBus.Instance?.OnPlayerLeft?.Invoke(player);
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
@@ -168,8 +173,6 @@ public class PlayerSpawner : MonoBehaviour
         }
 
         // Start game if any player enter the finish area
-        var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
-        EventBus.Instance?.OnAnnouncePlayers?.Invoke(players.ToArray());
         EventBus.Instance?.OnStartGame?.Invoke();
     }
 
