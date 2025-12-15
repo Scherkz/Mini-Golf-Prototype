@@ -143,7 +143,7 @@ public class PlayerSpawner : MonoBehaviour
         foreach (var joinedPlayer in joinedPlayers)
         {
             var spawnPoint = spawnPoints[joinedPlayer.spawnPointIndex];
-            spawnPoint.occupied = false;
+            spawnPoint.occupied = true;
 
             if (!active) continue; // only setup self not the players if not active
 
