@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class PowerUpBuilding : Building
 {
-    public bool hideOnPickupInsteadOfDestroy = false;
-    
     [SerializeField] protected GameObject collectVfxPrefab;
     
     private bool isCollected;
