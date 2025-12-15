@@ -1,15 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BlueShellPowerUp : PowerUpBuilding
 {
-    
     [SerializeField] private BlueShellMissile missilePrefab;
     
     [SerializeField] private Vector3 missileSpawnOffset = new Vector3(0f, 0.1f, 0f);
-
-    private Player[] players = { };
 
     protected override void OnCollected(Player collectingPlayer, PlayerController collectingController)
     {
@@ -35,12 +32,31 @@ public class BlueShellPowerUp : PowerUpBuilding
     
     private List<Player> FindPlayersInLead()
     {
-        players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+        var bestScore = int.MinValue;
         
+        foreach (var pi in PlayerInput.all)
+        {
+            var p = pi.GetComponent<Player>();
+            if (p == null) 
+                continue;
+            if (p.score > bestScore)
+            {
+                bestScore = p.score;
+            }
+        }
         
-        players = players.OrderBy(player => player.score).ToArray();
+        var leaders = new List<Player>();
+        foreach (var pi in PlayerInput.all)
+        {
+            var p = pi.GetComponent<Player>();
+            if (p == null) 
+                continue;
+            if (p.score == bestScore)
+            {
+                leaders.Add(p);
+            }
+        }
         
-        var bestScore = players.Max(p => p.score);
-        return players.Where(p => p.score == bestScore).ToList();
+        return leaders;
     }
 }
