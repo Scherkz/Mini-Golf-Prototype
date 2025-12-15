@@ -66,6 +66,16 @@ public class Player : MonoBehaviour
         playerController.OnSwing -= OnPlayerSwings;
     }
 
+    public void StartNewRound()
+    {
+        playerController.ResetSelf();
+
+        numberOfSwingsThisRound = 0;
+
+        hasPlacedBuilding = false;
+        hasFinishedRound = true; // this means we are currently in building phase
+    }
+
     public void ResetSelf()
     {
         playerController.ResetSelf();
@@ -73,13 +83,6 @@ public class Player : MonoBehaviour
         numberOfSwingsThisRound = 0;
         score = 0;
         scorePerRound.Clear();
-    }
-
-    public void StartNewRound()
-    {
-        hasPlacedBuilding = false;
-        hasFinishedRound = true; // this means we are currently in building phase
-        numberOfSwingsThisRound = 0;
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)
@@ -189,6 +192,13 @@ public class Player : MonoBehaviour
         confetti.transform.position = playerController.transform.position;
 
         OnFinishedRound?.Invoke();
+    }
+
+    // is called via Unity's messaging system through MapNode.cs
+    private void OnMapNodeVotedMessage(MapNode map)
+    {
+        // Invoke map vote through event bus
+        EventBus.Instance?.OnMapVoted?.Invoke(map, this);
     }
 
     private void OnBuildingSelected()
