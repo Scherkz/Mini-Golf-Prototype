@@ -40,12 +40,6 @@ public class EventBus : MonoBehaviour
     public Action<Player[]> OnAnnouncePlayers;
 
     /// <summary>
-    /// <list type="number">
-    ///     <item>
-    ///         <term>Player[]</term>
-    ///         <description>Contains all the joined players.</description>
-    ///     </item>
-    /// </list>
     /// </summary>
     public Action OnStartGame;
 

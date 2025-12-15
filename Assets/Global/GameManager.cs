@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
 
     const int BASE_LEVEL_SCENE_INDEX = 0;
 
-    [SerializeField] private PlayerSpawner playerSpawner;
-
     [SerializeField] private float screenBorderDistance;
 
     [Header("Game Settings")]
@@ -70,7 +68,7 @@ public class GameManager : MonoBehaviour
             player.ResetSelf();
         }
 
-        if (!isLobby)
+        if (!isLobby && players.Length > 0)
         {
             this.CallNextFrame(StartGame);
         }

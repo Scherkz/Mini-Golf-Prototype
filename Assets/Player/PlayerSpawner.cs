@@ -127,7 +127,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void OnLevelLoaded(Level level, bool isLobby)
     {
-        active = isLobby; // only be active in the lobby
+        active = isLobby || joinedPlayers.Count <= 0;
 
         spawnPoints = new SpawnPoint[level.SpawnPointsParent.childCount];
         for (int i = 0; i < level.SpawnPointsParent.childCount; i++)
