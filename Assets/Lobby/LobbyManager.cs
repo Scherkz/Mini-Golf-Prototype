@@ -43,6 +43,18 @@ public class LobbyManager : MonoBehaviour
             playerSpawner = FindFirstObjectByType<PlayerSpawner>();
         }
 
+        // reconstruct lobby players from playerSpawner
+        foreach (var player in playerSpawner.GetPlayers())
+        {
+            var lobbyPlayer = new LobbyPlayer()
+            {
+                player = player,
+                playerID = players.Count(),
+                mapVote = null
+            };
+            players.Add(lobbyPlayer);
+        }
+
         playerSpawner.active = true;
     }
 

@@ -1141,16 +1141,20 @@ PrefabInstance:
       value: GrassLevel
       objectReference: {fileID: 0}
     - target: {fileID: 2491856781365685616, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: mapName
+      value: Grass Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491856781365685616, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: sceneBuildIndex
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.66
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.52
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1182,26 +1186,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3059011823348192116, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: mapIcon
-      value: 
-      objectReference: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-    - target: {fileID: 3059011823348192116, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: mapName
-      value: GrassLevel
-      objectReference: {fileID: 0}
-    - target: {fileID: 3059011823348192116, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: sceneBuildIndex
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3117,16 +3101,20 @@ PrefabInstance:
       value: DesertLevel
       objectReference: {fileID: 0}
     - target: {fileID: 2491856781365685616, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: mapName
+      value: Desert Name
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491856781365685616, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: sceneBuildIndex
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.96
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3158,26 +3146,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3059011823348192116, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: mapIcon
-      value: 
-      objectReference: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
-    - target: {fileID: 3059011823348192116, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: mapName
-      value: DesertLevel
-      objectReference: {fileID: 0}
-    - target: {fileID: 3059011823348192116, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: sceneBuildIndex
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
-      propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4158,13 +4126,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1765715104}
+  - {fileID: 289364464}
   - {fileID: 547633233}
   - {fileID: 2075875163}
   - {fileID: 563669621}
   - {fileID: 698423822}
   - {fileID: 1963632475}
-  - {fileID: 289364464}
-  - {fileID: 1765715104}
   - {fileID: 1533778431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4306,7 +4274,7 @@ Transform:
   m_GameObject: {fileID: 1765715102}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 461.72247, y: 570.3551, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

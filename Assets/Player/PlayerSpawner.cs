@@ -30,6 +30,11 @@ public class PlayerSpawner : MonoBehaviour
 
     private int playerLastID = 0;
 
+    public Player[] GetPlayers()
+    {
+        return joinedPlayers.Select(joinedPlayer => joinedPlayer.playerInput.gameObject.GetComponent<Player>()).ToArray();
+    }
+
     private void OnEnable()
     {
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
