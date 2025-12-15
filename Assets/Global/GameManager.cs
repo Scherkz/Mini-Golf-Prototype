@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
 
     const int BASE_LEVEL_SCENE_INDEX = 0;
 
-    [SerializeField] private PlayerSpawner playerSpawner;
-
     [SerializeField] private float screenBorderDistance;
 
     [Header("Game Settings")]
@@ -42,36 +40,22 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.OnSwitchToScene += OnSwitchToScene;
-        EventBus.Instance.OnStartGame += StartRound;
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
+        EventBus.Instance.OnAnnouncePlayers += OnAnnouncePlayers;
+        EventBus.Instance.OnStartGame += StartGame;
     }
 
     private void OnDisable()
     {
         EventBus.Instance.OnSwitchToScene -= OnSwitchToScene;
-        EventBus.Instance.OnStartGame -= StartRound;
         EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
+        EventBus.Instance.OnAnnouncePlayers -= OnAnnouncePlayers;
+        EventBus.Instance.OnStartGame -= StartGame;
     }
 
-    public void StartRound(Player[] players)
+    private void OnLevelLoaded(Level level, bool isLobby)
     {
-        Debug.Log($"Starting game with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
-        this.players = players;
-
-        foreach (var player in players)
-        {
-            player.OnSelectedBuilding += OnPlayerSelectsBuilding;
-            player.OnPlacedBuilding += OnPlayerPlacesBuilding;
-            player.OnFinishedRound += OnPlayerFinishedRound;
-
-            player.StartNewRound();
-        }
-
-        StartBuildingSelectionPhase();
-    }
-
-    private void OnLevelLoaded(Level level)
-    {
+        Debug.Log($"Loaded '{level.name}' with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
         currentLevel = level;
 
         roundCount = 0;
@@ -84,7 +68,30 @@ public class GameManager : MonoBehaviour
             player.ResetSelf();
         }
 
-        playerSpawner.active = true;
+        if (!isLobby && players.Length > 0)
+        {
+            this.CallNextFrame(StartGame);
+        }
+    }
+
+    private void OnAnnouncePlayers(Player[] players)
+    {
+        this.players = players;
+    }
+
+    private void StartGame()
+    {
+        Debug.Log($"Starting game with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
+        foreach (var player in players)
+        {
+            player.OnSelectedBuilding += OnPlayerSelectsBuilding;
+            player.OnPlacedBuilding += OnPlayerPlacesBuilding;
+            player.OnFinishedRound += OnPlayerFinishedRound;
+
+            player.StartNewRound();
+        }
+
+        StartBuildingSelectionPhase();
     }
 
     private void StartBuildingSelectionPhase()
@@ -201,6 +208,7 @@ public class GameManager : MonoBehaviour
         // clean up event subscriptions
         foreach (var player in players)
         {
+            player.OnSelectedBuilding -= OnPlayerSelectsBuilding;
             player.OnPlacedBuilding -= OnPlayerPlacesBuilding;
             player.OnFinishedRound -= OnPlayerFinishedRound;
         }
@@ -214,7 +222,7 @@ public class GameManager : MonoBehaviour
                 winner = players[i];
             }
         }
-        EventBus.Instance?.OnWinnerDicided?.Invoke(winner, players, maxRoundsPerGame);
+        EventBus.Instance?.OnWinnerDecided?.Invoke(winner, players, maxRoundsPerGame);
     }
 
     private async void OnSwitchToScene(int buildIndex)
