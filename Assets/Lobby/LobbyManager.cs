@@ -12,6 +12,8 @@ public class LobbyManager : MonoBehaviour
         public MapNode mapVote;
     }
 
+    [SerializeField] private int gameStartCountdownSeconds = 5;
+
     [SerializeField] private Sprite playerCursorPrefab;
 
     private readonly List<LobbyPlayer> players = new();
@@ -119,7 +121,7 @@ public class LobbyManager : MonoBehaviour
         MapNode winning = PickWinningMap(players.Select(player => player.mapVote).ToList());
 
         Debug.Log($"LobbyManager selected map: {winning.mapName}");
-        EventBus.Instance?.OnMapSelected?.Invoke(winning, 10);
+        EventBus.Instance?.OnMapSelected?.Invoke(winning, gameStartCountdownSeconds);
     }
 
     private MapNode PickWinningMap(List<MapNode> votedMaps)
