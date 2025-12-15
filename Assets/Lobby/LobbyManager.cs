@@ -146,23 +146,6 @@ public class LobbyManager : MonoBehaviour
     {
         yield return new WaitForSeconds(countdown);
 
-        ResetLobby();
-
         EventBus.Instance.OnSwitchToScene?.Invoke(map.sceneBuildIndex);
     }
-
-    private void ResetLobby()
-    {
-        countdownActive = false;
-
-        foreach(var player in players)
-        {
-            player.mapVote.RemoveVote(player.playerID);
-        }
-
-        players.Clear();
-
-        Debug.Log("Reset lobby.");
-    }
-
 }
