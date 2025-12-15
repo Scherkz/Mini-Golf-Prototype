@@ -5,13 +5,12 @@ using UnityEngine.InputSystem;
 public class BlueShellPowerUp : PowerUpBuilding
 {
     [SerializeField] private BlueShellMissile missilePrefab;
-    
-    [SerializeField] private Vector3 missileSpawnOffset = new Vector3(0f, 0.1f, 0f);
 
     protected override void OnCollected(Player collectingPlayer, PlayerController collectingController)
     {
         if (missilePrefab == null)
             return;
+        
         var leaders = FindPlayersInLead();
         if (leaders == null || leaders.Count == 0)
             return;
@@ -23,9 +22,9 @@ public class BlueShellPowerUp : PowerUpBuilding
             Transform ball = leader.GetBallTransform();
             if (ball == null) continue;
 
-            Vector3 spawnPos = transform.position + missileSpawnOffset;
+            Vector3 spawnPos = transform.position;
             var missile = Instantiate(missilePrefab, spawnPos, Quaternion.identity);
-
+            
             missile.Launch(ball, Random.Range(0f, 360f));
         }
     }
