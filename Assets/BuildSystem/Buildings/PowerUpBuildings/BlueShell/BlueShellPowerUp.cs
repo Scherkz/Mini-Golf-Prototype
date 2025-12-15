@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,29 +32,16 @@ public class BlueShellPowerUp : PowerUpBuilding
     
     private List<Player> FindPlayersInLead()
     {
-        var bestScore = int.MinValue;
-        
-        foreach (var pi in PlayerInput.all)
-        {
-            var p = pi.GetComponent<Player>();
-            if (p == null) 
-                continue;
-            if (p.score > bestScore)
-            {
-                bestScore = p.score;
-            }
-        }
+        var players = Resources.FindObjectsOfTypeAll<Player>().OrderBy(player => player.score).ToArray();
+        var bestScore = players.Last().score;
         
         var leaders = new List<Player>();
-        foreach (var pi in PlayerInput.all)
+        for (int i = players.Count() - 1; i >= 0; i--)
         {
-            var p = pi.GetComponent<Player>();
-            if (p == null) 
-                continue;
-            if (p.score == bestScore)
-            {
-                leaders.Add(p);
-            }
+            if (players[i].score != bestScore)
+                break;
+            
+            leaders.Add(players[i]);
         }
         
         return leaders;
