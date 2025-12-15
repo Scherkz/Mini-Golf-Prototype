@@ -161,8 +161,7 @@ public class LobbyManager : MonoBehaviour
     private IEnumerator CountdownRoutine(MapNode map, int countdown)
     {
         yield return new WaitForSeconds(countdown);
-
-        EventBus.Instance?.OnAnnouncePlayers?.Invoke(players.Select(lobbyPlayer => lobbyPlayer.player).ToArray());
+        
         EventBus.Instance.OnSwitchToScene?.Invoke(map.sceneBuildIndex);
     }
 }
