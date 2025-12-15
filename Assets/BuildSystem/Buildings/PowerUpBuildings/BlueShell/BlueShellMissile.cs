@@ -4,12 +4,11 @@ using UnityEngine;
 public class BlueShellMissile : MonoBehaviour
 {
     [SerializeField] private float speed = 8f;
-    [SerializeField] private float steeringAccel = 30f; 
-    [SerializeField] private float lifeTime = 8f;
+    [SerializeField] private float steeringAcceleration = 30f; 
+    [SerializeField] private float lifeTimeSeconds = 8f;
     
     [SerializeField] private GameObject explosionVfxPrefab;
     [SerializeField] private float knockbackForce = 35f;
-    
     [SerializeField] private float explodeDistance = 0.35f;
 
     private Rigidbody2D rb;
@@ -30,9 +29,9 @@ public class BlueShellMissile : MonoBehaviour
         Vector2 forward = Quaternion.Euler(0, 0, rb.rotation) * Vector2.up;
         rb.linearVelocity = forward * speed;
 
-        if (lifeTime > 0f)
+        if (lifeTimeSeconds > 0f)
         {
-            Destroy(gameObject, lifeTime);
+            Destroy(gameObject, lifeTimeSeconds);
         }
     }
     
@@ -53,7 +52,7 @@ public class BlueShellMissile : MonoBehaviour
         rb.linearVelocity = Vector2.MoveTowards(
             rb.linearVelocity,
             desiredVel,
-            steeringAccel * Time.fixedDeltaTime
+            steeringAcceleration * Time.fixedDeltaTime
         );
 
         if (toTarget.sqrMagnitude > 0.001f)
