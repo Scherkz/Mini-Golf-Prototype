@@ -13,7 +13,7 @@ public abstract class PowerUpBuilding : Building
     public virtual void ResetForNextRound()
     {
         isCollected = false;
-        SetVisible(true);
+        SetVisibility(true);
     }
     
     protected virtual void Awake()
@@ -63,7 +63,7 @@ public abstract class PowerUpBuilding : Building
     protected abstract void OnCollected(Player player, PlayerController controller);
     
     //activates or deactivates all the collider and sprites 
-    private void SetVisible(bool value)
+    private void SetVisibility(bool value)
     {
         foreach (var renderer in renderers)
         {
