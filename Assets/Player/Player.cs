@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerBuildController buildController;
     private PlayerController playerController;
+    private PlayerIndicator playerIndicator;
 
     private GameObject currentSpecialShotInstance;
     private Rigidbody2D playerControllerRigidbody;
@@ -44,6 +45,8 @@ public class Player : MonoBehaviour
 
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
         playerControllerRigidbody = playerController.GetComponent<Rigidbody2D>();
+
+        playerIndicator = transform.Find("PlayerIndicator").GetComponent<PlayerIndicator>();
     }
 
     private void Start()
@@ -165,6 +168,7 @@ public class Player : MonoBehaviour
         this.color = color;
         playerController.SetColor(color);
         buildController.SetColor(color);
+        playerIndicator.SetColor(color);
     }
 
     public void AddScore(int scoreAwardedThisRound)
