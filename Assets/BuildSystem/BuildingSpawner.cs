@@ -8,21 +8,19 @@ public class BuildingSpawner : MonoBehaviour
     [SerializeField] private float maxAntiBuildingChance = 0.5f;
 
     private Transform anchor;
-    private BuildGrid currentGrid;
 
-    public void SpawnBuildings(BuildingData[] buildings, int buildingCount, BuildGrid grid)
+    public void SpawnBuildings(BuildingData[] buildings, int buildingSpawnCount, int buildingsOnMap)
     {
         // center anchor on the screen
         var screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
         var worldPos = Camera.main.ScreenToWorldPoint(screenCenter);
         worldPos.z = 0;
         anchor.position = worldPos;
-        currentGrid = grid;
 
-        EnsureEnoughBuildingsGhosts(buildingCount);
+        EnsureEnoughBuildingsGhosts(buildingSpawnCount);
 
-        var angleStep = 2.0f * Mathf.PI / buildingCount;
-        for (var i = 0; i < buildingCount; i++)
+        var angleStep = 2.0f * Mathf.PI / buildingSpawnCount;
+        for (var i = 0; i < buildingSpawnCount; i++)
         {
             var buildingGhost = anchor.GetChild(i).GetComponent<BuildingGhost>();
 
@@ -30,18 +28,17 @@ public class BuildingSpawner : MonoBehaviour
             var circlePos = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
             buildingGhost.transform.localPosition = circlePos;
 
-            var randomBuildingData = GetRandomBuildingData(buildings);
+            var randomBuildingData = GetRandomBuildingData(buildings, buildingsOnMap);
             buildingGhost.ShowBuilding(randomBuildingData, true);
         }
     }
 
-    private BuildingData GetRandomBuildingData(BuildingData[] buildings)
+    private BuildingData GetRandomBuildingData(BuildingData[] buildings,int buildSpawnRate, int buildingsOnMap)
     {
         BuildingData[] realBuildings = System.Array.FindAll(buildings, b => !b.isAntiBuilding);
         BuildingData[] antiBuildings = System.Array.FindAll(buildings, b => b.isAntiBuilding);
 
-        int buildingsOnMap = currentGrid.GetBuildingCount();
-        float antiBuildingChance = Mathf.Min(buildingsOnMap * 0.1f, maxAntiBuildingChance); // Caps at maxAntiBuildingChance
+        float antiBuildingChance = Mathf.Min(buildingsOnMap/buildSpawnRate * 0.1f, maxAntiBuildingChance); // Caps at maxAntiBuildingChance
 
         if (Random.value < antiBuildingChance)
         {
