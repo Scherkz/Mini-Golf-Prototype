@@ -5,6 +5,7 @@ public class TestingBuildingSpawner : MonoBehaviour
     public BuildingSpawner buildingSpawner;
     public BuildingData[] buildings;
     public int buildingCount = 5;
+    public BuildGrid grid;
 
     private void Start()
     {
@@ -13,6 +14,6 @@ public class TestingBuildingSpawner : MonoBehaviour
 
     private void CallBuildingSpawner()
     {
-        buildingSpawner.SpawnBuildings(buildings, buildingCount, 1);
+        buildingSpawner.SpawnBuildings(buildings, buildingCount, grid);
     }
 }

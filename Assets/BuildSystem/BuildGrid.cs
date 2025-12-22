@@ -174,6 +174,20 @@ public class BuildGrid : MonoBehaviour
         return transform.TransformPoint(localCellPosition);
     }
 
+    public int GetBuildingCount()
+    {
+        HashSet<GameObject> uniqueBuildings = new HashSet<GameObject>();
+        foreach (var cell in grid)
+        {
+            if (cell.IsOccupied)
+            {
+                uniqueBuildings.Add(cell.instance);
+            }
+        }
+
+        return uniqueBuildings.Count;
+    }
+
     private void RemoveBuildingFromCell(int cellIndex)
     {
         // find cell of building origin
