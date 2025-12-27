@@ -440,6 +440,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: DesertLevelTilesetArt_BrickDetail
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24252c5f8fce80a4d867de00ed0c25ac
+      internalID: 632739861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -458,6 +480,7 @@ TextureImporter:
     nameFileIdTable:
       DesertLevelTilesetArt_Brick: -839350011
       DesertLevelTilesetArt_BrickAlt: 385786047
+      DesertLevelTilesetArt_BrickDetail: 632739861
       DesertLevelTilesetArt_Column1: -1773584115
       DesertLevelTilesetArt_Column2: -766047414
       DesertLevelTilesetArt_ColumnBottom: -1783955600
