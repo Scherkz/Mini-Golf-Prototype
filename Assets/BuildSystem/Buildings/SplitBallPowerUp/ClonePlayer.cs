@@ -5,7 +5,7 @@ public class ClonePlayer : MonoBehaviour
     private Player original;
     private Player clone;
 
-    public void Setup(Player player)
+    public void Setup(Player player, float spreadDegrees)
     {
         original = player;
         clone = GetComponent<Player>();
@@ -13,15 +13,17 @@ public class ClonePlayer : MonoBehaviour
         original.OnFinishedRound += OnPlayerFinishedRound;
         clone.OnFinishedRound += OnCloneFinishedRound;
 
-        transform.SetPositionAndRotation(original.transform.position, original.transform.rotation);
-
         var originalController = original.GetPlayerController();
         var cloneController = clone.GetPlayerController();
-        cloneController.SetResetOnStart(false);
         cloneController.SetColor(original.GetColor());
+        cloneController.DontResetOnStart(false);
 
-        cloneController.transform.SetPositionAndRotation(originalController.transform.position, originalController.transform.rotation);
-        clone.StartPlayingPhase(originalController.transform.position);
+        clone.StartPlayingPhase(cloneController.transform.position);
+
+        var playerRb = originalController.GetComponent<Rigidbody2D>();
+        var cloneRb = cloneController.GetComponent<Rigidbody2D>();
+        cloneRb.linearVelocity = Quaternion.Euler(0, 0, -spreadDegrees) * playerRb.linearVelocity;
+        cloneRb.angularVelocity = playerRb.angularVelocity;
     }
 
     private void OnDestroy()

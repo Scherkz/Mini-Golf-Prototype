@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeMultiplier = 2f;
 
     [SerializeField] private bool invertedControls = true;
-    
-    [SerializeField] private bool resetOnStart = true;
 
     [Header("AimArrow")]
     [SerializeField] private Transform aimArrow;
@@ -47,6 +45,8 @@ public class PlayerController : MonoBehaviour
     public Action<Collision2D> BallCollisionEvent;
     public Action<bool> OnSpecialShotStateChange;
 
+    private bool resetOnStart = true;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         if (resetOnStart)
         {
-            ResetSelf(); 
+            ResetSelf();
         }
     }
 
@@ -143,8 +143,8 @@ public class PlayerController : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = color;
     }
-    
-    public void SetResetOnStart(bool value)
+
+    public void DontResetOnStart(bool value)
     {
         resetOnStart = value;
     }
