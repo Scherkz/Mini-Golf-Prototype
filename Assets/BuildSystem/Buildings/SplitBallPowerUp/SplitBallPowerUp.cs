@@ -3,8 +3,39 @@ using UnityEngine.InputSystem;
 
 public class SplitBallPowerUp : PowerUpBuilding
 {
+    [SerializeField] private PlayerRegistry playersRegistry;
+    [SerializeField] private float colorSwitchSeconds = 0.5f;
+
     [SerializeField] private float spawnOffset = 0.4f;
     [SerializeField] private float spreadDegrees = 45f;
+
+    private Color[] colors;
+    private int colorIndex = 0;
+    private float secondsSinceLastSwitch = 0.0f;
+
+    private void Start()
+    {
+        colors = new Color[playersRegistry.players.Count];
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = playersRegistry.players[i].GetColor();
+        }
+
+        spriteRenderer.color = colors[colorIndex];
+    }
+
+    private void Update()
+    {
+        secondsSinceLastSwitch += Time.deltaTime;
+
+        if (secondsSinceLastSwitch > colorSwitchSeconds)
+        {
+            colorIndex = (colorIndex + 1) % colors.Length;
+            spriteRenderer.color = colors[colorIndex];
+
+            secondsSinceLastSwitch = 0;
+        }
+    }
 
     protected override void OnCollected(Player player, PlayerController controller)
     {
