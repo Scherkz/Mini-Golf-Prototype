@@ -43,6 +43,10 @@ public class PlayerIndicator : MonoBehaviour
 
         if (!offscreen) return;
 
+        // if ball is out of bounds on the left side, flip the icon to the left (y axis)
+        spriteRenderer.flipX = viewportPosition.x < 0.5f;
+        spriteRenderer.flipY = viewportPosition.y < 0.5f;
+
         viewportPosition.x = Mathf.Clamp(viewportPosition.x, EDGE_PADDING, 1f - EDGE_PADDING);
         viewportPosition.y = Mathf.Clamp(viewportPosition.y, EDGE_PADDING, 1f - EDGE_PADDING);
 
