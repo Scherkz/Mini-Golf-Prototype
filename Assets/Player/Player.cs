@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     public Action OnFinishedRound;
     public Action<int> OnScoreChanges;
     public Action<string> OnSpecialShotAssigned;
-    public Action OnDisableSpecialShotVFX;
 
     public int score;
     public List<int> scorePerRound = new();
@@ -154,7 +153,7 @@ public class Player : MonoBehaviour
 
     public void UsedSpecialShot()
     {
-        OnDisableSpecialShotVFX?.Invoke();
+        playerController.OnToggleSpecialShotVFX?.Invoke(false);
         playerController.SetSpecialShotAvailability(false);
 
         OnSpecialShotAssigned?.Invoke(""); // displays nothing in the UI
@@ -179,7 +178,7 @@ public class Player : MonoBehaviour
         scorePerRound.Add(scoreAwardedThisRound);
         OnScoreChanges?.Invoke(score);
     }
-    
+
     public PlayerController GetPlayerController()
     {
         return playerController;
@@ -244,11 +243,11 @@ public class Player : MonoBehaviour
     {
         timeTookThisRound = Time.time - startTime;
     }
-    
+
     // is called via Unity's messaging system
     private void ApplyForceImpulseMessage(Vector2 impulse)
     {
-        if (playerControllerRigidbody == null) 
+        if (playerControllerRigidbody == null)
             return;
         playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
     }

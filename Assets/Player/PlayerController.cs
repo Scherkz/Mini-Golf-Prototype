@@ -45,8 +45,7 @@ public class PlayerController : MonoBehaviour
     public Action HasAvailableSpecialShot;
     public Action<Collision2D> BallCollisionEvent;
     public Action<bool> OnSpecialShotStateChange;
-    public Action OnDisableSpecialShotVFX;
-    public Action OnEnableSpecialShotVFX;
+    public Action<bool> OnToggleSpecialShotVFX;
 
     private void Awake()
     {
@@ -92,11 +91,11 @@ public class PlayerController : MonoBehaviour
 
             if (isSpecialShotEnabled)
             {
-                OnEnableSpecialShotVFX?.Invoke();
+                OnToggleSpecialShotVFX?.Invoke(true);
             }
             else
             {
-                OnDisableSpecialShotVFX?.Invoke();
+                OnToggleSpecialShotVFX?.Invoke(false);
             }
         }
     }
@@ -182,7 +181,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ApplyFrictionFromSurface(collision.collider);
-        
+
         // Impact from current player position
         Vector2 impactPosition = transform.position;
         // Get all rigidbodies in a radius
@@ -236,7 +235,7 @@ public class PlayerController : MonoBehaviour
 #endif
         }
     }
-    
+
     public void SetSpecialShotAvailability(bool available)
     {
         specialShotAvailable = available;

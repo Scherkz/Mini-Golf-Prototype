@@ -37,13 +37,7 @@ public class PushAwayShot : SpecialShot
         if (playerController != null)
         {
             playerController.BallCollisionEvent += HandleCollision;
-            playerController.OnEnableSpecialShotVFX += EnableSpecialShotVFX;
-            playerController.OnDisableSpecialShotVFX += DisableSpecialShotVFX;
-        }
-
-        if (player != null)
-        {
-            player.OnDisableSpecialShotVFX += DisableSpecialShotVFX;
+            playerController.OnToggleSpecialShotVFX += ToggleSpecialShotVFX;
         }
 
         currentSpecializedShotVFX = Instantiate(specializedShotVFX, playerController.transform);
