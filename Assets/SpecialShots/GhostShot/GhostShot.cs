@@ -4,7 +4,7 @@ public class GhostShot : SpecialShot
 {
     private PlayerController playerController;
     private Player player;
-    private Rigidbody2D body;
+    private SpriteRenderer ballSprite;
 
     [SerializeField] private GameObject specializedShotVFX;
 
@@ -12,13 +12,13 @@ public class GhostShot : SpecialShot
     {
         this.playerController = playerController;
         this.player = player;
-        this.body = body;
 
         if (playerController != null)
         {
             playerController.BallExitBuildingTriggerEvent += ExitCollisionObject;
             playerController.OnToggleSpecialShotVFX += ToggleSpecialShotVFX;
             playerController.OnToggleSpecialShotActivation += ToggleSpecialShotActivation;
+            ballSprite = playerController.GetComponent<SpriteRenderer>();
         }
 
         currentSpecializedShotVFX = Instantiate(specializedShotVFX, playerController.transform);
@@ -30,7 +30,11 @@ public class GhostShot : SpecialShot
         if (playerController != null)
         {
             playerController.BallExitBuildingTriggerEvent -= ExitCollisionObject;
+            playerController.OnToggleSpecialShotVFX -= ToggleSpecialShotVFX;
+            playerController.OnToggleSpecialShotActivation -= ToggleSpecialShotActivation;
         }
+
+        ballSprite.color = new Color(ballSprite.color.r, ballSprite.color.g, ballSprite.color.b, 1f);
 
     }
 
@@ -48,19 +52,19 @@ public class GhostShot : SpecialShot
 
     private void Activate()
     {
-       this.playerController.transform.gameObject.layer = LayerMask.NameToLayer("GhostBall");
-        Debug.Log("Ghost Shot: Activated - Player is now a GhostBall");
-        Debug.Log("Ghost Shot: Current Layer is " + LayerMask.LayerToName(this.playerController.transform.gameObject.layer));
+        this.playerController.transform.gameObject.layer = LayerMask.NameToLayer("GhostBall");
+        ballSprite.color = new Color(ballSprite.color.r, ballSprite.color.g, ballSprite.color.b, 0.75f);
     }
 
     private void Deactivate()
     {
         this.playerController.transform.gameObject.layer = LayerMask.NameToLayer("Player");
+        ballSprite.color = new Color(ballSprite.color.r, ballSprite.color.g, ballSprite.color.b, 1f);
     }
 
     private void ExitCollisionObject(Collider2D collider)
     {
-        Debug.Log("Ghost Shot: Exiting collision with " + collider.gameObject.name);
+        if (!playerController.IsSpecialShotEnabled()) return;
 
         Deactivate();
 

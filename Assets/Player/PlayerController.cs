@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     [Header("Collisions")]
     [Range(0, 10f)]
     [SerializeField] private float maximalCollisionRange = 7f;
+
+    private int buildingsInside = 0;
+
 #if UNITY_EDITOR
     [Header("Debug")]
     [SerializeField] private bool debugSurfacePhysics;
@@ -70,6 +73,22 @@ public class PlayerController : MonoBehaviour
         body.totalTorque = 0;
         body.linearVelocity = Vector2.zero;
         body.totalForce = Vector2.zero;
+    }
+
+    public void ResetSpecialShotSpecifics()
+    {
+        this.transform.gameObject.layer = LayerMask.NameToLayer("Player");
+        buildingsInside = 0;
+
+        // Remove old / still in progress special shot VFX
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    GameObject child = transform.GetChild(i).gameObject;
+        //    if (child.CompareTag("SpecialShot"))
+        //    {
+        //        Destroy(child);
+        //    }
+        //}
     }
 
     public void TogglePartyHat(bool enable)
@@ -200,13 +219,26 @@ public class PlayerController : MonoBehaviour
         body.linearDamping = defaultLinearDamping;
     }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Building"))
+        {
+            buildingsInside++;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if(collider.gameObject.layer == LayerMask.NameToLayer("Building"))
+        if (collider.gameObject.layer != LayerMask.NameToLayer("Building")) return;
+
+        buildingsInside--;
+
+        // The ball has to exit every building before firing the exit event so it does not get stuck 
+        if (buildingsInside <= 0)
         {
+            buildingsInside = 0;
             BallExitBuildingTriggerEvent?.Invoke(collider);
         }
-        
     }
 
     private void ApplyFrictionFromSurface(Collider2D collider)
