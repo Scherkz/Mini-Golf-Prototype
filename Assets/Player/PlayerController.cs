@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip shootSfx;
+    [SerializeField] private AudioClip selectSpecialShotSfx;
+    [SerializeField] private AudioClip deselectSpecialShotSfx;
 
     [SerializeField] private float defaultLinearDamping = 0.1f;
 
@@ -99,6 +101,16 @@ public class PlayerController : MonoBehaviour
             if (!specialShotAvailable) return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
+            if (isSpecialShotEnabled)
+            {
+                if (selectSpecialShotSfx != null)
+                    sfxSource.PlayOneShot(selectSpecialShotSfx);
+            }
+            else
+            {
+                if (deselectSpecialShotSfx != null)
+                    sfxSource.PlayOneShot(deselectSpecialShotSfx);
+            }
 
             OnToggleSpecialShotVFX?.Invoke(isSpecialShotEnabled);
         }

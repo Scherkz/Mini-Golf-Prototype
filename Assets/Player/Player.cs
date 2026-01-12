@@ -21,6 +21,11 @@ public class Player : MonoBehaviour
     public int score;
     public List<int> scorePerRound = new();
     public float timeTookThisRound;
+    
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip finishSfx;
+    [SerializeField] private AudioClip selectSfx;
+    [SerializeField] private AudioClip placeSfx;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -47,6 +52,9 @@ public class Player : MonoBehaviour
         playerControllerRigidbody = playerController.GetComponent<Rigidbody2D>();
 
         playerIndicator = transform.Find("PlayerIndicator").GetComponent<PlayerIndicator>();
+        
+        if (sfxSource == null)
+            sfxSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -195,6 +203,9 @@ public class Player : MonoBehaviour
 
         playerController.CancelShotAndHideArrow();
 
+        if (finishSfx != null)
+            sfxSource.PlayOneShot(finishSfx);
+        
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
 
@@ -216,6 +227,9 @@ public class Player : MonoBehaviour
         hasSelectedBuilding = true;
         buildController.gameObject.SetActive(false);
         buildController.ToggleCursor(false);
+        
+        if (selectSfx != null)
+            sfxSource.PlayOneShot(selectSfx);
 
         OnSelectedBuilding?.Invoke();
     }
@@ -225,6 +239,9 @@ public class Player : MonoBehaviour
         hasPlacedBuilding = true;
         buildController.enabled = false;
         buildController.ToggleCursor(false);
+        
+        if (placeSfx != null)
+            sfxSource.PlayOneShot(placeSfx);
 
         OnPlacedBuilding?.Invoke();
     }
