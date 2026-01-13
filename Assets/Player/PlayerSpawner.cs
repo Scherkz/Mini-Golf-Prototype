@@ -22,6 +22,9 @@ public class PlayerSpawner : MonoBehaviour
 
     public bool active = false;
     
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip spawnPlayerSfx;
+    
     [SerializeField] private PlayerRegistry playerRegistry;
     
     [SerializeField] private GameObject playerPrefab;
@@ -35,6 +38,12 @@ public class PlayerSpawner : MonoBehaviour
     public Player[] GetPlayers()
     {
         return joinedPlayers.Select(joinedPlayer => joinedPlayer.playerInput.gameObject.GetComponent<Player>()).ToArray();
+    }
+    
+    private void Awake()
+    {
+        if (sfxSource == null)
+            sfxSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -67,6 +76,9 @@ public class PlayerSpawner : MonoBehaviour
 
     private void SpawnPlayer(Gamepad gamepad)
     {
+        if (spawnPlayerSfx != null)
+            sfxSource.PlayOneShot(spawnPlayerSfx);
+        
         var playerInput = PlayerInput.Instantiate(
             playerPrefab,
             controlScheme: "Gamepad",

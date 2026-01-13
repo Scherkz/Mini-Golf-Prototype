@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class SplitBallPowerUp : PowerUpBuilding
 {
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip collectSfx;
+    
     [SerializeField] private PlayerRegistry playersRegistry;
     [SerializeField] private float colorSwitchSeconds = 0.5f;
 
@@ -12,6 +15,12 @@ public class SplitBallPowerUp : PowerUpBuilding
     private Color[] colors;
     private int colorIndex = 0;
     private float secondsSinceLastSwitch = 0.0f;
+    
+    private void Awake()
+    {
+        if (sfxSource == null)
+            sfxSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -39,6 +48,9 @@ public class SplitBallPowerUp : PowerUpBuilding
 
     protected override void OnCollected(Player player, PlayerController controller)
     {
+        if (collectSfx != null)
+            AudioSource.PlayClipAtPoint(collectSfx, transform.position, 10f);
+        
         var playerInput = player.GetComponent<PlayerInput>();
 
         // Clone Player
