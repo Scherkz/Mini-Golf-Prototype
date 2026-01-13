@@ -13,6 +13,9 @@ public class GameoverScreen : MonoBehaviour
     [SerializeField] private string[] taunts;
     [SerializeField] private InputAction rematchInputAction;
 
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip winSfx;
+    
     private Image colorCircle;
     private TMP_Text winnerTaunt;
     private Transform scoreboard;
@@ -36,6 +39,9 @@ public class GameoverScreen : MonoBehaviour
         colorCircle = transform.Find("ColorCircle").GetComponent<Image>();
         winnerTaunt = transform.Find("WinnerTaunt").GetComponent<TMP_Text>();
         scoreboard = transform.Find("Scoreboard");
+        
+        if (sfxSource == null)
+            sfxSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -65,6 +71,9 @@ public class GameoverScreen : MonoBehaviour
 
     private void OnWinnerDecided(Player winner, Player[] players, int roundsPlayed)
     {
+        if (winSfx != null)
+            sfxSource.PlayOneShot(winSfx);
+        
         rematchInputAction.Enable();
         ToggleCildren(true);
 
