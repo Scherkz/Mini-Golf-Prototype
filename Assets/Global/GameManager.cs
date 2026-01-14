@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     private Level currentLevel;
     private int roundCount;
 
+    private string levelName;
+    private int gravityScale = 1;
+
     private void Awake()
     {
         roundCount = 0;
@@ -71,6 +74,7 @@ public class GameManager : MonoBehaviour
         {
             this.CallNextFrame(StartGame);
         }
+        levelName = level.name;
     }
 
     private void StartGame()
@@ -158,6 +162,7 @@ public class GameManager : MonoBehaviour
 
     private void StartPlayingPhase()
     {
+
         currentPhase = GamePhase.Playing;
 
         currentLevel.BuildGrid.ShowGrid(false);
@@ -170,6 +175,19 @@ public class GameManager : MonoBehaviour
             playerRegistry.players[i].StartPlayingPhase(spawnPosition);
 
             playerRegistry.players[i].AssignSpecialShot(specialShotForRound);
+        }
+
+        if (levelName == "SpaceLevel")
+        {
+            gravityScale = 0;
+            Debug.Log("Zero Gravity");
+        } else
+        {
+            gravityScale = 1;
+        }
+        foreach (var player in playerRegistry.players)
+        {
+            player.GetPlayerController().GetComponent<Rigidbody2D>().gravityScale = gravityScale;
         }
     }
 
