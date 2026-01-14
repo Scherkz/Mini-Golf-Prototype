@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 271836272}
   - component: {fileID: 271836273}
   - component: {fileID: 271836274}
+  - component: {fileID: 271836275}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -291,6 +292,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &271836275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271836271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &286939461
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +317,7 @@ GameObject:
   - component: {fileID: 286939462}
   - component: {fileID: 286939463}
   - component: {fileID: 286939464}
+  - component: {fileID: 286939465}
   m_Layer: 0
   m_Name: Mars
   m_TagString: Untagged
@@ -418,6 +434,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &286939465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286939461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &338280248
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +459,7 @@ GameObject:
   - component: {fileID: 338280249}
   - component: {fileID: 338280250}
   - component: {fileID: 338280251}
+  - component: {fileID: 338280252}
   m_Layer: 0
   m_Name: Neptune
   m_TagString: Untagged
@@ -545,6 +576,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &338280252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338280248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &389605356
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +601,7 @@ GameObject:
   - component: {fileID: 389605357}
   - component: {fileID: 389605358}
   - component: {fileID: 389605359}
+  - component: {fileID: 389605360}
   m_Layer: 0
   m_Name: Uranus
   m_TagString: Untagged
@@ -672,6 +718,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.49999997
+--- !u!114 &389605360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389605356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &510175975
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +743,7 @@ GameObject:
   - component: {fileID: 510175976}
   - component: {fileID: 510175977}
   - component: {fileID: 510175978}
+  - component: {fileID: 510175979}
   m_Layer: 0
   m_Name: Mercury
   m_TagString: Untagged
@@ -799,6 +860,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &510175979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510175975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &547633232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,6 +1192,7 @@ GameObject:
   - component: {fileID: 584159080}
   - component: {fileID: 584159081}
   - component: {fileID: 584159082}
+  - component: {fileID: 584159083}
   m_Layer: 0
   m_Name: Pluto
   m_TagString: Untagged
@@ -1233,6 +1309,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &584159083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584159079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &668653435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,6 +1995,7 @@ GameObject:
   - component: {fileID: 1067336551}
   - component: {fileID: 1067336552}
   - component: {fileID: 1067336553}
+  - component: {fileID: 1067336554}
   m_Layer: 0
   m_Name: Jupiter
   m_TagString: Untagged
@@ -2021,6 +2112,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1067336554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067336550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &1480126175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,6 +2137,7 @@ GameObject:
   - component: {fileID: 1480126176}
   - component: {fileID: 1480126177}
   - component: {fileID: 1480126178}
+  - component: {fileID: 1480126179}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -2048,7 +2154,7 @@ Transform:
   m_GameObject: {fileID: 1480126175}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27, y: 0, z: 0}
+  m_LocalPosition: {x: -29, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2148,6 +2254,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1480126179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480126175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &1488027503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2190,6 +2310,7 @@ GameObject:
   - component: {fileID: 1568346237}
   - component: {fileID: 1568346238}
   - component: {fileID: 1568346239}
+  - component: {fileID: 1568346240}
   m_Layer: 0
   m_Name: Venus
   m_TagString: Untagged
@@ -2306,6 +2427,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1568346240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568346236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &1689874728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,6 +2537,7 @@ GameObject:
   - component: {fileID: 1890912702}
   - component: {fileID: 1890912703}
   - component: {fileID: 1890912704}
+  - component: {fileID: 1890912705}
   m_Layer: 0
   m_Name: Saturn
   m_TagString: Untagged
@@ -2518,6 +2654,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1890912705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890912701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6df677aa6f30544a73992195cc0cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gravity
+  gizmoColor: {r: 0, g: 0.5, b: 1, a: 0.25}
+  showGizmoInGame: 1
 --- !u!1 &2031216272
 GameObject:
   m_ObjectHideFlags: 0
