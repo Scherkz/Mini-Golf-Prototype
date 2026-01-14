@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
 
+    [Header("Collisions")]
+    [Range(0, 10f)]
+    [SerializeField] private float maximalCollisionRange = 7f;
+
+    private int buildingsInsideTrigger = 0;
+
 #if UNITY_EDITOR
     [Header("Debug")]
     [SerializeField] private bool debugSurfacePhysics;
@@ -38,12 +45,13 @@ public class PlayerController : MonoBehaviour
     private bool isSpecialShotEnabled = false;
     private bool specialShotAvailable = false;
 
-    private bool firstShotTakenAfterRoundStart = false;
-
-    public Action GetAssignedSpecialShot;
     public Action HasAvailableSpecialShot;
-    public Action<Collision2D> BallCollisionEvent;
-    public Action<bool> OnSpecialShotStateChange;
+    public Action<Collision2D> BallEnterCollisionEvent;
+    public Action<Collider2D> BallExitBuildingTriggerEvent;
+    public Action<bool> OnToggleSpecialShotActivation;
+    public Action<bool> OnToggleSpecialShotVFX;
+
+    private bool resetOnStart = true;
 
     private void Awake()
     {
@@ -55,7 +63,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        ResetSelf();
+        if (resetOnStart)
+        {
+            ResetSelf();
+        }
     }
 
     public void ResetSelf()
@@ -66,6 +77,12 @@ public class PlayerController : MonoBehaviour
         body.totalTorque = 0;
         body.linearVelocity = Vector2.zero;
         body.totalForce = Vector2.zero;
+    }
+
+    public void ResetSpecialShotSpecifics()
+    {
+        this.transform.gameObject.layer = LayerMask.NameToLayer("Player");
+        buildingsInsideTrigger = 0;
     }
 
     public void TogglePartyHat(bool enable)
@@ -85,10 +102,12 @@ public class PlayerController : MonoBehaviour
         {
             if (!specialShotAvailable) return;
 
+            if (buildingsInsideTrigger > 0 && this.transform.gameObject.layer == LayerMask.NameToLayer("GhostBall")) return;
+
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
-            // TODO: Replace with animation or particle effect in the future
-            Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
+            OnToggleSpecialShotActivation?.Invoke(isSpecialShotEnabled);
+            OnToggleSpecialShotVFX?.Invoke(isSpecialShotEnabled);
         }
     }
 
@@ -120,7 +139,6 @@ public class PlayerController : MonoBehaviour
             aimArrow.gameObject.SetActive(false);
 
             OnSwing?.Invoke();
-            firstShotTakenAfterRoundStart = true;
         }
     }
 
@@ -137,6 +155,11 @@ public class PlayerController : MonoBehaviour
     public void SetColor(Color color)
     {
         GetComponent<Renderer>().material.color = color;
+    }
+
+    public void DontResetOnStart(bool value)
+    {
+        resetOnStart = value;
     }
 
     private void Update()
@@ -169,15 +192,54 @@ public class PlayerController : MonoBehaviour
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
     }
 
+    // Ball collision events are used for special shots
+    // All players within a certain range will register a collision in the area
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        BallCollisionEvent?.Invoke(collision);
         ApplyFrictionFromSurface(collision.collider);
+
+        // Impact from current player position
+        Vector2 impactPosition = transform.position;
+        // Get all rigidbodies in a radius
+        Collider2D[] overlappingColliders = Physics2D.OverlapCircleAll(impactPosition, maximalCollisionRange);
+        foreach (Collider2D overlappingCollider in overlappingColliders)
+        {
+            // Only affect player rigidbodies
+            if (!overlappingCollider.CompareTag("Player")) continue;
+            Rigidbody2D ballBody = overlappingCollider.GetComponent<Rigidbody2D>();
+            if (ballBody != null)
+            {
+                PlayerController overlappingPlayerController = overlappingCollider.GetComponent<PlayerController>();
+                overlappingPlayerController.BallEnterCollisionEvent?.Invoke(collision);
+            }
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         body.linearDamping = defaultLinearDamping;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Building"))
+        {
+            buildingsInsideTrigger++;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer != LayerMask.NameToLayer("Building")) return;
+
+        buildingsInsideTrigger--;
+
+        // The ball has to exit every building before firing the exit event so it does not get stuck 
+        if (buildingsInsideTrigger <= 0)
+        {
+            buildingsInsideTrigger = 0;
+            BallExitBuildingTriggerEvent?.Invoke(collider);
+        }
     }
 
     private void ApplyFrictionFromSurface(Collider2D collider)
@@ -212,13 +274,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Ball collision events are used for special shots or powerups
     public void SetSpecialShotAvailability(bool available)
     {
         specialShotAvailable = available;
     }
 
-    public void ResetSpecialShotEnabled()
+    public void DisableSpecialShot()
     {
         this.isSpecialShotEnabled = false;
     }
@@ -228,8 +289,8 @@ public class PlayerController : MonoBehaviour
         return isSpecialShotEnabled;
     }
 
-    public bool IsFirstShotTakenAfterRoundStart()
+    public float GetMaximalCollisionRange()
     {
-        return firstShotTakenAfterRoundStart;
+        return maximalCollisionRange;
     }
 }

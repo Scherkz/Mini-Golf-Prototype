@@ -114,6 +114,8 @@ public class Player : MonoBehaviour
         buildController.ToggleCursor(true);
 
         buildController.InitBuildingPhase(buildGrid);
+
+        playerController.ResetSpecialShotSpecifics();
     }
 
     public void StartPlayingPhase(Vector3 spawnPosition)
@@ -132,11 +134,10 @@ public class Player : MonoBehaviour
         StartTimer();
 
         numberOfSwingsThisRound = 0;
+        spawnPoint = spawnPosition;
 
         playerController.SetSpecialShotAvailability(true);
-        playerController.ResetSpecialShotEnabled();
-
-        spawnPoint = spawnPosition;
+        playerController.DisableSpecialShot();
     }
 
     // Generic way to assign a special shot to the player
@@ -157,6 +158,7 @@ public class Player : MonoBehaviour
 
     public void UsedSpecialShot()
     {
+        playerController.OnToggleSpecialShotVFX?.Invoke(false);
         playerController.SetSpecialShotAvailability(false);
 
         OnSpecialShotAssigned?.Invoke(""); // displays nothing in the UI
@@ -242,10 +244,12 @@ public class Player : MonoBehaviour
     {
         numberOfSwingsThisRound++;
     }
+
     private void StartTimer()
     {
         startTime = Time.time;
     }
+
     private void StopTimer()
     {
         timeTookThisRound = Time.time - startTime;
@@ -256,6 +260,7 @@ public class Player : MonoBehaviour
     {
         if (playerControllerRigidbody == null)
             return;
+
         playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
     }
 }
