@@ -107,7 +107,6 @@ public class LobbyManager : MonoBehaviour
         map.AddVote(lobbyPlayer.playerID, lobbyPlayer.player.GetColor());
 
         Debug.Log($"Player {lobbyPlayer.playerID} map vote: {lobbyPlayer.mapVote.mapName}");
-
         TryStartingLevel();
     }
 

@@ -63,5 +63,4 @@ public class LevelLoadingScreen : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(enable);
         }
     }
-
 }
