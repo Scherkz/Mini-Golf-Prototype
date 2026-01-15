@@ -296,7 +296,7 @@ MonoBehaviour:
   rotation: 0
   rotationAnchor: {fileID: 0}
   destroyTimer: 0.8
-  sfxSource: {fileID: 0}
+  sfxSource: {fileID: -5073137387870701194}
   explosionBombSfx: {fileID: 8300000, guid: 08cec5b60a4b0ae4ea68799b2744ca80, type: 3}
 --- !u!82 &-5073137387870701194
 AudioSource:

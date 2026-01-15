@@ -3,14 +3,14 @@ using UnityEngine.InputSystem;
 
 public class SplitBallPowerUp : PowerUpBuilding
 {
-    [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioClip collectSfx;
-    
     [SerializeField] private PlayerRegistry playersRegistry;
     [SerializeField] private float colorSwitchSeconds = 0.5f;
 
     [SerializeField] private float spawnOffset = 0.4f;
     [SerializeField] private float spreadDegrees = 45f;
+    
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip collectSfx;
 
     private Color[] colors;
     private int colorIndex = 0;

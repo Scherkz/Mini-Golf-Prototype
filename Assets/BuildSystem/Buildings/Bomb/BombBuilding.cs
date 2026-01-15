@@ -1,16 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BombBuilding : Building
 {
     [SerializeField] private float destroyTimer;
-    [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip explosionBombSfx;
-
-    private void Awake()
-    {
-        if (sfxSource == null)
-            sfxSource = GetComponent<AudioSource>();
-    }
     
     public override void Init()
     {
