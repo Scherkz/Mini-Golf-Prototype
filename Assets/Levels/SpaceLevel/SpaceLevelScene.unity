@@ -9656,13 +9656,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1689874728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45a9b411cfb3b834f998643fcca9a422, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cde47a3aa3940b45bd192d59cdf45c6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Level
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceLevel
   isLobby: 0
   buildGrid: {fileID: 2075875164}
   buildingSpawner: {fileID: 563669622}
   spawnPointsParent: {fileID: 698423822}
+  playerRegistry: {fileID: 11400000, guid: 38a57423f8f7409489d65726fa181edf, type: 2}
 --- !u!1 &1695844711
 GameObject:
   m_ObjectHideFlags: 0
