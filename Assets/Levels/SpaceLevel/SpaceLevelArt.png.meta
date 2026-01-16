@@ -246,6 +246,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: SpaceLevelArt_Stars1
+      rect:
+        serializedVersion: 2
+        x: 2060
+        y: 497
+        width: 240
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 045857d6bd137664cb245d5467271b29
+      internalID: 447427953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpaceLevelArt_Stars2
+      rect:
+        serializedVersion: 2
+        x: 2333
+        y: 505
+        width: 199
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 566804a2aeb9a8d41927095a0b558093
+      internalID: -1737921802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpaceLevelArt_Stars3
+      rect:
+        serializedVersion: 2
+        x: 2586
+        y: 530
+        width: 225
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e16c3d1401271bc4b974eaaaf8ca42a2
+      internalID: -670048178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -260,7 +326,6 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SpaceLevelArt_1: -8285489623087379230
       SpaceLevelArt_3: 485677823174676391
       SpaceLevelArt_4: -2608477828234620648
       SpaceLevelArt_5: 4858177109769993161
@@ -268,6 +333,9 @@ TextureImporter:
       SpaceLevelArt_EarthClouds: 4670795191481284595
       SpaceLevelArt_FinishFlag: 8057492234706726781
       SpaceLevelArt_Moon: 7905526348812715459
+      SpaceLevelArt_Stars1: 447427953
+      SpaceLevelArt_Stars2: -8285489623087379230
+      SpaceLevelArt_Stars3: -670048178
       SpaceLevelArt_UFO: 3527114535237256350
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
