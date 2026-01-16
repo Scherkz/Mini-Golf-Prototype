@@ -4,9 +4,9 @@ using UnityEngine;
 [ExecuteAlways]
 public class Gravity : MonoBehaviour
 {
-    private float gravityStrength = 50f;
-    private float gravityRange = 10f;
-    private float extraRadius = 2f;
+    [SerializeField] private float gravityStrength = 50f;
+    [SerializeField] private float gravityRange = 10f;
+    [SerializeField] private float extraRadius = 2f;
     private bool useDistanceFalloff = true;
 
     private readonly List<Rigidbody2D> players = new List<Rigidbody2D>();
