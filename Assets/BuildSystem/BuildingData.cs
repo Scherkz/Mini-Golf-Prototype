@@ -7,6 +7,7 @@ public class BuildingData : ScriptableObject
     public GameObject prefab;
 
     public bool isAntiBuilding = false;
+    public bool isInvisibleBuilding = false;
     public Vector2Int cellCount = Vector2Int.one;
     
     [HideInInspector][SerializeField] private bool[] bitmask;
