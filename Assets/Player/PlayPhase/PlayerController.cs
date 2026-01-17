@@ -2,19 +2,19 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[Serializable]
-public class SurfaceSfx
-{
-    public PhysicsMaterial2D material;
-    public AudioClip clip;
-    [Range(0f, 1f)] public float volume = 1f;
-    public float minHitSpeed = 1.5f;
-}
-
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerController : MonoBehaviour
 {
+    [Serializable]
+    private class SurfaceSfx
+    {
+        public PhysicsMaterial2D material;
+        public AudioClip clip;
+        [Range(0f, 1f)] public float volume = 1f;
+        public float minHitSpeed = 1.5f;
+    }
+
     public Action OnSwing;
 
     [SerializeField] private float defaultLinearDamping = 0.1f;
@@ -25,14 +25,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
 
+    [SerializeField] private bool invertedControls = true;
+
+    [Header("Audio")]
     [SerializeField] private AudioSource shootSfx;
     [SerializeField] private AudioSource activateSpecialShotSfx;
     [SerializeField] private AudioSource deactivateSpecialShotSfx;
     [SerializeField] private AudioSource surfaceHitAudioSource;
     [SerializeField] private SurfaceSfx[] surfaceSfx;
     [SerializeField] private float hitSfxCooldown = 1f;
-
-    [SerializeField] private bool invertedControls = true;
 
     [Header("AimArrow")]
     [SerializeField] private Transform aimArrow;
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
     public Action<bool> OnToggleSpecialShotVFX;
 
     private bool resetOnStart = true;
-    
+
     private float lastHitSfxTime = -999f;
 
     private void Awake()
@@ -237,7 +238,7 @@ public class PlayerController : MonoBehaviour
                 overlappingPlayerController.BallEnterCollisionEvent?.Invoke(collision);
             }
         }
-        
+
         PlaySurfaceHitSound(collision);
     }
 
@@ -319,7 +320,7 @@ public class PlayerController : MonoBehaviour
     {
         return maximalCollisionRange;
     }
-    
+
     private void PlaySurfaceHitSound(Collision2D collision)
     {
         if (surfaceHitAudioSource == null || surfaceSfx == null || surfaceSfx.Length == 0)
@@ -351,7 +352,7 @@ public class PlayerController : MonoBehaviour
 
             surfaceHitAudioSource.PlayOneShot(entry.clip, entry.volume);
             lastHitSfxTime = Time.time;
-            return; 
+            return;
         }
     }
 }
