@@ -5,6 +5,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [Serializable]
+    private class SurfaceSfx
+    {
+        public PhysicsMaterial2D material;
+        public AudioClip clip;
+        [Range(0f, 1f)] public float volume = 1f;
+        public float minHitSpeed = 1.5f;
+    }
+
     public Action OnSwing;
 
     [SerializeField] private float defaultLinearDamping = 0.1f;
@@ -15,11 +24,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
 
+    [SerializeField] private bool invertedControls = true;
+
+    [Header("Audio")]
     [SerializeField] private AudioSource shootSfx;
     [SerializeField] private AudioSource activateSpecialShotSfx;
     [SerializeField] private AudioSource deactivateSpecialShotSfx;
-
-    [SerializeField] private bool invertedControls = true;
+    [SerializeField] private AudioSource surfaceHitAudioSource;
+    [SerializeField] private SurfaceSfx[] surfaceSfx;
+    [SerializeField] private float hitSfxCooldown = 1f;
 
     [Header("AimArrow")]
     [SerializeField] private Transform aimArrowAnchor;
@@ -57,6 +70,8 @@ public class PlayerController : MonoBehaviour
     public Action<bool> OnToggleSpecialShotVFX;
 
     private bool resetOnStart = true;
+
+    private float lastHitSfxTime = -999f;
 
     private void Awake()
     {
@@ -230,6 +245,8 @@ public class PlayerController : MonoBehaviour
                 overlappingPlayerController.BallEnterCollisionEvent?.Invoke(collision);
             }
         }
+
+        PlaySurfaceHitSound(collision);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -309,5 +326,40 @@ public class PlayerController : MonoBehaviour
     public float GetMaximalCollisionRange()
     {
         return maximalCollisionRange;
+    }
+
+    private void PlaySurfaceHitSound(Collision2D collision)
+    {
+        if (surfaceHitAudioSource == null || surfaceSfx == null || surfaceSfx.Length == 0)
+            return;
+
+        if (Time.time - lastHitSfxTime < hitSfxCooldown)
+            return;
+
+        var other = collision.collider;
+        if (other == null)
+            return;
+
+        var mat = other.sharedMaterial;
+        if (mat == null) return;
+
+        var hitSpeed = collision.relativeVelocity.magnitude;
+
+        for (int i = 0; i < surfaceSfx.Length; i++)
+        {
+            var entry = surfaceSfx[i];
+            if (entry == null || entry.material == null || entry.clip == null)
+                continue;
+
+            if (entry.material != mat)
+                continue;
+
+            if (hitSpeed < entry.minHitSpeed)
+                return;
+
+            surfaceHitAudioSource.PlayOneShot(entry.clip, entry.volume);
+            lastHitSfxTime = Time.time;
+            return;
+        }
     }
 }
