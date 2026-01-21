@@ -250,7 +250,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7691929721822909986}
   rotation: 0
   rotationAnchor: {fileID: 8213192476866012643}
-  boostForce: 10
+  boostForce: 7
 --- !u!50 &838769573164313213
 Rigidbody2D:
   serializedVersion: 5
