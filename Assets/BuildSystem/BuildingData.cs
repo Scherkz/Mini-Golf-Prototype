@@ -17,4 +17,5 @@ public class BuildingData : ScriptableObject
         var index = x + y * cellCount.x;
         return bitmask[index];
     }
+
 }

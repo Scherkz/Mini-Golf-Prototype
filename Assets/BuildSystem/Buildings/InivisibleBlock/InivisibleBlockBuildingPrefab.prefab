@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1544847929386954055}
   - component: {fileID: 2005140273207866497}
   - component: {fileID: 7579628494982976359}
-  - component: {fileID: 2788915306972404055}
+  - component: {fileID: 6577856518834875205}
   m_Layer: 0
   m_Name: InivisibleBlockBuildingPrefab
   m_TagString: Untagged
@@ -101,7 +101,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8889352517432693169}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -118,8 +118,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!61 &7579628494982976359
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -166,7 +166,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!114 &2788915306972404055
+--- !u!114 &6577856518834875205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +175,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8889352517432693169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e12d0e52f682fc4aa91f2a6914ea02f, type: 3}
+  m_Script: {fileID: 11500000, guid: 508122595c4d7e1438584dc8ee8fc539, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Building
+  m_EditorClassIdentifier: Assembly-CSharp::InvisibleBlock
   spriteRenderer: {fileID: 1544847929386954055}
+  rotation: 0
+  rotationAnchor: {fileID: 0}
+  collectVfxPrefab: {fileID: 0}
+  isInvisibleBuilding: 1
