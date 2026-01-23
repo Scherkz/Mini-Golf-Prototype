@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
 
     private Color color;
     private float startTime;
+    private Vector3 spawnPoint;
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        buildController.gameObject.SetActive(false);
+        buildController.enabled = false;
         playerController.gameObject.SetActive(false);
     }
 
@@ -98,9 +99,6 @@ public class Player : MonoBehaviour
         hasSelectedBuilding = false;
 
         buildController.enabled = true;
-        buildController.gameObject.SetActive(true);
-        buildController.ToggleCursor(true);
-
         buildController.InitSelectionPhase(screenPosition);
     }
 
@@ -108,17 +106,17 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = false;
 
-        buildController.gameObject.SetActive(true);
-        buildController.ToggleCursor(true);
-
+        buildController.enabled = true;
         buildController.InitBuildingPhase(buildGrid);
+
+        playerController.ResetSpecialShotSpecifics();
     }
 
     public void StartPlayingPhase(Vector3 spawnPosition)
     {
         playerInput.SwitchCurrentActionMap(playingActionMapName);
 
-        buildController.gameObject.SetActive(false);
+        buildController.enabled = false;
 
         hasFinishedRound = false;
 
@@ -130,6 +128,7 @@ public class Player : MonoBehaviour
         StartTimer();
 
         numberOfSwingsThisRound = 0;
+        spawnPoint = spawnPosition;
 
         playerController.SetSpecialShotAvailability(true);
         playerController.DisableSpecialShot();
@@ -204,6 +203,13 @@ public class Player : MonoBehaviour
         OnFinishedRound?.Invoke();
     }
 
+    // is called via Unity's messaging system
+    private void OnEnterKillAreaMessage()
+    {
+        playerController.transform.position = spawnPoint;
+        playerController.ResetSelf();
+    }
+
     // is called via Unity's messaging system through MapNode.cs
     private void OnMapNodeVotedMessage(MapNode map)
     {
@@ -214,8 +220,7 @@ public class Player : MonoBehaviour
     private void OnBuildingSelected()
     {
         hasSelectedBuilding = true;
-        buildController.gameObject.SetActive(false);
-        buildController.ToggleCursor(false);
+        buildController.enabled = false;
 
         OnSelectedBuilding?.Invoke();
     }
@@ -224,7 +229,6 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = true;
         buildController.enabled = false;
-        buildController.ToggleCursor(false);
 
         OnPlacedBuilding?.Invoke();
     }
