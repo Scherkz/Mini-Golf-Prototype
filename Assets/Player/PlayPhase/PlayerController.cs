@@ -334,13 +334,13 @@ public class PlayerController : MonoBehaviour
 
         if (Time.time - lastHitSfxTime < hitSfxCooldown)
             return;
+        var mat = collision.collider.sharedMaterial;
+        if (mat == null) 
+            if (collision.rigidbody != null)
+                mat = collision.rigidbody.sharedMaterial;
 
-        var other = collision.collider;
-        if (other == null)
+        if (mat == null)
             return;
-
-        var mat = other.sharedMaterial;
-        if (mat == null) return;
 
         var hitSpeed = collision.relativeVelocity.magnitude;
 
