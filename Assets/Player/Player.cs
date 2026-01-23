@@ -38,6 +38,12 @@ public class Player : MonoBehaviour
     private Color color;
     private float startTime;
     private Vector3 spawnPoint;
+    
+    private enum RoundFinishReason
+    {
+        ReachedFinish,
+        Surrender
+    }
 
     private void Awake()
     {
@@ -61,6 +67,7 @@ public class Player : MonoBehaviour
         buildController.OnSelectedBuilding += OnBuildingSelected;
         buildController.OnBuildingPlaced += OnBuildingPlaced;
         playerController.OnSwing += OnPlayerSwings;
+        playerController.onSurrenderConfirmed += OnPlayerSurrendered;
     }
 
     private void OnDisable()
@@ -68,6 +75,7 @@ public class Player : MonoBehaviour
         buildController.OnSelectedBuilding -= OnBuildingSelected;
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
         playerController.OnSwing -= OnPlayerSwings;
+        playerController.onSurrenderConfirmed -= OnPlayerSurrendered;
     }
 
     public void StartNewRound()
@@ -187,8 +195,7 @@ public class Player : MonoBehaviour
         return playerController;
     }
 
-    // is called via Unity's messaging system
-    private void OnEnterFinishArea()
+    private void FinishRound(RoundFinishReason reason)
     {
         if (hasFinishedRound)
             return; // we are currently in build mode -> ignore event
@@ -202,10 +209,26 @@ public class Player : MonoBehaviour
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
 
-        var confetti = Instantiate(confettiVFX);
-        confetti.transform.position = playerController.transform.position;
+        switch (reason)
+        {
+            case RoundFinishReason.Surrender:
+                numberOfSwingsThisRound = int.MaxValue;
+                timeTookThisRound = float.MaxValue;
+                break;
+            
+            case RoundFinishReason.ReachedFinish:
+                var confetti = Instantiate(confettiVFX);
+                confetti.transform.position = playerController.transform.position;
+                break;
+        }
 
         OnFinishedRound?.Invoke();
+    }
+    
+    // is called via Unity's messaging system
+    private void OnEnterFinishArea()
+    {
+        FinishRound(RoundFinishReason.ReachedFinish);
     }
 
     // is called via Unity's messaging system
@@ -264,5 +287,10 @@ public class Player : MonoBehaviour
             return;
 
         playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
+    }
+
+    private void OnPlayerSurrendered()
+    {
+        FinishRound(RoundFinishReason.Surrender);
     }
 }

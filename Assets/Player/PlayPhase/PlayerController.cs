@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     public Action OnSwing;
 
+    public Action onSurrenderConfirmed;
+
     [SerializeField] private float defaultLinearDamping = 0.1f;
 
     [SerializeField] private float shootForce = 10f;
@@ -175,6 +177,14 @@ public class PlayerController : MonoBehaviour
             isCharging = false;
             
             OnSwing?.Invoke();
+        }
+    }
+
+    public void Surrender(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            onSurrenderConfirmed?.Invoke();
         }
     }
 
