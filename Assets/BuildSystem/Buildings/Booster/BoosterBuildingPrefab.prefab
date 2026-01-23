@@ -300,4 +300,4 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7691929721822909986}
   rotation: 0
   rotationAnchor: {fileID: 8213192476866012643}
-  boostForce: 7
+  boostForce: 8
