@@ -35,7 +35,7 @@ public class CannonBuilding : Building
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject == playerGameObject)
         {
             if (shootCoroutine != null)
                 StopCoroutine(shootCoroutine);
