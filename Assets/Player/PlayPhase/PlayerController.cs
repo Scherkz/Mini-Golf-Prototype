@@ -14,13 +14,6 @@ public class PlayerController : MonoBehaviour
         public float minHitSpeed = 1.5f;
     }
 
-    [Serializable]
-    private class CrazyScarySfx
-    {
-        public AudioClip clip;
-        [Range(0f, 1f)] public float volume = 1f;
-    }
-
     public Action OnSwing;
 
     [SerializeField] private float defaultLinearDamping = 0.1f;
@@ -37,11 +30,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource activateSpecialShotSfx;
     [SerializeField] private AudioSource deactivateSpecialShotSfx;
     [SerializeField] private AudioSource surfaceHitAudioSource;
-    [SerializeField] private AudioSource crazyScaryAudioSource;
-    [SerializeField] private CrazyScarySfx[] crazyScarySfxClips;
-    [Range(0, 1f)]
-    [SerializeField] private float probabilityOfCrazyScarySfx = 0.1f;
-    [SerializeField] private float minHitSpeedForCrazyScarySfx = 8f;
     [SerializeField] private SurfaceSfx[] surfaceSfx;
 
     [Header("AimArrow")]
@@ -361,21 +349,10 @@ public class PlayerController : MonoBehaviour
                 continue;
 
             if (hitSpeed < entry.minHitSpeed)
-                return;
+                break;
 
             surfaceHitAudioSource.PlayOneShot(entry.clip, entry.volume);
-
-            // Play crazy scary SFX for rubber material in rubber room
-            if (mat.name == "RubberPhysicsMaterial")
-            {
-                if (UnityEngine.Random.value > probabilityOfCrazyScarySfx || hitSpeed < minHitSpeedForCrazyScarySfx)
-                    return;
-
-                CrazyScarySfx crazyScarySfx = crazyScarySfxClips[UnityEngine.Random.Range(0, crazyScarySfxClips.Length)];
-                crazyScaryAudioSource.PlayOneShot(crazyScarySfx.clip, crazyScarySfx.volume);
-            }
-
-            return;
+            break;
         }
     }
 }
