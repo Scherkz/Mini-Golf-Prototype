@@ -52,7 +52,8 @@ public class CannonBuilding : Building
     {
         DefreezePlayer();
         Rigidbody2D rb = playerGameObject.GetComponent<Rigidbody2D>();
-        Vector2 dir = new Vector2(1f, 1f).normalized;
+
+        Vector2 dir = Quaternion.Euler(0, 0, -45f) * rotationAnchor.transform.up;
         rb.linearVelocity = dir * shootPower;
     }
 
