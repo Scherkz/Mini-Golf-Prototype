@@ -1,21 +1,25 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
-
 
 public class CannonBuilding : Building
 {
+    [SerializeField] private float shootPower = 15f;
+
     private bool isFree;
     private Coroutine shootCoroutine;
-    private float shootPower = 15f;
+
     private Collider2D myCollider;
     private Collider2D otherCollider;
     private GameObject playerGameObject;
+
+    private Animator animator;
 
     private void Awake()
     {
         isFree = true;
         myCollider = GetComponentInChildren<Collider2D>();
+
+        animator = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,10 +48,12 @@ public class CannonBuilding : Building
 
     IEnumerator ShootAfterDelay()
     {
-        yield return new WaitForSeconds(3f);
-        Shoot();
+        yield return new WaitForSeconds(1f);
+
+        animator.SetTrigger("Shoot");
     }
 
+    // Gets triggered by animator for timing with keyframes
     private void Shoot()
     {
         DefreezePlayer();
