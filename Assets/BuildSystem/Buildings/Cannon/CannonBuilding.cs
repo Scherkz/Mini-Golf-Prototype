@@ -32,7 +32,13 @@ public class CannonBuilding : Building
             isFree = false;
             otherCollider = collision.collider;
             Physics2D.IgnoreCollision(myCollider, otherCollider, true);
-            FreezePlayer();
+            PlayerController playerBall = playerGameObject.GetComponent<PlayerController>();
+            if (playerBall != null)
+                playerBall.FreezePlayerControlls();
+            Vector2 midPoint = transform.position;
+            midPoint.x += 0.5f;
+            midPoint.y += 0.5f;
+            playerGameObject.transform.position = midPoint;
             shootCoroutine = StartCoroutine(ShootAfterDelay());
         }
     }
@@ -56,46 +62,13 @@ public class CannonBuilding : Building
     // Gets triggered by animator for timing with keyframes
     private void Shoot()
     {
-        DefreezePlayer();
+        PlayerController playerBall = playerGameObject.GetComponent<PlayerController>();
+        if (playerBall != null)
+            playerBall.DefreezePlayerControlls();
         Rigidbody2D rb = playerGameObject.GetComponent<Rigidbody2D>();
 
         Vector2 dir = Quaternion.Euler(0, 0, -45f) * rotationAnchor.transform.up;
         rb.linearVelocity = dir * shootPower;
-    }
-
-    private void FreezePlayer()
-    {
-        Rigidbody2D rb = playerGameObject.GetComponent<Rigidbody2D>();
-
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-        rb.bodyType = RigidbodyType2D.Kinematic;
-
-        foreach (Collider c in playerGameObject.GetComponentsInChildren<Collider>())
-            c.enabled = false;
-
-        foreach (SpriteRenderer sp in playerGameObject.GetComponentsInChildren<SpriteRenderer>())
-            sp.enabled = false;
-
-        Vector2 midPoint = transform.position;
-        midPoint.x += 0.5f;
-        midPoint.y += 0.5f;
-        playerGameObject.transform.position = midPoint;
-    }
-
-    private void DefreezePlayer()
-    {
-        Rigidbody2D rb = playerGameObject.GetComponent<Rigidbody2D>();
-
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-
-        foreach (Collider c in playerGameObject.GetComponentsInChildren<Collider>())
-            c.enabled = true;
-
-        foreach (SpriteRenderer sp in playerGameObject.GetComponentsInChildren<SpriteRenderer>())
-            sp.enabled = true;
     }
 
     private void Update()

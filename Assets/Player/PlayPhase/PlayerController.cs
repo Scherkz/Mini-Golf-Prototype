@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     [Header("AimArrow")]
     [SerializeField] private Transform aimArrowAnchor;
     [SerializeField] private SpriteRenderer aimArrowFill;
+    [SerializeField] private SpriteRenderer aimArrowBackground;
+    [SerializeField] private SpriteRenderer aimArrowOutline;
     [SerializeField] private Gradient aimChargeColor;
 
     [Header("Collisions")]
@@ -52,9 +54,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private TrailRenderer trailRenderer;
     private GameObject partyHat;
+    private SpriteRenderer ballSprite;
 
     private Vector2 aimInput;
-    
+
     private float shootInputStartTime;
     private bool isCharging;
     private float aimArrowMaxFillValue;
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         trailRenderer = GetComponent<TrailRenderer>();
         partyHat = transform.Find("PartyHat").gameObject;
+        ballSprite = GetComponent<SpriteRenderer>();
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
 
@@ -120,7 +124,7 @@ public class PlayerController : MonoBehaviour
             // reset the charge when starting to aim
             shootInputStartTime = Time.realtimeSinceStartup;
         }
-        
+
         var aimDirection = context.ReadValue<Vector2>();
         aimInput = invertedControls ? -aimDirection : aimDirection;
     }
@@ -131,7 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!specialShotAvailable) return;
 
-            if (buildingsInsideTrigger > 0 && gameObject.layer == LayerMask.NameToLayer("GhostBall")) 
+            if (buildingsInsideTrigger > 0 && gameObject.layer == LayerMask.NameToLayer("GhostBall"))
                 return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
@@ -153,7 +157,7 @@ public class PlayerController : MonoBehaviour
             shootInputStartTime = Time.realtimeSinceStartup;
             isCharging = true;
         }
-        
+
         if (context.canceled && isCharging)
         {
             if (aimInput.sqrMagnitude < 0.01f)
@@ -161,7 +165,7 @@ public class PlayerController : MonoBehaviour
                 aimArrowAnchor.gameObject.SetActive(false);
                 return;
             }
-            
+
             var inputDuration = Time.realtimeSinceStartup - shootInputStartTime;
             var chargeTime = Mathf.Min(inputDuration, maxChargeTime);
             var chargeAmount = chargeTime / maxChargeTime;
@@ -169,11 +173,11 @@ public class PlayerController : MonoBehaviour
 
             if (shootSfx != null)
                 shootSfx.Play();
-            
+
             aimInput = Vector2.zero;
             aimArrowAnchor.gameObject.SetActive(false);
             isCharging = false;
-            
+
             OnSwing?.Invoke();
         }
     }
@@ -221,7 +225,7 @@ public class PlayerController : MonoBehaviour
         var dir = input.normalized;
         var chargeDuration = Time.realtimeSinceStartup - shootInputStartTime;
         var chargeAmount = isCharging ? chargeDuration / maxChargeTime : 0f;
-        
+
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         aimArrowAnchor.rotation = Quaternion.Euler(0, 0, angle);
 
@@ -338,7 +342,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         var mat = collision.collider.sharedMaterial;
-        if (mat == null) 
+        if (mat == null)
             if (collision.rigidbody != null)
                 mat = collision.rigidbody.sharedMaterial;
 
@@ -362,5 +366,27 @@ public class PlayerController : MonoBehaviour
             surfaceHitAudioSource.PlayOneShot(entry.clip, entry.volume);
             return;
         }
+    }
+    public void FreezePlayerControlls()
+    {
+        body.linearVelocity = Vector2.zero;
+        body.angularVelocity = 0f;
+        body.bodyType = RigidbodyType2D.Kinematic;
+
+        ballSprite.enabled = false;
+        aimArrowFill.enabled = false;
+        aimArrowBackground.enabled = false;
+        aimArrowOutline.enabled = false;
+    }
+    public void DefreezePlayerControlls()
+    {
+        body.bodyType = RigidbodyType2D.Dynamic;
+        body.linearVelocity = Vector2.zero;
+        body.angularVelocity = 0f;
+
+        ballSprite.enabled = true;
+        aimArrowFill.enabled = true;
+        aimArrowBackground.enabled = true;
+        aimArrowOutline.enabled = true;
     }
 }

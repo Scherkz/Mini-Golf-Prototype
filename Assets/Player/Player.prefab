@@ -433,6 +433,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7178234418610352703, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      propertyPath: aimArrowOutline
+      value: 
+      objectReference: {fileID: 4594975103813482014}
+    - target: {fileID: 7178234418610352703, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      propertyPath: aimArrowBackground
+      value: 
+      objectReference: {fileID: 5895022757653215436}
+    - target: {fileID: 7178234418610352703, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
       propertyPath: isSpecialShotEnabled
       value: 0
       objectReference: {fileID: 0}
@@ -454,6 +462,16 @@ PrefabInstance:
 --- !u!4 &4278934675233983074 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2710516337572897243, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+  m_PrefabInstance: {fileID: 2232769831847898041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &4594975103813482014 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2393880733083000231, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+  m_PrefabInstance: {fileID: 2232769831847898041}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5895022757653215436 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5706966322005660533, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
   m_PrefabInstance: {fileID: 2232769831847898041}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8710573518716127066 stripped
