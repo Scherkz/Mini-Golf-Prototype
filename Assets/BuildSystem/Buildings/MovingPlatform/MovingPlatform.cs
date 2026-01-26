@@ -31,12 +31,17 @@ public class MovingPlatform : Building
     {
         base.Init();
 
-        if (transform == null || currentStartPoint == null || currentEndPoint == null) return;
+        if (transform == null) return;
 
-        UpdateMarkers();
+        if(currentStartPoint == null || currentEndPoint == null)
+        {
+            currentStartPoint = startPointHorizontal;
+            currentEndPoint = endPointHorizontal;
+            UpdateMarkers();
+        }
 
-        boxCollider2D = transform.Find("Platform").GetComponent<BoxCollider2D>();
-        rigidBody2D = transform.Find("Platform").GetComponent<Rigidbody2D>();
+        boxCollider2D = transform.Find("Anchor/Platform").GetComponent<BoxCollider2D>();
+        rigidBody2D = transform.Find("Anchor/Platform").GetComponent<Rigidbody2D>();
 
         Vector2 closestPlatformPointToStart = boxCollider2D.ClosestPoint(currentStartPoint.position);
         Vector2 startOffset = rigidBody2D.position - closestPlatformPointToStart;
@@ -123,26 +128,21 @@ public class MovingPlatform : Building
     {
         return rotation switch
         {
-            Rotation.Degree0 => Rotation.Degree180,
-            Rotation.Degree180 => Rotation.Degree0,
+            Rotation.Degree0 => Rotation.Degree90,
+            Rotation.Degree90 => Rotation.Degree0,
             _ => Rotation.Degree0,
         };
     }
-
-    protected override void RotateSelf(BuildingData _buildingData, Rotation rotation)
+    protected override void RotateSelf(BuildingData buildingData, Rotation rotation)
     {
         switch (rotation)
         {
             default:
             case Rotation.Degree0:
-                currentStartPoint = startPointHorizontal;
-                currentEndPoint = endPointHorizontal;
-                UpdateMarkers();
+                rotationAnchor.localEulerAngles = Vector3.zero;
                 break;
-            case Rotation.Degree180:
-                currentStartPoint = startPointHorizontal; // when using vertical movement: startPointVertical
-                currentEndPoint = endPointHorizontal; // when using vertical movement: endPointVertical
-                UpdateMarkers();
+            case Rotation.Degree90:
+                rotationAnchor.localEulerAngles = new Vector3(0, 0, -90);
                 break;
         }
     }

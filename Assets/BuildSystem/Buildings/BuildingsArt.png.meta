@@ -227,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 512
-        y: 256
+        y: 258
         width: 256
         height: 256
       alignment: 0
@@ -619,7 +619,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingsArt_0
+      name: BuildingsMovingPlatform
       rect:
         serializedVersion: 2
         x: 1150
@@ -670,7 +670,6 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":2,"spriteAlignment":6,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      BuildingsArt_0: -970817254
       BuildingsArt_Missile: 1652199151
       BuildingsArt_MissileFlame1: -1192219578
       BuildingsArt_MissileFlame2: 1984028792
@@ -689,6 +688,7 @@ TextureImporter:
       BuildingsFan_Frame2: -1190384712
       BuildingsFan_Frame3: -2123175088
       BuildingsLBlock: 473386621
+      BuildingsMovingPlatform: -970817254
       BuildingsSplitBallPowerUp_Frame1: -204111336
       BuildingsSplitBallPowerUp_Frame2: 345396409
       BuildingsSplitBallPowerUp_Frame3: 541575010
