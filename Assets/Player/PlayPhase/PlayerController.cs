@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public Action OnSwing;
-
     public Action onSurrenderConfirmed;
 
     [SerializeField] private float defaultLinearDamping = 0.1f;
@@ -36,8 +35,6 @@ public class PlayerController : MonoBehaviour
     [Header("AimArrow")]
     [SerializeField] private Transform aimArrowAnchor;
     [SerializeField] private SpriteRenderer aimArrowFill;
-    [SerializeField] private SpriteRenderer aimArrowBackground;
-    [SerializeField] private SpriteRenderer aimArrowOutline;
     [SerializeField] private Gradient aimChargeColor;
 
     [Header("Collisions")]
@@ -54,7 +51,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private TrailRenderer trailRenderer;
     private GameObject partyHat;
-    private SpriteRenderer ballSprite;
 
     private Vector2 aimInput;
 
@@ -78,7 +74,6 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         trailRenderer = GetComponent<TrailRenderer>();
         partyHat = transform.Find("PartyHat").gameObject;
-        ballSprite = GetComponent<SpriteRenderer>();
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
 
@@ -366,27 +361,5 @@ public class PlayerController : MonoBehaviour
             surfaceHitAudioSource.PlayOneShot(entry.clip, entry.volume);
             return;
         }
-    }
-    public void FreezePlayerControlls()
-    {
-        body.linearVelocity = Vector2.zero;
-        body.angularVelocity = 0f;
-        body.bodyType = RigidbodyType2D.Kinematic;
-
-        ballSprite.enabled = false;
-        aimArrowFill.enabled = false;
-        aimArrowBackground.enabled = false;
-        aimArrowOutline.enabled = false;
-    }
-    public void DefreezePlayerControlls()
-    {
-        body.bodyType = RigidbodyType2D.Dynamic;
-        body.linearVelocity = Vector2.zero;
-        body.angularVelocity = 0f;
-
-        ballSprite.enabled = true;
-        aimArrowFill.enabled = true;
-        aimArrowBackground.enabled = true;
-        aimArrowOutline.enabled = true;
     }
 }

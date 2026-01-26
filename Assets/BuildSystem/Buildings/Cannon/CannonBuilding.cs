@@ -1,88 +1,79 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class CannonBuilding : Building
 {
+    [SerializeField] private Transform shootPosition;
+    [SerializeField] private float shootChargeSeconds = 1f;
     [SerializeField] private float shootPower = 15f;
-
-    private bool isFree;
-    private Coroutine shootCoroutine;
-
-    private Collider2D myCollider;
-    private Collider2D otherCollider;
-    private GameObject playerGameObject;
 
     private Animator animator;
 
+    private bool isOccupied;
+    private GameObject player;
+
+    private bool filterTriggerExitEvent = false;
+
     private void Awake()
     {
-        isFree = true;
-        myCollider = GetComponentInChildren<Collider2D>();
-
         animator = GetComponent<Animator>();
+
+        isOccupied = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
+        if (isOccupied)
+            return;
 
-        if (isFree)
+        isOccupied = true;
+        filterTriggerExitEvent = true;
+
+        player = collision.gameObject;
+        player.SetActive(false);
+        player.transform.position = shootPosition.position;
+
+        StartCoroutine(ChargeCoroutine());
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (filterTriggerExitEvent)
+            return;
+
+        if (collision.gameObject == player)
         {
-            playerGameObject = collision.gameObject;
-            isFree = false;
-            otherCollider = collision.collider;
-            Physics2D.IgnoreCollision(myCollider, otherCollider, true);
-            PlayerController playerBall = playerGameObject.GetComponent<PlayerController>();
-            if (playerBall != null)
-                playerBall.FreezePlayerControlls();
-            Vector2 midPoint = transform.position;
-            midPoint.x += 0.5f;
-            midPoint.y += 0.5f;
-            playerGameObject.transform.position = midPoint;
-            shootCoroutine = StartCoroutine(ShootAfterDelay());
+            isOccupied = false;
+            player = null;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    IEnumerator ChargeCoroutine()
     {
-        if (other.gameObject == playerGameObject)
-        {
-            if (shootCoroutine != null)
-                StopCoroutine(shootCoroutine);
-        }
-    }
+        yield return new WaitForSeconds(shootChargeSeconds);
 
-    IEnumerator ShootAfterDelay()
-    {
-        yield return new WaitForSeconds(1f);
-
-        animator.SetTrigger("Shoot");
+        if (player != null)
+            animator.SetTrigger("Shoot");
     }
 
     // Gets triggered by animator for timing with keyframes
     private void Shoot()
     {
-        PlayerController playerBall = playerGameObject.GetComponent<PlayerController>();
-        if (playerBall != null)
-            playerBall.DefreezePlayerControlls();
-        Rigidbody2D rb = playerGameObject.GetComponent<Rigidbody2D>();
+        if (player == null)
+        {
+            isOccupied = false;
+            filterTriggerExitEvent = false;
+            player = null;
+            return;
+        }
+
+        player.SetActive(true);
+
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
 
         Vector2 dir = Quaternion.Euler(0, 0, -45f) * rotationAnchor.transform.up;
         rb.linearVelocity = dir * shootPower;
-    }
 
-    private void Update()
-    {
-        if (isFree) return;
-
-        Vector2 posA = transform.position;
-        Vector2 posB = playerGameObject.transform.position;
-        float distance = Vector2.Distance(posA, posB);
-        if (distance > 2f)
-        {
-            Physics2D.IgnoreCollision(myCollider, otherCollider, false);
-            isFree = true;
-            playerGameObject = null;
-        }
+        filterTriggerExitEvent = false;
     }
 }
