@@ -119,6 +119,10 @@ public class PlayerController : MonoBehaviour
             // reset the charge when starting to aim
             shootInputStartTime = Time.realtimeSinceStartup;
         }
+        else if (context.canceled)
+        {
+            CancelShotAndHideArrow();
+        }
 
         var aimDirection = context.ReadValue<Vector2>();
         aimInput = invertedControls ? -aimDirection : aimDirection;
