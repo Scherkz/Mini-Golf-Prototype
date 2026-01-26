@@ -138,13 +138,13 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 2, y: 1}
-      - {x: 1.734375, y: 1}
-      - {x: 1.625, y: 0.80859375}
-      - {x: 1.421875, y: 0.55859375}
-      - {x: 1.1289062, y: 0.3125}
-      - {x: 0.765625, y: 0.125}
-      - {x: 0.46875, y: 0.03515625}
-      - {x: 0, y: 0}
+      - {x: 1.78125, y: 1}
+      - {x: 1.7578125, y: 0.7734375}
+      - {x: 1.640625, y: 0.51953125}
+      - {x: 1.3984375, y: 0.2890625}
+      - {x: 1.0625, y: 0.12109375}
+      - {x: 0.671875, y: 0.02734375}
+      - {x: 0.125, y: 0}
       - {x: 2, y: 0}
   m_UseDelaunayMesh: 0
 --- !u!1 &6419495052513070753
@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590953479219343966}
   - component: {fileID: 1604700139872755679}
-  - component: {fileID: 201369240278875351}
+  - component: {fileID: 7579295545057690656}
   m_Layer: 8
   m_Name: RampPrefab
   m_TagString: Untagged
@@ -208,7 +208,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &201369240278875351
+--- !u!114 &7579295545057690656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,9 +217,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6419495052513070753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e12d0e52f682fc4aa91f2a6914ea02f, type: 3}
+  m_Script: {fileID: 11500000, guid: b1894d40a9d11de418bb7c9dc2971e0b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Building
+  m_EditorClassIdentifier: Assembly-CSharp::Ramp
   spriteRenderer: {fileID: 5799149887825979214}
   rotation: 0
   rotationAnchor: {fileID: 7732115075701906019}
