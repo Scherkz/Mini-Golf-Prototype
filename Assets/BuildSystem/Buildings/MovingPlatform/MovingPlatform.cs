@@ -9,8 +9,6 @@ public class MovingPlatform : Building
     [SerializeField] private float waitTime = 1f;
 
     [Header("Movement Points")]
-    [SerializeField] private Transform startPointVertical;
-    [SerializeField] private Transform endPointVertical;
     [SerializeField] private Transform startPointHorizontal;
     [SerializeField] private Transform endPointHorizontal;
 
@@ -139,10 +137,28 @@ public class MovingPlatform : Building
         {
             default:
             case Rotation.Degree0:
-                rotationAnchor.localEulerAngles = Vector3.zero;
+                rotationAnchor.eulerAngles = Vector3.zero;
+                rotationAnchor.localPosition = Vector3.zero;
+                if (currentStartPoint == null || currentEndPoint == null)
+                {
+                    currentStartPoint = startPointHorizontal;
+                    currentEndPoint = endPointHorizontal;
+                }
+                currentStartPoint.localPosition = currentStartPoint.localPosition - new Vector3(-1.25f, 1.25f, 0f);
+                currentEndPoint.localPosition = currentEndPoint.localPosition - new Vector3(-1.25f, 1.25f, 0f);
+                UpdateMarkers();
                 break;
             case Rotation.Degree90:
-                rotationAnchor.localEulerAngles = new Vector3(0, 0, -90);
+                if (currentStartPoint == null || currentEndPoint == null)
+                {
+                    currentStartPoint = startPointHorizontal;
+                    currentEndPoint = endPointHorizontal;
+                }
+                rotationAnchor.eulerAngles = new Vector3(0, 0, -90);
+                rotationAnchor.localPosition = new Vector3(0, buildingData.cellCount.x, 0);
+                currentStartPoint.localPosition = currentStartPoint.localPosition + new Vector3(-1.25f, 1.25f, 0f);
+                currentEndPoint.localPosition = currentEndPoint.localPosition + new Vector3(-1.25f, 1.25f, 0f);
+                UpdateMarkers();
                 break;
         }
     }
