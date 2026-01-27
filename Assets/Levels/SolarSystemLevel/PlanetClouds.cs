@@ -10,7 +10,7 @@ public class PlanetClouds : MonoBehaviour
     private void Awake()
     {
         var spriteRenderer = GetComponent<SpriteRenderer>();
-        loopOffset = spriteRenderer.size.x * 0.5f;
+        loopOffset = spriteRenderer.size.x * 0.5f * Mathf.Abs(transform.localScale.x);
         startOffset = loopOffset * Random.value;
     }
 
@@ -18,6 +18,6 @@ public class PlanetClouds : MonoBehaviour
     {
         float xOffset = Mathf.Repeat(Time.time * scrollSpeed + startOffset, loopOffset);
         float x = -(loopOffset * 0.5f) + xOffset;
-        transform.localPosition = new Vector3(x, 0, 0);
+        transform.localPosition = new Vector3(x, transform.localPosition.y, transform.localPosition.z);
     }
 }
