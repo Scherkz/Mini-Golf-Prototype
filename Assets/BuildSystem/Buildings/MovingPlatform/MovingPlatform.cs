@@ -151,8 +151,8 @@ public class MovingPlatform : Building
             case Rotation.Degree90:
                 rotationAnchor.eulerAngles = new Vector3(0, 0, -90);
                 rotationAnchor.localPosition = new Vector3(0, buildingData.cellCount.x, 0);
-                currentStartPoint = startPointHorizontal.localPosition + new Vector3(-1.25f, 1.25f, 0f);
-                currentEndPoint = endPointHorizontal.localPosition + new Vector3(-1.25f, 1.25f, 0f);
+                currentStartPoint = startPointHorizontal.localPosition + new Vector3(-1f, 1.25f, 0f);
+                currentEndPoint = endPointHorizontal.localPosition + new Vector3(-1f, 1.25f, 0f);
                 UpdateMarkers();
                 Debug.Log("90 Degree => Rotation anchor:" + rotationAnchor.localPosition + ", current start point: " + currentStartPoint + ", current end point: " + currentEndPoint);
                 break;
