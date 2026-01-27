@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 20942986491870085}
   - component: {fileID: 5846177935761003990}
   - component: {fileID: 1478145664209473453}
+  - component: {fileID: 5283170637322356526}
   - component: {fileID: 4211202576389470252}
   - component: {fileID: 5450625659997553403}
   m_Layer: 0
@@ -257,6 +258,18 @@ SpriteMask:
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
   m_MaskSource: 1
+--- !u!210 &5283170637322356526
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929884659509541633}
+  m_Enabled: 1
+  m_SortingLayerID: 1883875967
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!50 &4211202576389470252
 Rigidbody2D:
   serializedVersion: 5
