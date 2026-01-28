@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2331315791231447474}
   - component: {fileID: 8412137635965547022}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovingPlatformPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,8 +54,6 @@ MonoBehaviour:
   rotationAnchor: {fileID: 3466209865277542995}
   moveSpeed: 2
   waitTime: 1
-  startPointVertical: {fileID: 0}
-  endPointVertical: {fileID: 0}
   startPointHorizontal: {fileID: 5133866411916471887}
   endPointHorizontal: {fileID: 932650015243443035}
   startMarker: {fileID: 7034847594217395577}
@@ -69,7 +67,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3466209865277542995}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +102,7 @@ GameObject:
   - component: {fileID: 4082648093004936855}
   - component: {fileID: 5643686262928223108}
   - component: {fileID: 6202533089335610912}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932650015243443035}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EndPointHorizontal
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -297,7 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5133866411916471887}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StartPointHorizontal
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -330,6 +328,10 @@ PrefabInstance:
     - target: {fileID: 6190273379133430265, guid: 3ae95d3b7b761d141a612490a2cc4285, type: 3}
       propertyPath: m_Name
       value: StartMarker
+      objectReference: {fileID: 0}
+    - target: {fileID: 6190273379133430265, guid: 3ae95d3b7b761d141a612490a2cc4285, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6349568597252001214, guid: 3ae95d3b7b761d141a612490a2cc4285, type: 3}
       propertyPath: m_LocalPosition.x
@@ -437,6 +439,10 @@ PrefabInstance:
     - target: {fileID: 4439721308028643561, guid: a50c230f112e9d449954d139bc5e1004, type: 3}
       propertyPath: m_Name
       value: EndMarker
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439721308028643561, guid: a50c230f112e9d449954d139bc5e1004, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
