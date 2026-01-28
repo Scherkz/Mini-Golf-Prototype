@@ -3,12 +3,13 @@ using UnityEngine;
 public class UnderwaterLevel : Level
 {
     [SerializeField] private PlayerRegistry playerRegistry;
+    [SerializeField] private float levelGravity;
 
     private new void Start()
     {
         foreach (var player in playerRegistry.players)
         {
-            SetupPlayerGravityScale(player, 0.3f);
+            SetupPlayerGravityScale(player, levelGravity);
         }
 
         base.Start();
@@ -36,7 +37,7 @@ public class UnderwaterLevel : Level
 
     private void OnPlayerJoined(Player player)
     {
-        this.CallNextFrame(SetupPlayerGravityScale, player, 0.3f);
+        this.CallNextFrame(SetupPlayerGravityScale, player, levelGravity);
     }
 #endif
 

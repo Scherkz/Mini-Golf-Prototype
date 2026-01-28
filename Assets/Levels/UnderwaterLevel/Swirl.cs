@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Swirl : MonoBehaviour
 {
-    [SerializeField] private float pullStrength; // 5f 
-    [SerializeField] private float rotationStrength; // 10f
-    [SerializeField] private float gravityScale; // 0.2f
+    [SerializeField] private float pullStrength; 
+    [SerializeField] private float rotationStrength;
+    [SerializeField] private float gravityScale;
+    [SerializeField] private float levelGravity;
 
     private Vector2 direction;
     private Vector2 pull;
@@ -17,7 +18,7 @@ public class Swirl : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.attachedRigidbody.gravityScale = 1f;
+        collision.attachedRigidbody.gravityScale = levelGravity;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
