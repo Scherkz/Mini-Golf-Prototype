@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
 
         currentLevel.BuildGrid.ShowGrid(true);
 
+        ToggleInvisibleBlocks(true);
+
         foreach (var player in playerRegistry.players)
         {
             player.StartBuildingPhase(currentLevel.BuildGrid, buildings[Random.Range(0, buildings.Length)]);
@@ -162,6 +164,8 @@ public class GameManager : MonoBehaviour
 
         currentLevel.BuildGrid.ShowGrid(false);
 
+        ToggleInvisibleBlocks(false);
+
         var specialShotForRound = specialShots[Random.Range(0, specialShots.Length)];
 
         for (int i = 0; i < playerRegistry.players.Count; i++)
@@ -170,6 +174,15 @@ public class GameManager : MonoBehaviour
             playerRegistry.players[i].StartPlayingPhase(spawnPosition);
 
             playerRegistry.players[i].AssignSpecialShot(specialShotForRound);
+        }
+    }
+
+    private void ToggleInvisibleBlocks(bool visible)
+    {
+        var invisibleBuildings = currentLevel.BuildGrid.GetAllInvisibleBuildings();
+        foreach (var building in invisibleBuildings)
+        {
+            building.GetComponent<SpriteRenderer>().enabled = visible;
         }
     }
 
